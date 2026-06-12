@@ -68,21 +68,27 @@ handlers.closeReader = () => {
 
 /* wiki-link click delegation (same + cross timeline) */
 async function followWiki(target, fromEl){
+  const pushJump = () => {
+    const originTitle = document.getElementById('pti')?.textContent || state.path[state.path.length - 1].title;
+    state.jumpStack.push({ title: originTitle, url: location.pathname });
+    if (state.jumpStack.length > 5) state.jumpStack.shift();
+    state.clearJumpOnRoute = false;
+  };
   if (!target.includes('/')){
     const node = state.idx.byTitle.get(target.toLowerCase());
     if (!node) return;
     if (node.children){
-      state.jumpStack.push({ title: state.path[state.path.length - 1].title, url: location.pathname });
-      if (state.jumpStack.length > 5) state.jumpStack.shift();
-      state.clearJumpOnRoute = false;
+      pushJump();
       handlers.drill(node, fromEl);
-    } else if (node.parent === state.path[state.path.length - 1]) handlers.focusChild(node);
+    } else if (node.parent === state.path[state.path.length - 1]){
+      pushJump();
+      handlers.focusChild(node);
+      handlers.renderJumpChip?.();
+    }
     else {
       handlers.closeReader();
       state.pendingFrom = fromEl ? fromEl.getBoundingClientRect() : null;
-      state.jumpStack.push({ title: state.path[state.path.length - 1].title, url: location.pathname });
-      if (state.jumpStack.length > 5) state.jumpStack.shift();
-      state.clearJumpOnRoute = false;
+      pushJump();
       navigate(buildTimelinePath(state.timelineId, node.parent.pathIds, BASE));
       setTimeout(() => handlers.focusChild(node), 900);
     }
@@ -95,15 +101,11 @@ async function followWiki(target, fromEl){
     const chain = resolvePath(idx, segs);
     const node = chain[chain.length - 1];
     const landTimeline = node.children ? node : node.parent;
-    state.jumpStack.push({ title: state.path[state.path.length - 1].title, url: location.pathname });
-    if (state.jumpStack.length > 5) state.jumpStack.shift();
-    state.clearJumpOnRoute = false;
+    pushJump();
     navigate(buildTimelinePath(tlId, landTimeline.pathIds, BASE));
     if (!node.children) setTimeout(() => handlers.focusChild(node), 900);
   } catch {
-    state.jumpStack.push({ title: state.path[state.path.length - 1].title, url: location.pathname });
-    if (state.jumpStack.length > 5) state.jumpStack.shift();
-    state.clearJumpOnRoute = false;
+    pushJump();
     navigate(buildTimelinePath(tlId, [], BASE));
   }
 }

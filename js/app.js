@@ -17,11 +17,12 @@ export function renderJumpChip(){
   els.jumpchip.hidden = !top;
   if (top) document.getElementById('jumpchipname').textContent = top.title;
 }
+handlers.renderJumpChip = renderJumpChip;
 els.jumpchip.addEventListener('click', e => {
   if (e.target.id === 'jumpchipx'){ state.jumpStack = []; renderJumpChip(); return; }
   const top = state.jumpStack.pop();
   renderJumpChip();
-  if (top) navigate(top.url);
+  if (top){ state.clearJumpOnRoute = false; navigate(top.url); }
 });
 
 document.querySelector('.brand').addEventListener('click', e => {
