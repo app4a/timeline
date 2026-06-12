@@ -1,6 +1,6 @@
 # Timeline — MVP Design
 
-**Date:** 2026-06-12 · **Status:** Approved pending user review · **Working name:** Timeline (final name open)
+**Date:** 2026-06-12 · **Status:** Approved · **Product name:** Timeline
 
 ## Purpose
 
@@ -21,6 +21,8 @@ Primary use cases: learning a topic, teaching/explaining a topic, and recording 
 | Stack | Vanilla HTML/CSS/JS, no framework, no build step |
 | Hosting | GitHub Pages, hash routing |
 | Git workflow | Work directly on `master`; no worktrees, no feature branches |
+| Product name | **Timeline** — final |
+| Brand | Logo + favicon built from the product's own dot language; refreshed professional palette & type (see Brand section) |
 
 The validated interaction prototype is preserved at `docs/superpowers/specs/2026-06-12-timeline-prototype.html` (open in a browser). Implementation ports it, not reinvents it.
 
@@ -107,6 +109,25 @@ One JSON file per timeline. Events nest arbitrarily deep — an event with `chil
 
 **Read state.** Visited event ids per timeline in `localStorage` (`timeline:read:<id>` → array of node paths). Survives reload; no server.
 
+## Brand & visual identity
+
+**Name:** Timeline. **Tone:** archival, editorial, calm — a museum label, not a SaaS dashboard.
+
+**Logo.** The product's own dot language *is* the mark: a short horizontal line carrying three dots — two tinted, the last solid with a halo ("reading now"). Wordmark "Timeline" set in the heading face beside it. Single SVG (`assets/logo.svg`), used in the topbar and the library header.
+
+**Favicon.** The mark reduced to one solid halo-dot on a line segment: `assets/favicon.svg` (modern browsers) + `assets/apple-touch-icon.png` (180×180) + 32×32 PNG fallback.
+
+**Typography** (Google Fonts CDN, two families max):
+- UI & headings: **Instrument Sans** — modern grotesk with character, tight tracking on display sizes.
+- Reading (markdown panel): **Newsreader** — editorial serif drawn for on-screen long-form text; replaces the prototype's Charter/Georgia stack.
+- System-stack fallbacks behind both.
+
+**Color tokens** (replacing the prototype's cool gray + stock indigo):
+- Paper `#faf9f6` (warm off-white) · Ink `#15151a` · Soft ink `#494952` · Muted `#8c8c96` · Hairline `#e8e6e1`
+- Accent **deep cobalt `#3548e8`** — links, wiki-links, halos, "reading now"; read-tint derived at ~25% alpha.
+- One accent only; importance/state continue to live in weight and fill, not extra colors.
+- Dark mode: deferred (tokens are CSS custom properties, so it's a cheap later add).
+
 ## Library page
 
 A minimal grid of cards (title, tagline, event count, updated date) from `index.json`. Click → viewer for that timeline. Same motion language (card morphs toward the timeline heading). MVP content: the AI timeline as flagship, schema-example second timeline optional.
@@ -128,7 +149,7 @@ A minimal grid of cards (title, tagline, event count, updated date) from `index.
 - **Read API:** already exists — the JSON files at stable URLs.
 - **MCP server / write API:** tools (`create_timeline`, `add_event`, `update_event`) that emit schema-shaped JSON and open PRs against the repo (or write files locally). Schema unchanged from MVP.
 - **"Expand with AI":** button on any node sending title+context to an LLM to draft children.
-- Other deferred ideas: quiz mode over visited nodes, compare lanes, time-proportional spacing, density auto-zoom, library-wide search.
+- Other deferred ideas: quiz mode over visited nodes, compare lanes, time-proportional spacing, density auto-zoom, library-wide search, dark mode.
 
 ## Repo layout
 
@@ -137,6 +158,7 @@ timeline/
   index.html
   css/app.css
   js/            (app.js, router.js, data.js, markdown.js, viewer.js, rail.js, panel.js, search.js)
+  assets/        (logo.svg, favicon.svg, apple-touch-icon.png, favicon-32.png)
   timelines/index.json
   timelines/artificial-intelligence.json
   SCHEMA.md
@@ -146,5 +168,5 @@ timeline/
 
 ## Open items (explicitly not blockers)
 
-1. Final product name + domain (GitHub Pages default URL fine for launch).
-2. Whether the AI timeline's MVP content is the prototype's ~31 events or expanded further before launch.
+1. Whether the AI timeline's MVP content is the prototype's ~31 events or expanded further before launch.
+2. Custom domain later; GitHub Pages default URL fine for launch.
