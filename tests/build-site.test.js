@@ -21,6 +21,7 @@ test('branch page lists children as crawlable links', () => {
   assert.match(html, /href="\/timeline\/t\/t\/a\/"/);
   assert.match(html, /Alpha/);
   assert.match(html, /application\/ld\+json/);
+  assert.match(html, /og:type" content="website"/);
 });
 
 test('leaf page renders full article with sources', () => {
@@ -29,6 +30,7 @@ test('leaf page renders full article with sources', () => {
   assert.match(html, /<strong>bold<\/strong>/);
   assert.match(html, /https:\/\/example\.com/);
   assert.match(html, /og:title/);
+  assert.match(html, /og:type" content="article"/);
 });
 
 test('nested branch page canonicalizes its own path', () => {

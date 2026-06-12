@@ -24,7 +24,7 @@ function displayDate(ev){
   return y || '';
 }
 
-function head(shell, { title, desc, canonical, base, jsonld }){
+function head(shell, { title, desc, canonical, base, jsonld, ogType = 'article' }){
   return shell
     .replace(/<base href="[^"]*">/, `<base href="${base}">`)
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
@@ -32,7 +32,7 @@ function head(shell, { title, desc, canonical, base, jsonld }){
     .replace('</head>', `<link rel="canonical" href="${canonical}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
-<meta property="og:type" content="article">
+<meta property="og:type" content="${ogType}">
 <meta property="og:url" content="${canonical}">
 <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
 </head>`);
@@ -62,6 +62,7 @@ export function nodePage(shell, tl, pathIds, { site, base }){
   if (isLeaf){
     ld.push({ '@context':'https://schema.org', '@type':'Article', headline: node.title,
       description: desc, dateModified: tl.updated, mainEntityOfPage: canonical });
+    // parent href: at depth 1 slice(0,-1) joins to '' and `t/<id>/` already ends in '/' — the conditional slash is intentional
     body = `<article class="md"><h1>${esc(node.title)}</h1><p><b>${esc(displayDate(node))}</b> · part of <a href="${base}${`t/${tl.id}/` + pathIds.slice(0, -1).join('/')}${pathIds.length > 1 ? '/' : ''}">${esc(chain[chain.length - 2].title)}</a></p>
 ${mdToHtml(node.content || '', () => false)}
 ${node.sources?.length ? '<h2>Sources</h2><ul>' + node.sources.map(s => `<li><a href="${esc(s.url)}" rel="noopener">${esc(s.title)}</a></li>`).join('') + '</ul>' : ''}</article>`;
@@ -71,7 +72,7 @@ ${node.sources?.length ? '<h2>Sources</h2><ul>' + node.sources.map(s => `<li><a 
         `<li><a href="${base}${urlPath}${ch.id}/"><b>${esc(displayDate(ch))}</b> — ${esc(ch.title)}</a>${ch.tagline ? ` <span>${esc(ch.tagline)}</span>` : ''}</li>`).join('') +
       `</ol>`;
   }
-  return inject(head(shell, { title, desc, canonical, base, jsonld: ld }), body);
+  return inject(head(shell, { title, desc, canonical, base, jsonld: ld, ogType: isLeaf ? 'article' : 'website' }), body);
 }
 
 export function libraryPage(shell, index, { site, base }){
@@ -80,7 +81,7 @@ export function libraryPage(shell, index, { site, base }){
   const ld = { '@context':'https://schema.org', '@type':'WebSite', name:'Timeline', url: site + base };
   return inject(head(shell, { title:'Timeline — learn anything, layer by layer',
     desc:'Beautiful, drillable timelines. Understand any topic by seeing where it came from.',
-    canonical: site + base, base, jsonld: ld }), body);
+    canonical: site + base, base, jsonld: ld, ogType:'website' }), body);
 }
 
 export function sitemap(timelines, { site, base }){
