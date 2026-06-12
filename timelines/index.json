@@ -27,6 +27,13 @@
       "tagline": "Anthropic's mission-driven AI company and the Claude model line — from a safety-motivated founding to the frontier of reasoning and agency.",
       "eventCount": 22,
       "updated": "2026-06-12"
+    },
+    {
+      "id": "react",
+      "title": "React",
+      "tagline": "From an internal Facebook experiment to the component model that redrew the front end — built from the official GitHub history.",
+      "eventCount": 34,
+      "updated": "2026-06-12"
     }
   ]
 }

@@ -1,0 +1,392 @@
+{
+  "id": "react",
+  "title": "React",
+  "tagline": "From an internal Facebook experiment to the component model that redrew the front end — built from the official GitHub history.",
+  "updated": "2026-06-12",
+  "events": [
+    {
+      "id": "open-sourced",
+      "date": "2013-05-29",
+      "display": "May 2013",
+      "title": "Open-sourced at JSConf US",
+      "major": true,
+      "tagline": "Pete Hunt and Jordan Walke introduce a \"JavaScript library for building user interfaces\" to a skeptical crowd.",
+      "content": "At JSConf US in Amelia Island, Florida, Facebook engineer **Pete Hunt** presents React — a library built internally at Facebook and Instagram. The crowd's initial reaction is hostile: JSX mixes HTML-like syntax directly into JavaScript, violating the separation-of-concerns orthodoxy of the day.\n\nThe core ideas are radical for 2013: a **virtual DOM** that re-renders the whole component on every state change and diffs against the previous output to compute minimal real-DOM mutations. No templates, no two-way binding, no directives — just a pure function from data to UI.\n\n> \"We built React because we needed a way to build large web applications where data changes over time… without worrying about which parts of the view to update.\"\n\n## Why it matters\n- It introduced the **component model** that now dominates front-end development.\n- The virtual DOM's one-way data flow made state management predictable — a direct answer to the cascading update bugs in MVC-style frameworks.\n- JSX, initially laughed at, became standard practice within the industry within three years.\n- The first tagged release on GitHub, **v0.3.0**, appeared July 2, 2013.",
+      "sources": [
+        { "title": "Why did we build React? — React blog (Jun 5, 2013)", "url": "https://legacy.reactjs.org/blog/2013/06/05/why-react.html" },
+        { "title": "facebook/react v0.3.3 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v0.3.3" }
+      ]
+    },
+    {
+      "id": "v0-4-props-keys",
+      "date": "2013-07-17",
+      "display": "Jul 2013",
+      "title": "v0.4 — prop validation and keys",
+      "tagline": "Two foundational primitives arrive: PropTypes for runtime type checking, and keys for list reconciliation.",
+      "content": "React 0.4 ships two primitives that will remain central for over a decade. **PropTypes** enable runtime type-checking of component inputs — the first hint that React takes the component boundary seriously as a contract. **The `key` prop** gives React a stable identity for items in a list, enabling efficient reconciliation across re-renders.\n\nThe release also switches internal node identification from `id` attributes to `data-reactid`, reducing collisions with application code.",
+      "sources": [
+        { "title": "React v0.4.0 — React blog (Jul 17, 2013)", "url": "https://legacy.reactjs.org/blog/2013/07/17/react-v0-4-0.html" },
+        { "title": "facebook/react v0.4.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v0.4.0" }
+      ]
+    },
+    {
+      "id": "v0-9-server-rendering",
+      "date": "2014-03-04",
+      "display": "Mar 2014",
+      "title": "v0.9 — server-side rendering stabilizes",
+      "tagline": "renderToString arrives, making React viable for isomorphic applications.",
+      "content": "React 0.9 is the first release to give server-side rendering a stable API. `React.renderToString` lets a Node server produce HTML that React can \"hydrate\" on the client — the same component tree runs in both environments. This architectural possibility, isomorphic or universal React, anticipates the full-stack component model that Server Components will formalize a decade later.",
+      "sources": [
+        { "title": "facebook/react v0.9.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v0.9.0" }
+      ]
+    },
+    {
+      "id": "v0-12-jsx-transform",
+      "date": "2014-11-21",
+      "display": "Oct 2014",
+      "title": "v0.12 — JSX transform matures",
+      "tagline": "JSX and the build toolchain settle into the patterns the ecosystem will follow.",
+      "content": "React 0.12 renames `React.renderComponent` to `React.render` and `React.createDescriptor` patterns shift toward the modern `React.createElement`. The JSX transform — mapping `<Component />` to `React.createElement` calls — stabilizes into the form that Babel will standardize across the ecosystem. React's requirement that a build step is part of the workflow starts to shape the JavaScript toolchain.",
+      "sources": [
+        { "title": "facebook/react v0.12.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v0.12.0" }
+      ]
+    },
+    {
+      "id": "react-native",
+      "date": "2015-03-26",
+      "display": "Mar 2015",
+      "title": "React Native — \"Learn once, write anywhere\"",
+      "major": true,
+      "tagline": "The same component model, but targeting iOS and Android native views instead of the DOM.",
+      "content": "At React.js Conf in January 2015 Facebook demos React Native internally; on March 26 it is open-sourced. The thesis is deliberate: not \"write once, run anywhere\" but **\"learn once, write anywhere.\"** The same team using React for the web can build native mobile applications in the same mental model — but each platform gets a properly native UI.\n\nUnder the hood, React Native runs the JavaScript logic on a background thread and communicates with native iOS/Android UI components over a bridge. JSX components like `<View>` and `<Text>` map to `UIView` and `TextView`, not `<div>` and `<p>`.\n\n## Why it matters\n- It proved the React component abstraction was **platform-agnostic** — the renderer is an implementation detail.\n- It created a single-paradigm mobile development story for web engineers.\n- The architecture directly inspired [[v0.14 — react and react-dom split|the react/react-dom split]] that followed seven months later.\n- React Native has since been rewritten (\"New Architecture\", JSI), but the \"learn once\" thesis has held.",
+      "sources": [
+        { "title": "Introducing React Native — React blog (Mar 26, 2015)", "url": "https://legacy.reactjs.org/blog/2015/03/26/introducing-react-native.html" },
+        { "title": "facebook/react-native on GitHub", "url": "https://github.com/facebook/react-native" }
+      ]
+    },
+    {
+      "id": "v0-13-es6-classes",
+      "date": "2015-04-18",
+      "display": "Apr 2015",
+      "title": "v0.13 — ES6 class components",
+      "tagline": "Components can now be written as ES6 classes extending React.Component.",
+      "content": "React 0.13 adds support for ES6 class syntax alongside `React.createClass`. Developers can now write:\n\n```js\nclass MyComponent extends React.Component {\n  render() { return <div>{this.props.name}</div>; }\n}\n```\n\nThis aligns React with the direction of JavaScript itself and reduces the gap between React-specific APIs and standard language features — a pattern [[v16.8 — Hooks|Hooks will later invert]] by moving state back out of classes entirely.",
+      "sources": [
+        { "title": "facebook/react v0.13.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v0.13.0" }
+      ]
+    },
+    {
+      "id": "v0-14-split",
+      "date": "2015-10-07",
+      "display": "Oct 2015",
+      "title": "v0.14 — react and react-dom split",
+      "major": true,
+      "tagline": "The core renderer is extracted to react-dom, making React's component model explicitly renderer-agnostic.",
+      "content": "React 0.14 divides the library into two packages: **`react`** (component primitives — `createElement`, `Component`, `PropTypes`) and **`react-dom`** (browser rendering — `ReactDOM.render`, server rendering). The change is an architectural statement:\n\n> \"The beauty and essence of React has nothing to do with browsers or the DOM.\"\n\nWith [[React Native — \"Learn once, write anywhere\"|React Native]] already shipping, the separation makes explicit what was always implicit: React is an abstraction over *any* rendering target. The `react` package becomes the shared language; `react-dom`, `react-native`, and later `react-three-fiber`, `react-pdf`, and others become pluggable renderers.\n\n## Why it matters\n- It formalized the **renderer contract** — a boundary that later enabled experimental environments like React Server Components.\n- Stateless functional components (functions that return JSX) are promoted as a first-class pattern in this release.\n- The package split foreshadows the `react/jsx-runtime` transform that [[v17 — no new features, broad infrastructure|React 17]] introduces.",
+      "sources": [
+        { "title": "React v0.14 — React blog (Oct 7, 2015)", "url": "https://legacy.reactjs.org/blog/2015/10/07/react-v0.14.html" },
+        { "title": "facebook/react v0.14.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v0.14.0" }
+      ]
+    },
+    {
+      "id": "v15",
+      "date": "2016-04-08",
+      "display": "Apr 2016",
+      "title": "v15 — production-quality DOM",
+      "major": true,
+      "tagline": "The first non-0.x release signals React is stable enough to drop the version qualifier.",
+      "content": "React 15 skips version 1 through 14 in a single jump — internally the team considered the library mature enough to warrant a real major version, but the sequence chosen reflects the actual state of the prior `0.14` release. The DOM layer gets a substantial rewrite: React now uses `document.createElement` instead of innerHTML injection, removes `data-reactid` from every node, and renders text nodes without wrapper `<span>` elements.\n\nThe result is cleaner HTML output and reduced DOM overhead — React's rendered markup is no longer visually distinguishable from hand-written HTML, making progressive enhancement and server rendering more tractable.",
+      "sources": [
+        { "title": "facebook/react v15.0.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v15.0.0" }
+      ]
+    },
+    {
+      "id": "v16-fiber",
+      "date": "2017-09-26",
+      "display": "Sep 2017",
+      "title": "v16 — Fiber rewrite",
+      "major": true,
+      "tagline": "A complete rewrite of React's core — the same API, a new scheduler that makes async rendering possible.",
+      "content": "React 16 ships with a new internal architecture codenamed **Fiber**, a two-year effort by the core team. The public API is backwards-compatible; internally, the reconciler is a complete rewrite.\n\nFiber replaces React's recursive tree traversal with a linked list of \"work units\" (fibers) that the scheduler can interrupt, prioritize, and resume. The immediate gains are visible features — error boundaries, portals, fragments — but the deeper promise is **async rendering**: the ability to pause low-priority work and keep the UI responsive, which arrives fully in [[v18 — Concurrent React]].\n\nAlso in September 2017: React 15.6.2 ships the **MIT license**, replacing the controversial BSD + Patents license that had caused legal concern at companies including Apache Software Foundation. React 16 launches MIT from day one.\n\n## Why it matters\n- Every React feature since — [[v16.8 — Hooks|Hooks]], [[v18 — Concurrent React|Concurrent Mode]], [[v19 — React 19 GA|Server Components]] — is built on Fiber's scheduling primitives.\n- The MIT relicensing removed the last significant corporate adoption blocker.\n- React's market share accelerated sharply through 2018–2019 partly on the license change.",
+      "sources": [
+        { "title": "React v16.0 — React blog (Sep 26, 2017)", "url": "https://legacy.reactjs.org/blog/2017/09/26/react-v16.0.html" },
+        { "title": "facebook/react v16.0.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v16.0.0" },
+        { "title": "React v15.6.2 — MIT relicensing (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v15.6.2" }
+      ],
+      "children": [
+        {
+          "id": "error-boundaries",
+          "date": "2017-09-26",
+          "display": "Sep 2017",
+          "title": "Error boundaries",
+          "major": true,
+          "tagline": "Components that catch rendering errors and display fallback UI — try/catch for the component tree.",
+          "content": "Error boundaries are class components that implement `componentDidCatch` and/or `static getDerivedStateFromError`. When a child component throws during render, the nearest error boundary catches it and renders a fallback instead of crashing the whole application.\n\nBefore Fiber, a runtime error in any component's `render` method would corrupt React's internal state and break the entire page. Error boundaries make React applications recoverable — a necessary precondition for production deployments.",
+          "sources": [
+            { "title": "Error handling in React 16 — React blog (Jul 26, 2017)", "url": "https://legacy.reactjs.org/blog/2017/07/26/error-handling-in-react-16.html" }
+          ]
+        },
+        {
+          "id": "portals",
+          "date": "2017-09-26",
+          "display": "Sep 2017",
+          "title": "Portals",
+          "tagline": "Render children outside the parent's DOM hierarchy — modals and tooltips made composable.",
+          "content": "`ReactDOM.createPortal(children, domNode)` lets a component render into an arbitrary DOM node while preserving its position in the React component tree — including event bubbling and context. Modals, tooltips, and dropdown menus that need to escape CSS overflow or stacking contexts become first-class composable components."
+        },
+        {
+          "id": "mit-relicensing",
+          "date": "2017-09-26",
+          "display": "Sep 2017",
+          "title": "MIT relicensing",
+          "major": true,
+          "tagline": "React drops BSD + Patents for MIT, ending a year of corporate legal uncertainty.",
+          "content": "The day before React 16 ships, React 15.6.2 is released under the **MIT license** — replacing the BSD + Patents license that the Apache Software Foundation had flagged as incompatible with Apache projects. Several large companies had paused or restricted React adoption on legal advice.\n\nReact 16 launches under MIT from day one. Within weeks, competitors including Preact (already MIT) see reduced pressure as the blocker disappears. The license change is widely credited as a catalyst for React's dominance over Angular and Vue through 2018.",
+          "sources": [
+            { "title": "Relicensing React, Jest, Flow, and Immutable.js — Facebook Open Source (Sep 22, 2017)", "url": "https://engineering.fb.com/2017/09/22/web/relicensing-react-jest-flow-and-immutable-js/" },
+            { "title": "facebook/react v15.6.2 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v15.6.2" }
+          ]
+        },
+        {
+          "id": "fragments-v16-2",
+          "date": "2017-11-28",
+          "display": "Nov 2017",
+          "title": "Fragments",
+          "tagline": "Components can return multiple elements without a wrapping DOM node.",
+          "content": "React 16.2 promotes the `<>...</>` shorthand (and `<React.Fragment>`) — allowing components to return a list of elements with no wrapper `<div>`. A small ergonomic fix that removes a class of spurious DOM nodes from every React application, and confirms that the Fiber architecture can handle non-element return types cleanly.",
+          "sources": [
+            { "title": "facebook/react v16.2.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v16.2.0" }
+          ]
+        },
+        {
+          "id": "context-api-v16-3",
+          "date": "2018-03-29",
+          "display": "Mar 2018",
+          "title": "New Context API",
+          "tagline": "React.createContext replaces the unstable legacy context — prop drilling's official remedy.",
+          "content": "React 16.3 ships a redesigned Context API: `React.createContext` creates a context object; `<Context.Provider>` supplies values; `<Context.Consumer>` (or later `useContext`) reads them. The prior context API had been marked experimental since 0.x and was deliberately undocumented.\n\nThe new API is the first stable mechanism for passing data across the component tree without threading props at every level — used immediately by Redux, React Router, and styled-components for their provider patterns.",
+          "sources": [
+            { "title": "facebook/react v16.3.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v16.3.0" }
+          ]
+        },
+        {
+          "id": "suspense-lazy-v16-6",
+          "date": "2018-10-24",
+          "display": "Oct 2018",
+          "title": "Suspense and React.lazy",
+          "tagline": "Declarative code-splitting arrives: wrap an import() in React.lazy, suspend while loading.",
+          "content": "React 16.6 ships `React.lazy()` and stabilizes `<Suspense>` for client-side code splitting. A component wrapped in `React.lazy` suspends during import — React renders the `<Suspense fallback>` until the chunk loads, then swaps in the real component.\n\nThe API anticipates a broader role for Suspense: [[v18 — Concurrent React|React 18]] will extend it to data fetching, and [[v19 — React 19 GA|React 19]] will make it the standard for async components with Server Components. This release is where the `suspend during async work` primitive is first made public.",
+          "sources": [
+            { "title": "facebook/react v16.6.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v16.6.0" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "v16-8-hooks",
+      "date": "2019-02-06",
+      "display": "Feb 2019",
+      "title": "v16.8 — Hooks",
+      "major": true,
+      "tagline": "useState and useEffect let function components hold state and side effects — class components become optional.",
+      "content": "React 16.8, released February 6, 2019, is one of the most impactful minor releases in any JavaScript framework's history. **Hooks** allow function components to use state, lifecycle effects, context, and custom reusable logic — capabilities that previously required class components.\n\nThe two foundational hooks:\n- **`useState`** — declares a state variable and a setter in a single call.\n- **`useEffect`** — runs a side effect after render; replaces `componentDidMount`, `componentDidUpdate`, `componentWillUnmount`.\n\nCustom hooks — functions whose names start with `use` — let developers extract and share stateful logic between components without higher-order components or render props.\n\n## Why it matters\n- Class components are not deprecated, but the community migrates to function components almost entirely within 18 months.\n- The **rules of hooks** (only call at the top level; only call from React functions) are enforced by `eslint-plugin-react-hooks`, establishing a new category of static lint for runtime contracts.\n- Hooks removed the main reason to reach for class components — making [[v19 — React 19 GA|React 19's]] removal of class-component patterns in some APIs a predictable conclusion.\n- Custom hooks become the dominant pattern for library authoring, replacing the higher-order-component and render-prop patterns of the preceding era.",
+      "sources": [
+        { "title": "React v16.8: Hooks — React blog (Feb 6, 2019)", "url": "https://legacy.reactjs.org/blog/2019/02/06/react-v16.8.0.html" },
+        { "title": "facebook/react v16.8.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v16.8.0" }
+      ],
+      "children": [
+        {
+          "id": "use-state",
+          "date": "2019-02-06",
+          "display": "Feb 2019",
+          "title": "useState",
+          "major": true,
+          "tagline": "A single function call wires a state variable into a function component.",
+          "content": "`const [count, setCount] = useState(0)` — React stores the state across renders by position in the call order; the setter triggers a re-render. The API is minimal enough that the entire mechanism can be read in a few paragraphs, yet it replaces the `this.state` / `this.setState` machinery of class components for nearly all use cases."
+        },
+        {
+          "id": "use-effect",
+          "date": "2019-02-06",
+          "display": "Feb 2019",
+          "title": "useEffect",
+          "tagline": "Side effects declared inside the component, cleaned up by returning a function.",
+          "content": "`useEffect(() => { subscribe(); return () => unsubscribe(); }, [deps])` — the effect runs after each render; the cleanup function runs before the next effect or on unmount. The dependency array makes the effect reactive to specific values.\n\nuseEffect unified three lifecycle methods into one declarative primitive. Its rules — effects run asynchronously after paint — are occasionally surprising, which drove interest in [[v18 — Concurrent React|React 18's]] `useInsertionEffect` and the concurrent-safe update patterns."
+        },
+        {
+          "id": "custom-hooks",
+          "date": "2019-02-06",
+          "display": "Feb 2019",
+          "title": "Custom Hooks",
+          "tagline": "Stateful logic becomes a plain function — the component composition story is complete.",
+          "content": "Any function named `useXxx` that calls other hooks is a custom hook. Custom hooks replaced the **higher-order component** and **render prop** patterns that had accumulated since 2016 for sharing stateful logic. Libraries like React Query, SWR, Zustand, and React Hook Form are all built as custom hook APIs, a design that would not have been possible without this primitive."
+        },
+        {
+          "id": "rules-of-hooks",
+          "date": "2019-02-06",
+          "display": "Feb 2019",
+          "title": "Rules of Hooks",
+          "tagline": "Hooks must be called in the same order every render — a runtime contract enforced by a linter.",
+          "content": "Because React identifies which hook state belongs to which call by **position in the call order**, hooks must not be called conditionally or inside loops. The `eslint-plugin-react-hooks` rules-of-hooks rule statically enforces this. It is the first widely-adopted case of a JavaScript lint rule enforcing a runtime execution order contract — a pattern that influenced subsequent API design in the ecosystem."
+        }
+      ]
+    },
+    {
+      "id": "v17",
+      "date": "2020-10-20",
+      "display": "Oct 2020",
+      "title": "v17 — no new features, broad infrastructure",
+      "major": true,
+      "tagline": "React 17 is a platform release: no developer-facing features, but event delegation moves from document to root.",
+      "content": "React 17.0.0 ships October 20, 2020 with an unusual announcement: **no new features for application developers**. The release is explicitly about enabling gradual upgrades — multiple React versions coexisting on the same page, making large-scale migrations feasible without a flag-day rewrite.\n\nThe key technical change: React no longer attaches event handlers to `document`. Instead, they attach to the **React root DOM container**. This fixes years of issues where React-managed events and non-React or multi-version code intercepted or swallowed each other's events.\n\n## Why it matters\n- Large organizations running React across many teams (Facebook, Twitter, Airbnb) can now run React 17 and React 18 **simultaneously**, upgrading incrementally.\n- The new JSX transform (`react/jsx-runtime`) ships here — Babel can compile JSX without `import React from 'react'` in scope, cleaning up thousands of files.\n- The event delegation change is a prerequisite for the fine-grained interruptible work in [[v18 — Concurrent React|React 18 concurrent rendering]].",
+      "sources": [
+        { "title": "React v17.0 — React blog (Oct 20, 2020)", "url": "https://legacy.reactjs.org/blog/2020/10/20/react-v17.html" },
+        { "title": "facebook/react v17.0.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v17.0.0" }
+      ]
+    },
+    {
+      "id": "rsc-preview",
+      "date": "2020-12-21",
+      "display": "Dec 2020",
+      "title": "React Server Components — preview",
+      "tagline": "A new paradigm: components that run on the server, with zero client-side JS bundle size.",
+      "content": "Dan Abramov, Lauren Tan, Joseph Savona, and Sebastian Markbåge publish a holiday-update RFC and demo for **React Server Components**. Server Components run on the server before bundling; they fetch data directly, access files and databases, and send only rendered output to the client — never contributing to the JavaScript bundle.\n\nThe architecture inverts the deployment model for React: instead of shipping all component code to the browser and fetching data over APIs, the component tree itself spans server and client, with the boundary declared in code. The announcement is marked \"still in research\" — it will take four years to reach stable release in [[v19 — React 19 GA|React 19]].",
+      "sources": [
+        { "title": "Introducing Zero-Bundle-Size React Server Components — React blog (Dec 21, 2020)", "url": "https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html" }
+      ]
+    },
+    {
+      "id": "v18-concurrent",
+      "date": "2022-03-29",
+      "display": "Mar 2022",
+      "title": "v18 — Concurrent React",
+      "major": true,
+      "tagline": "The async rendering capability Fiber promised in 2017 ships: rendering is now interruptible.",
+      "content": "React 18.0.0 ships March 29, 2022 — the culmination of a workstream that began with the Fiber rewrite in [[v16 — Fiber rewrite|2017]]. **Concurrent React** makes rendering interruptible: React can start a render, pause to handle a more urgent update, then resume or discard the earlier work.\n\nThe entry point changes deliberately: `createRoot` replaces `ReactDOM.render`. Apps that don't opt in run in React 17 legacy mode; apps that call `createRoot` get all concurrent features.\n\n## Why it matters\n- Concurrent rendering enables UIs that remain **responsive under load** — typing into an input always feels instant even while a large list re-renders.\n- The model breaks the assumption that \"if I call setState, React will synchronously finish rendering\" — a change that required significant ecosystem-wide adaptation.\n- Server Components, streaming SSR, and the partial pre-rendering of [[v19 — React 19 GA|React 19]] all build on this foundation.",
+      "sources": [
+        { "title": "React v18.0 — React blog (Mar 29, 2022)", "url": "https://react.dev/blog/2022/03/29/react-v18" },
+        { "title": "facebook/react v18.0.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v18.0.0" }
+      ],
+      "children": [
+        {
+          "id": "create-root",
+          "date": "2022-03-29",
+          "display": "Mar 2022",
+          "title": "createRoot",
+          "major": true,
+          "tagline": "The new mount API is the opt-in gate to all concurrent features.",
+          "content": "`createRoot(document.getElementById('root')).render(<App />)` — by calling `createRoot` instead of `ReactDOM.render`, applications opt into React 18's concurrent scheduler. Every React feature released in 2022 and beyond requires this single change. Existing code continues to work in legacy mode, making the migration incremental."
+        },
+        {
+          "id": "automatic-batching",
+          "date": "2022-03-29",
+          "display": "Mar 2022",
+          "title": "Automatic batching",
+          "tagline": "Multiple setState calls in any async context now batch into a single re-render.",
+          "content": "In React 17, batching only applied inside React event handlers. In React 18, all state updates — in `setTimeout`, `Promise.then`, native event listeners — are automatically batched. A component with three `setState` calls in an async callback now triggers one re-render instead of three. `flushSync` provides an escape hatch for the rare case where immediate rendering is required."
+        },
+        {
+          "id": "transitions",
+          "date": "2022-03-29",
+          "display": "Mar 2022",
+          "title": "Transitions",
+          "tagline": "Mark updates as non-urgent — React can interrupt them to prioritize user input.",
+          "content": "`startTransition` and `useTransition` mark a state update as a low-priority **transition**. React will attempt the transition render concurrently with urgent updates; if a newer urgent update arrives, the in-progress transition render is discarded and restarted. This makes search-as-you-type and navigation instantly responsive without debouncing.",
+          "sources": [
+            { "title": "React 18 Working Group — transitions discussion", "url": "https://github.com/reactwg/react-18/discussions/41" }
+          ]
+        },
+        {
+          "id": "suspense-server",
+          "date": "2022-03-29",
+          "display": "Mar 2022",
+          "title": "Suspense in server rendering",
+          "tagline": "Streaming SSR with Suspense: HTML streams out of the server as data becomes ready.",
+          "content": "React 18 extends Suspense to server-side rendering. `renderToPipeableStream` and `renderToReadableStream` stream HTML to the browser; components wrapped in `<Suspense>` boundaries emit their fallback HTML immediately and stream their real content as it resolves. Selective hydration prioritizes the interactive parts of the page that the user is engaging with first."
+        }
+      ]
+    },
+    {
+      "id": "v19-ga",
+      "date": "2024-12-05",
+      "display": "Dec 2024",
+      "title": "v19 — React 19 GA",
+      "major": true,
+      "tagline": "Actions, Server Components stable, the use() API, and ref as a prop — the async-first React.",
+      "content": "React 19.0.0 ships December 5, 2024. The release stabilizes features that had been available in canary channels through framework integrations (Next.js, Remix) for over a year, and introduces a new async-first programming model centered on **Actions**.\n\nKey additions:\n- **Actions** — async functions passed to `startTransition` that can contain server mutations, with automatic pending state, error handling, and optimistic update management via `useActionState` and `useOptimistic`.\n- **`use()`** — a new API (not a hook) that reads a promise or context during render, integrating with Suspense for data fetching inside any component.\n- **React Server Components (stable)** — the architecture previewed in [[React Server Components — preview|2020]] is promoted to stable; Server Actions allow client components to invoke server functions directly.\n- **`ref` as a prop** — function components accept `ref` directly; `forwardRef` is no longer needed.\n- **Document metadata** — `<title>`, `<meta>`, and `<link>` inside a component render into the document `<head>` natively.\n\n## Why it matters\n- The combination of Actions and Server Components is a full-stack component model — state mutations, data fetching, and rendering in one paradigm.\n- React 19 is the first release that makes class components feel genuinely legacy rather than merely optional.\n- It completes the arc from the [[v16 — Fiber rewrite|Fiber]] scheduler through [[v18 — Concurrent React|concurrent rendering]] to an async-native runtime.",
+      "sources": [
+        { "title": "React v19 — React blog (Dec 5, 2024)", "url": "https://react.dev/blog/2024/12/05/react-19" },
+        { "title": "facebook/react v19.0.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v19.0.0" }
+      ],
+      "children": [
+        {
+          "id": "actions",
+          "date": "2024-12-05",
+          "display": "Dec 2024",
+          "title": "Actions",
+          "major": true,
+          "tagline": "Async functions in transitions become Actions — pending, error, and optimistic states are automatic.",
+          "content": "`useActionState` wraps an async reducer into a transition-aware action: it tracks pending state, captures errors, and supports optimistic updates via `useOptimistic`. HTML `<form action={serverAction}>` works with progressive enhancement — the form submits without JavaScript if the server action handles it.\n\nThis is the first time React's built-in primitive covers the full lifecycle of a user-initiated async operation: submit → optimistic update → server round-trip → confirmation or error.",
+          "sources": [
+            { "title": "React v19 — React blog (Dec 5, 2024)", "url": "https://react.dev/blog/2024/12/05/react-19" }
+          ]
+        },
+        {
+          "id": "server-components-stable",
+          "date": "2024-12-05",
+          "display": "Dec 2024",
+          "title": "Server Components stable",
+          "tagline": "Four years after the preview, RSC enters the stable React channel.",
+          "content": "React Server Components, previewed in [[React Server Components — preview|December 2020]], are promoted to stable in React 19. A Server Component runs on the server (or at build time), can `await` data directly, and contributes zero bytes to the client JavaScript bundle. Server Actions — `async` functions marked `'use server'` — let client components invoke server-side mutations over the wire.\n\nThe stable release is framework-mediated: React core provides the primitives; Next.js App Router, Remix, and others provide the routing and bundler integration that makes Server Components usable end-to-end.",
+          "sources": [
+            { "title": "React Server Components — react.dev", "url": "https://react.dev/reference/rsc/server-components" }
+          ]
+        },
+        {
+          "id": "use-api",
+          "date": "2024-12-05",
+          "display": "Dec 2024",
+          "title": "The use() API",
+          "tagline": "Read a promise or context during render — Suspense becomes the universal async boundary.",
+          "content": "`use(promise)` suspends the component until the promise resolves, integrating naturally with Suspense boundaries. Unlike hooks, `use` can be called conditionally. Together with `React.lazy` and Suspense, `use` makes the entire data-fetching lifecycle declarative: wrap in Suspense, throw a promise, display the fallback, show the result."
+        }
+      ]
+    },
+    {
+      "id": "v19-2-activity",
+      "date": "2025-10-01",
+      "display": "Oct 2025",
+      "title": "v19.2 — Activity and partial pre-rendering",
+      "major": true,
+      "tagline": "The Activity component and resume APIs bring keep-alive semantics and partial pre-rendering to stable React.",
+      "content": "React 19.2.0 ships October 1, 2025 with two architectural additions.\n\n**`<Activity>`** is a new built-in component with two modes — `visible` and `hidden`. A hidden Activity tree pre-renders in the background, suspends effects, defers updates to idle time, and preserves state across visibility changes. It enables instant back/forward navigations (state is kept), background prefetching, and tab-switch-free state persistence.\n\n**Partial Pre-rendering resume APIs** (`resume`, `resumeAndPrerender`, `resumeToPipeableStream`) allow a server to pre-render the static shell of a page and resume the remaining streaming work on demand — completing the SSR story that Suspense streaming began in [[v18 — Concurrent React|React 18]].\n\nThe `useEffectEvent` hook, which separates reactive and non-reactive logic in effects, also stabilizes in this release.",
+      "sources": [
+        { "title": "React 19.2 — React blog (Oct 1, 2025)", "url": "https://react.dev/blog/2025/10/01/react-19-2" },
+        { "title": "facebook/react v19.2.0 release (GitHub)", "url": "https://github.com/facebook/react/releases/tag/v19.2.0" }
+      ]
+    },
+    {
+      "id": "compiler-v1",
+      "date": "2025-10-07",
+      "display": "Oct 2025",
+      "title": "React Compiler v1.0",
+      "major": true,
+      "tagline": "The auto-memoizing compiler — React Forget — ships as stable after years of development at Meta.",
+      "content": "React Compiler 1.0 ships October 7, 2025 — the same day the **React Foundation** is announced under the Linux Foundation. The compiler (formerly codenamed \"React Forget\") analyzes React components and hooks to automatically insert `useMemo`, `useCallback`, and `React.memo` calls wherever they improve performance.\n\nDevelopers no longer need to manually identify and memoize referentially stable values. The compiler understands React's reactivity model and inserts optimization only where semantically safe.\n\n## Why it matters\n- Manual memoization has been one of the most error-prone patterns in React performance engineering since [[v16.8 — Hooks|Hooks arrived]].\n- The compiler is **additive** — existing code is unmodified in behavior; the compiler only adds optimizations.\n- It is released separately from the React runtime and supports React 17+, making it adoptable without upgrading the core library.\n- Its existence removes one of the strongest remaining arguments for Solid.js and Svelte's \"compile-away reactivity\" approaches.",
+      "sources": [
+        { "title": "React Compiler v1.0 — React blog (Oct 7, 2025)", "url": "https://react.dev/blog/2025/10/07/react-compiler-v1" },
+        { "title": "React Compiler Beta — React blog (Oct 21, 2024)", "url": "https://react.dev/blog/2024/10/21/react-compiler-beta" }
+      ]
+    },
+    {
+      "id": "react-foundation",
+      "date": "2025-10-07",
+      "display": "Oct 2025",
+      "title": "React Foundation under Linux Foundation",
+      "tagline": "React moves to independent governance — a milestone twelve years after Facebook's first commit.",
+      "content": "On October 7, 2025 — the same day as [[React Compiler v1.0]] — the React team announces the **React Foundation**, a project hosted by the Linux Foundation. Twelve years after Facebook open-sourced React under an internal build system, and eight years after the [[v16 — Fiber rewrite|MIT license controversy]], React's governance formally moves to a vendor-neutral home.\n\nThe foundation initially includes representatives from Meta, Vercel, Shopify, and the React core team. The move acknowledges that React is infrastructure for a substantial fraction of the web's interactive surface — a shared resource too important to be governed by a single company's roadmap.",
+      "sources": [
+        { "title": "Introducing the React Foundation — React blog (Oct 7, 2025)", "url": "https://react.dev/blog/2025/10/07/react-foundation" }
+      ]
+    }
+  ]
+}
