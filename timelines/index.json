@@ -20,6 +20,13 @@
       "tagline": "From a San Francisco adoption in 1955 to a trillion-dollar legacy — the biography of the man who put a dent in the universe.",
       "eventCount": 32,
       "updated": "2026-06-12"
+    },
+    {
+      "id": "claude",
+      "title": "Claude",
+      "tagline": "Anthropic's mission-driven AI company and the Claude model line — from a safety-motivated founding to the frontier of reasoning and agency.",
+      "eventCount": 22,
+      "updated": "2026-06-12"
     }
   ]
 }

@@ -1,0 +1,262 @@
+{
+  "id": "claude",
+  "title": "Claude",
+  "tagline": "Anthropic's mission-driven AI company and the Claude model line — from a safety-motivated founding to the frontier of reasoning and agency.",
+  "updated": "2026-06-12",
+  "events": [
+    {
+      "id": "anthropic-founded",
+      "date": "2021-01-26",
+      "display": "Jan 2021",
+      "title": "Anthropic founded",
+      "major": true,
+      "tagline": "Seven former OpenAI researchers start a safety-first AI lab.",
+      "content": "On January 26, 2021, Dario Amodei, Daniela Amodei, and five colleagues — Jared Kaplan, Jack Clark, Chris Olah, Ben Mann, and Sam McCandlish — incorporate Anthropic as a Public Benefit Corporation. Dario had been OpenAI's VP of Research; Daniela its VP of Operations.\n\nThe split was a disagreement over priorities. The founding group believed that as language models scaled, safety and interpretability research needed to be central to the organization's identity — not secondary to product timelines. Structuring as a PBC embedded that commitment legally, through a Long-Term Benefit Trust that holds voting control.\n\n## Why it matters\n- It created the first major lab whose *founding document* makes AI safety a governance constraint, not a team within the org.\n- The founders brought deep expertise: Kaplan co-authored the scaling-laws paper; Olah pioneered mechanistic interpretability; Sutskever-era OpenAI safety instincts shaped the entire group.\n- The company's existence set up a second pole in frontier AI — alongside OpenAI — for the next half-decade.",
+      "sources": [
+        { "title": "Anthropic — Wikipedia", "url": "https://en.wikipedia.org/wiki/Anthropic" },
+        { "title": "Anthropic company page", "url": "https://www.anthropic.com/company" }
+      ]
+    },
+    {
+      "id": "series-a",
+      "date": "2021-05",
+      "display": "May 2021",
+      "title": "Series A — $124 million",
+      "tagline": "First external capital funds the research agenda.",
+      "content": "Anthropic closes a $124 million Series A, establishing that safety-focused frontier AI research could attract institutional capital. The round enables the company to hire and begin large-scale training runs before any product existed.",
+      "sources": [
+        { "title": "Anthropic — Wikipedia", "url": "https://en.wikipedia.org/wiki/Anthropic" }
+      ]
+    },
+    {
+      "id": "series-b",
+      "date": "2022-04-29",
+      "display": "Apr 2022",
+      "title": "Series B — $580 million",
+      "tagline": "A landmark raise — and a consequential investor.",
+      "content": "On April 29, 2022, Anthropic closes a $580 million Series B. The round is dominated by a $500 million check from FTX Trading founder Sam Bankman-Fried — roughly 86% of the total and ~8% of Anthropic equity.\n\nSeventeen months later, FTX collapses in one of the largest fraud cases in US history. SBF is sentenced to 25 years in prison. The FTX bankruptcy estate eventually sells its Anthropic stake in 2024 for approximately $1.4 billion — one of the few assets that recovered value for FTX creditors.\n\nThe episode is a footnote to Anthropic's history rather than a defining chapter: the capital enabled real research progress, and the company's governance was unaffected by FTX's collapse. But it is a reminder that frontier AI's early capitalization drew from the same speculative pools as cryptocurrency.",
+      "sources": [
+        { "title": "Anthropic's quest for better, more explainable AI attracts $580M — TechCrunch", "url": "https://techcrunch.com/2022/04/29/anthropics-quest-for-better-more-explainable-ai-attracts-580m/" },
+        { "title": "Anthropic Raises Series B — Anthropic", "url": "https://www.anthropic.com/news/anthropic-raises-series-b-to-build-safe-reliable-ai" }
+      ]
+    },
+    {
+      "id": "constitutional-ai",
+      "date": "2022-12-15",
+      "display": "Dec 2022",
+      "title": "Constitutional AI",
+      "major": true,
+      "tagline": "An AI trained by its own self-critique, guided by a written constitution.",
+      "content": "On December 15, 2022, Anthropic publishes **\"Constitutional AI: Harmlessness from AI Feedback\"** (arXiv:2212.08073). The paper introduces a training pipeline that replaces most human harm-labeling with AI-generated supervision.\n\n## How it works\nThe process has two phases:\n1. **Supervised phase** — the model generates a response, then critiques and revises it according to a principle sampled from a ~16-item \"constitution\" (e.g., \"avoid content that could be used to harm others\"). The revision becomes the training target.\n2. **RL phase** — a separate AI evaluator scores response pairs for constitutional compliance; those scores train a reward model, which is used for RL fine-tuning — **reinforcement learning from AI feedback (RLAIF)** rather than human feedback.\n\n## Why it matters\n- It made alignment supervision **scalable**: human labelers don't need to review millions of examples of harmful outputs.\n- The constitution is *explicit and auditable* — unlike opaque RLHF preference data, the principles guiding the model's behavior can be read, debated, and changed.\n- Constitutional AI became the training backbone for every Claude model. The approach influenced the broader field: see [[artificial-intelligence/age-of-agents/tool-use|tool use]] and RLAIF adoption across other labs.",
+      "sources": [
+        { "title": "Constitutional AI: Harmlessness from AI Feedback (arXiv:2212.08073)", "url": "https://arxiv.org/abs/2212.08073" },
+        { "title": "Constitutional AI — Anthropic research page", "url": "https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback" }
+      ]
+    },
+    {
+      "id": "claude-1-launch",
+      "date": "2023-03-14",
+      "display": "Mar 2023",
+      "title": "Claude 1 — first commercial release",
+      "major": true,
+      "tagline": "Anthropic's first public API opens with notable launch partners.",
+      "content": "On March 14, 2023, Anthropic releases Claude and Claude Instant — a higher-performance and a faster/cheaper variant — into limited public availability via API and a handful of partner integrations.\n\nLaunch partners include Notion, Quora (for Poe), DuckDuckGo, Robin AI, and AssemblyAI. Partners noted Claude was \"much less likely to produce harmful outputs, easier to converse with, and more steerable\" than contemporaries — attributes traceable directly to [[Constitutional AI]] training.\n\n## Why it matters\n- Claude's commercial debut positioned Anthropic as a real competitor in the enterprise AI market, not a pure research outfit.\n- The two-tier model (full + instant) set a product pattern — capability vs. speed/cost — that Claude maintained through every subsequent generation.\n- The safety-first pitch resonated especially with legal, education, and search companies cautious about unconstrained LLM outputs.",
+      "sources": [
+        { "title": "Introducing Claude — Anthropic", "url": "https://www.anthropic.com/news/introducing-claude" }
+      ]
+    },
+    {
+      "id": "100k-context",
+      "date": "2023-05-11",
+      "display": "May 2023",
+      "title": "100K-token context window",
+      "tagline": "The first frontier model to process an entire book in a single prompt.",
+      "content": "In May 2023, Anthropic announces that Claude can now accept up to **100,000 tokens** per prompt — roughly 75,000 words, or a full novel. At the time, GPT-4 was capped at 8K (later 32K) tokens.\n\nThe announcement framed the capability with a concrete demonstration: feeding the entire text of *The Great Gatsby* (72K tokens) into a prompt and asking questions about it. The technical unlock — efficient KV-cache management and hardware-aware attention — became a competitive differentiator until the rest of the industry caught up through late 2023.",
+      "sources": [
+        { "title": "Introducing 100K Context Windows — Anthropic", "url": "https://www.anthropic.com/news/100k-context-windows" }
+      ]
+    },
+    {
+      "id": "claude-2",
+      "date": "2023-07-11",
+      "display": "Jul 2023",
+      "title": "Claude 2 and claude.ai",
+      "major": true,
+      "tagline": "Public web app launches; 100K context becomes the default.",
+      "content": "On July 11, 2023, Anthropic ships Claude 2 alongside **claude.ai** — a free web chat interface open to US and UK users, the company's first consumer-facing product.\n\n## What improved\n- Bar exam score: 76.5% (up from 73% on Claude 1.3)\n- Code (HumanEval): 71.2% (up from 56%)\n- Harmlessness: 2× fewer harmful responses than Claude 1.3\n- 100K-token context is now standard across both tiers\n\n## Why it matters\n- claude.ai gave Anthropic a direct consumer presence and a feedback loop that only API deployments couldn't provide.\n- Claude 2 was the first widely-accessible model with 100K context at launch — meaningful for law firms, researchers, and developers working with long documents.\n- The public release coincided with the post-[[artificial-intelligence/chatgpt|ChatGPT]] industry sprint: every major lab was racing for consumer mindshare through summer 2023.",
+      "sources": [
+        { "title": "Claude 2 — Anthropic", "url": "https://www.anthropic.com/news/claude-2" },
+        { "title": "Anthropic releases Claude 2 — TechCrunch", "url": "https://techcrunch.com/2023/07/11/anthropic-releases-claude-2-the-second-generation-of-its-ai-chatbot/" }
+      ],
+      "children": [
+        {
+          "id": "claude-2-1",
+          "date": "2023-11-21",
+          "display": "Nov 2023",
+          "title": "Claude 2.1 — 200K context",
+          "tagline": "Context window doubles; hallucinations cut in half.",
+          "content": "Released November 21, 2023, Claude 2.1 pushes the context window to **200,000 tokens** — about 500 pages of text, an industry first at the time. Anthropic simultaneously reports a 50% reduction in hallucination rates and a 30% drop in inaccurate answers compared to Claude 2.0. Beta tool-use support for developers also ships with this release.",
+          "sources": [
+            { "title": "Anthropic Releases Claude 2.1 — Voicebot.ai", "url": "https://voicebot.ai/2023/11/21/anthropic-releases-claude-2-1-generative-ai-chatbot-with-200k-context-window-and-reduced-errors/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "amazon-investment",
+      "date": "2023-09-25",
+      "display": "Sep 2023",
+      "title": "Amazon invests $1.25 billion",
+      "tagline": "A strategic cloud partnership anchors Anthropic's compute future.",
+      "content": "On September 25, 2023, Amazon announces an initial investment of $1.25 billion in Anthropic, with the option to bring total commitment to $4 billion. The deal includes AWS becoming Anthropic's primary cloud provider and Anthropic deploying on AWS Trainium and Inferentia chips.\n\nThe partnership was explicitly strategic on both sides: Amazon gained a flagship AI tenant and credibility in the LLM race; Anthropic gained the compute scale needed to train frontier models without equity dilution from compute costs alone.",
+      "sources": [
+        { "title": "Fortune — Amazon invests $4 billion in Anthropic", "url": "https://fortune.com/2023/09/25/anthropic-ai-startup-4-billion-funding-amazon-investment-big-tech/" }
+      ]
+    },
+    {
+      "id": "google-investment",
+      "date": "2023-10-27",
+      "display": "Oct 2023",
+      "title": "Google commits $2 billion",
+      "tagline": "Anthropic becomes the AI bet at the center of the cloud wars.",
+      "content": "On October 27, 2023, Google announces a commitment of up to $2 billion in Anthropic — $500 million upfront with $1.5 billion to follow — weeks after Amazon's $1.25 billion investment closed.\n\nThe back-to-back megaDeals from the two largest cloud platforms reflected a structural reality: frontier AI training and inference required cloud-scale compute, and both AWS and Google Cloud saw Anthropic as the premier safety-focused alternative to OpenAI for enterprise customers. For Anthropic, the dual partnerships provided compute resources and distribution without requiring exclusive platform commitment.",
+      "sources": [
+        { "title": "Google commits to invest $2 billion in Anthropic — CNBC", "url": "https://www.cnbc.com/2023/10/27/google-commits-to-invest-2-billion-in-openai-competitor-anthropic.html" }
+      ]
+    },
+    {
+      "id": "claude-3-family",
+      "date": "2024-03-04",
+      "display": "Mar 2024",
+      "title": "Claude 3 family",
+      "major": true,
+      "tagline": "Three-tier model family with vision — Haiku, Sonnet, Opus.",
+      "content": "On March 4, 2024, Anthropic releases the Claude 3 family: **Haiku** (fast and cheap), **Sonnet** (balanced), and **Opus** (highest capability) — all with a 200K-token context window and native vision.\n\n## Model positioning\n- **Opus** topped most public benchmarks at launch, including MMLU (86.8%), GPQA (50.4%), and GSM8K (95%).\n- **Haiku** could process a 10K-token research paper in under three seconds — the fastest in its class.\n- All three accepted images, charts, and diagrams — a capability absent from prior Claude generations.\n\n## Why it matters\n- The three-tier naming convention (Haiku / Sonnet / Opus) gave developers a stable vocabulary that persisted through Claude 3.5, 3.7, and 4.\n- Vision capability brought Claude into multimodal parity with GPT-4V just months after GPT-4 had established that lead.\n- Claude 3 Opus outperforming GPT-4 on certain benchmarks was the first public indication that the capability race had more than one serious contender.",
+      "sources": [
+        { "title": "Introducing the next generation of Claude — Anthropic", "url": "https://www.anthropic.com/news/claude-3-family" },
+        { "title": "Claude 3 Model Card (PDF)", "url": "https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf" }
+      ],
+      "children": [
+        {
+          "id": "claude-3-opus",
+          "date": "2024-03-04",
+          "display": "Mar 4, 2024",
+          "title": "Claude 3 Opus",
+          "tagline": "Anthropic's first model to lead public benchmarks over GPT-4.",
+          "content": "Claude 3 Opus launches as Anthropic's flagship: 86.8% on MMLU, 50.4% on GPQA graduate-level reasoning, 95.0% on GSM8K math. The technical report notes it outperforms GPT-4 on most public evaluations while maintaining the 200K context and adding vision. Opus signals that Anthropic has graduated from competitive follower to benchmark leader."
+        },
+        {
+          "id": "claude-3-haiku",
+          "date": "2024-03-13",
+          "display": "Mar 13, 2024",
+          "title": "Claude 3 Haiku",
+          "tagline": "The fastest, cheapest Claude — vision included.",
+          "content": "Haiku ships nine days after Opus and Sonnet, completing the family. At launch it was the fastest model in its intelligence category — processing a dense 10K-token paper in under three seconds — and the first budget-tier model with vision capability, redefining what a \"small\" production model could do."
+        }
+      ]
+    },
+    {
+      "id": "claude-3-5-sonnet",
+      "date": "2024-06-20",
+      "display": "Jun 2024",
+      "title": "Claude 3.5 Sonnet",
+      "major": true,
+      "tagline": "Mid-tier model surpasses the prior flagship; Artifacts ships.",
+      "content": "Released June 20 (not June 21 as some sources cite — Anthropic's own announcement was published on June 20, 2024), Claude 3.5 Sonnet outperforms Claude 3 Opus on most benchmarks while running at Sonnet's speed and price. Internal evals show it solving **64% of coding problems** versus Opus's 38%.\n\n## Artifacts\nLaunched alongside the model, **Artifacts** opens a dedicated workspace pane in claude.ai where generated code, documents, and designs appear separately from the conversation — enabling in-place editing without disrupting context. It marked Claude's evolution from pure text assistant toward collaborative workspace.\n\n## Why it matters\n- The pattern of a mid-tier model leapfrogging the prior flagship — at lower cost — established a cadence that the rest of the industry (OpenAI, Google) subsequently followed.\n- Artifacts gave Anthropic a visible product feature to differentiate claude.ai from the API and from competing chatbots.\n- The model's coding performance improvements fed directly into the tooling ambitions that would become [[Claude 3.7 Sonnet + Claude Code]] in 2025.",
+      "sources": [
+        { "title": "Introducing Claude 3.5 Sonnet — Anthropic", "url": "https://www.anthropic.com/news/claude-3-5-sonnet" }
+      ]
+    },
+    {
+      "id": "claude-3-5-upgraded",
+      "date": "2024-10-22",
+      "display": "Oct 2024",
+      "title": "Upgraded 3.5 Sonnet + Computer Use beta",
+      "major": false,
+      "tagline": "Claude learns to use a computer — clicks, types, reads screens.",
+      "content": "On October 22, 2024, Anthropic ships three things at once: an upgraded Claude 3.5 Sonnet, Claude 3.5 Haiku, and the **computer use** capability in public beta.\n\n## Computer use\nRather than building tool-specific integrations, Anthropic trained Claude to operate computers the way a human does: read a screen, move a cursor, click buttons, type text. No special APIs required — Claude works with whatever software is visible.\n\nEarly partners (Replit, Canva, DoorDash) demonstrated multi-step workflows spanning dozens to hundreds of actions. The upgraded Sonnet improved SWE-bench from **33.4% to 49.0%**, the highest among publicly available models at the time.\n\n## Why it matters\n- Computer use closed the gap between \"language model\" and \"autonomous software worker\" — the first frontier-lab capability that could operate arbitrary legacy software.\n- Combined with [[Constitutional AI]] safety training, it raised new questions about what guardrails look like when an AI can actually *act* in a system, not just respond in text.\n- It fed directly into the agent-era infrastructure being assembled alongside [[Model Context Protocol open-sourced]].",
+      "sources": [
+        { "title": "Introducing computer use, a new Claude 3.5 Sonnet, and Claude 3.5 Haiku — Anthropic", "url": "https://www.anthropic.com/news/3-5-models-and-computer-use" }
+      ]
+    },
+    {
+      "id": "model-context-protocol",
+      "date": "2024-11-25",
+      "display": "Nov 2024",
+      "title": "Model Context Protocol open-sourced",
+      "major": true,
+      "tagline": "A universal standard for connecting AI to tools and data.",
+      "content": "On November 25, 2024, Anthropic open-sources the **Model Context Protocol (MCP)** — a standard that defines how AI systems connect to external data sources and tools.\n\n## The problem it solves\nEvery AI integration previously required a bespoke connector: one for databases, one for Slack, one for GitHub, and so on. MCP proposes a single protocol so that any MCP-compatible AI can communicate with any MCP-compatible data source, the way HTTP standardized web communication.\n\nInitial adopters included Block, Zed, Replit, and Sourcegraph. Python and TypeScript SDKs shipped alongside the spec.\n\n## Why it matters\n- Standards become infrastructure. If MCP achieves adoption, Anthropic effectively governs a layer beneath every AI-integrated application — a position analogous to what TCP/IP did for networking.\n- It is a direct enabler of [[Claude 3.7 Sonnet + Claude Code|Claude Code]] and agentic workflows: agents need reliable, composable tool access to operate across systems.\n- Open-sourcing (rather than keeping it proprietary) was itself a strategic bet: a standard only has value if the ecosystem adopts it.",
+      "sources": [
+        { "title": "Introducing the Model Context Protocol — Anthropic", "url": "https://www.anthropic.com/news/model-context-protocol" },
+        { "title": "Model Context Protocol — Wikipedia", "url": "https://en.wikipedia.org/wiki/Model_Context_Protocol" }
+      ]
+    },
+    {
+      "id": "claude-3-7-and-claude-code",
+      "date": "2025-02-24",
+      "display": "Feb 2025",
+      "title": "Claude 3.7 Sonnet + Claude Code",
+      "major": true,
+      "tagline": "Hybrid reasoning arrives; a coding agent ships to the terminal.",
+      "content": "On February 24, 2025, Anthropic simultaneously ships two things: a new model and a new product.\n\n## Claude 3.7 Sonnet — hybrid reasoning\nDescribed as \"the first hybrid reasoning model,\" Claude 3.7 Sonnet can operate in two modes within a single API call: instant response (standard LLM) or **extended thinking**, where a visible chain of thought is computed before the final answer. Developers control the thinking budget in tokens (up to 128K). On SWE-bench Verified it scores **70.3%** in standard mode — the highest among publicly available models at the time.\n\n## Claude Code — research preview\nAn agentic coding tool available from the terminal as a limited research preview. Claude Code delegates substantial engineering tasks: it can read codebases, write and run code, fix failing tests, and submit pull requests, operating largely autonomously.\n\n## Why it matters\n- Hybrid reasoning let Anthropic offer a *single* model that covers both low-latency tasks and deep analytical work — avoiding the model fragmentation that plagued OpenAI's o1/GPT-4 split.\n- Claude Code was the first signal that Anthropic intended to compete not just in the model market but in the developer-tools market — a pivot formalized with [[Claude 4: Opus 4 and Sonnet 4]] in May 2025.",
+      "sources": [
+        { "title": "Claude 3.7 Sonnet and Claude Code — Anthropic", "url": "https://www.anthropic.com/news/claude-3-7-sonnet" },
+        { "title": "Anthropic launches Claude 3.7 Sonnet — TechCrunch", "url": "https://techcrunch.com/2025/02/24/anthropic-launches-a-new-ai-model-that-thinks-as-long-as-you-want/" }
+      ]
+    },
+    {
+      "id": "claude-4",
+      "date": "2025-05-22",
+      "display": "May 2025",
+      "title": "Claude 4: Opus 4 and Sonnet 4",
+      "major": true,
+      "tagline": "New generation — Claude Code goes GA, Opus 4 leads coding benchmarks.",
+      "content": "On May 22, 2025, Anthropic releases **Claude Opus 4** and **Claude Sonnet 4**, the fourth generation of the Claude model family, and simultaneously moves Claude Code from research preview to general availability.\n\n## The models\n- **Claude Opus 4**: 72.5% on SWE-bench Verified — \"the world's best coding model\" at launch. Designed for sustained performance on long-running tasks and multi-agent workflows.\n- **Claude Sonnet 4**: 72.7% on SWE-bench — a significant upgrade from 3.7, with better instruction-following and extended-thinking-with-tool-use capability.\n\n## New capabilities\n- **Extended thinking with tool use (beta)**: Models can call tools like web search *while* reasoning — interleaving analysis and information gathering.\n- **Parallel tool execution**: Multiple tools run simultaneously.\n- **Session memory**: With developer permission, models can write and read files to maintain context across long sessions.\n\n## Claude Code GA + IDE integrations\nClaude Code ships as a generally available product with integrations for VS Code, JetBrains, and GitHub Actions — establishing Anthropic as a genuine competitor in the developer tooling space, not just the model API market.\n\n## Why it matters\n- The Claude 4 generation completed the arc from [[Constitutional AI]] safety research to a full product platform: models, tools, IDE integrations, and an emerging agent infrastructure.\n- Leading coding benchmarks signaled a deliberate product focus — code is the highest-value professional task for LLM automation.",
+      "sources": [
+        { "title": "Introducing Claude 4 — Anthropic", "url": "https://www.anthropic.com/news/claude-4" },
+        { "title": "Anthropic X announcement (May 22, 2025)", "url": "https://x.com/AnthropicAI/status/1925591505332576377" }
+      ],
+      "children": [
+        {
+          "id": "claude-opus-4",
+          "date": "2025-05-22",
+          "display": "May 22, 2025",
+          "title": "Claude Opus 4",
+          "tagline": "World's best coding model at launch; built for agent workflows.",
+          "content": "Claude Opus 4 scores 72.5% on SWE-bench Verified and 43.2% on Terminal-bench, surpassing all publicly available models on coding tasks at launch. Its architecture prioritizes sustained performance on complex, multi-step agent workflows — tasks that require dozens of tool calls and long chains of reasoning without degradation.",
+          "sources": [
+            { "title": "Introducing Claude 4 — Anthropic", "url": "https://www.anthropic.com/news/claude-4" }
+          ]
+        },
+        {
+          "id": "claude-sonnet-4",
+          "date": "2025-05-22",
+          "display": "May 22, 2025",
+          "title": "Claude Sonnet 4",
+          "tagline": "State-of-the-art coding at mid-tier price.",
+          "content": "Claude Sonnet 4 achieves 72.7% on SWE-bench — actually fractionally higher than Opus 4 on that benchmark — while maintaining the $3/$15 per-million-token pricing of prior Sonnet models. It inherits hybrid reasoning from 3.7 and gains extended-thinking-with-tool-use, making it the practical default for most production use cases."
+        },
+        {
+          "id": "claude-code-ga",
+          "date": "2025-05-22",
+          "display": "May 22, 2025",
+          "title": "Claude Code — general availability",
+          "tagline": "The terminal coding agent exits research preview.",
+          "content": "Claude Code becomes generally available with VS Code and JetBrains extensions, GitHub Actions support, a code-execution tool, MCP connector, and Files API. The GA launch positioned Anthropic in direct competition with GitHub Copilot and Cursor — tools with established developer distribution — but with a differentiated bet on *autonomous* engineering rather than autocomplete."
+        }
+      ]
+    },
+    {
+      "id": "claude-sonnet-4-5",
+      "date": "2025-09-29",
+      "display": "Sep 2025",
+      "title": "Claude Sonnet 4.5",
+      "tagline": "State-of-the-art computer use; ASL-3 safety protections first applied.",
+      "content": "Released September 29, 2025, Claude Sonnet 4.5 advances on two fronts simultaneously: capability and safety.\n\n## Capabilities\n- **Computer use**: 61.4% on OSWorld (up from Sonnet 4's 42.2%), the highest of any publicly available model at launch.\n- **Coding**: Maintained state-of-the-art on SWE-bench; capable of sustained focus on complex tasks for over 30 hours.\n- **Reasoning**: Substantial gains in mathematical problem-solving and domain-specific knowledge.\n\n## Safety milestone\nAnthropic applied **ASL-3 safety protections** for the first time, a tier reserved for models approaching the capability threshold where autonomous AI might meaningfully assist with weapons of mass destruction research. Applying ASL-3 to a production model was the first real-world test of the Responsible Scaling Policy Anthropic had published in 2023.\n\n## Infrastructure\nThe **Claude Agent SDK** ships alongside the model — the infrastructure that powers Claude Code and enables developers to build their own multi-agent workflows. The Claude for Chrome extension also launches for Max users.\n\n## Why it matters\n- The ASL-3 deployment was the first instance of frontier-lab safety commitments being operationalized under real-world release pressure — not just described in policy documents.\n- The OSWorld gains demonstrated that [[Upgraded 3.5 Sonnet + Computer Use beta|computer use]] capability trajectory was continuing to compound.",
+      "sources": [
+        { "title": "Introducing Claude Sonnet 4.5 — Anthropic", "url": "https://www.anthropic.com/news/claude-sonnet-4-5" }
+      ]
+    }
+  ]
+}
