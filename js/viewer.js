@@ -223,6 +223,10 @@ export async function renderTimelineRoute(parsed){
   if (chain.length - 1 !== parsed.path.length){    // unknown tail — normalize URL to deepest valid
     history.replaceState(null, '', buildTimelinePath(parsed.id, chain.slice(1).map(n => n.id), BASE));
   }
+  if (!focusLeaf && els.panel?.classList.contains('openp')){
+    state.readerPushed = false;            // popstate already consumed the reader's history entry
+    handlers.closeReader?.();              // closes UI only: back() branch is skipped, replaceState no-ops (same URL)
+  }
   if (!state.cur || !els.stage.contains(state.cur)) { state.path = levelChain; renderCurrent(); }
   else if (state.path[state.path.length - 1] !== levelChain[levelChain.length - 1]) transitionTo(levelChain);
   if (focusLeaf){
