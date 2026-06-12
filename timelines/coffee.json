@@ -1,0 +1,274 @@
+{
+  "id": "coffee",
+  "title": "Coffee",
+  "tagline": "From an Ethiopian hillside legend to a global industrial crop and cultural obsession — the whole story.",
+  "updated": "2026-06-12",
+  "events": [
+    {
+      "id": "kaldi-legend",
+      "date": "0850",
+      "display": "c. 850 (legend)",
+      "title": "The Goat-Herder of Kaffa",
+      "major": true,
+      "tagline": "A dancing flock and a curious monk — the founding myth.",
+      "content": "The earliest story told about coffee's discovery belongs to a goat-herder named **Kaldi**, who noticed his animals dancing with unusual energy after eating red berries from a certain tree in the Ethiopian highlands. He brought the berries to a nearby monastery; the monks brewed a drink and found they could pray through the night without sleep.\n\nThe story is almost certainly a legend. Historians note that the earliest known written version appears only in a 1671 Arabic manuscript — likely composed centuries after the supposed events. The actual domestication of coffee as a beverage has no documented connection to this tale.\n\n## Why it matters\n- The legend does real cultural work: it anchors coffee in Ethiopia and in spiritual practice, two facts that happen to be historically accurate even if the story itself is not.\n- Every origin myth eventually yields to sourced history — here that happens at [[Sufi Monasteries, Yemen]].",
+      "sources": [
+        { "title": "History of coffee — Wikipedia", "url": "https://en.wikipedia.org/wiki/History_of_coffee" }
+      ]
+    },
+    {
+      "id": "sufi-monasteries-yemen",
+      "date": "1450",
+      "display": "c. 1450",
+      "title": "Sufi Monasteries, Yemen",
+      "major": true,
+      "tagline": "The first documented coffee drinkers use it to stay awake for night devotions.",
+      "content": "The earliest substantiated evidence of coffee drinking comes from the Sufi monasteries of **Yemen** in the mid-15th century. Sufis brewed the dried fruit and seed of the *Coffea arabica* plant — which traders, particularly Somalis from Berbera and Zeila, had carried from the Ethiopian highlands — to sustain concentration during the long nighttime prayers central to their practice.\n\nCoffee cultivation on the terraced slopes of the Yemeni highlands followed, and the crop moved down to the **Red Sea coast**, where the port of **Mocha** became the world's first great coffee entrepôt. For more than a century, Yemen held a near-monopoly on the global supply, controlling exports by only shipping roasted or boiled beans — smuggling raw seeds was punishable by death.\n\n## Why it matters\n- This is where coffee stops being a wild plant and becomes an **intentionally cultivated crop** with a global future.\n- The Mocha port gives the beverage one of its most durable synonyms.\n- Yemen's jealously guarded monopoly drives the smuggling stories that follow: [[Baba Budan to India]], [[Dutch Cultivation in Java]], [[De Clieu to Martinique]].",
+      "sources": [
+        { "title": "History of coffee — Wikipedia", "url": "https://en.wikipedia.org/wiki/History_of_coffee" },
+        { "title": "The History of Yemeni Coffee — Hamdan Coffee", "url": "https://hamdancoffee.com/blogs/blog/the-history-of-yemeni-coffee-how-yemen-became-the-birthplace-of-coffee-culture" }
+      ]
+    },
+    {
+      "id": "mecca-ban-1511",
+      "date": "1511",
+      "title": "The Mecca Ban",
+      "tagline": "The first government attempt to suppress coffee — it lasts weeks.",
+      "content": "In **1511**, Kha'ir Beg al-Mi'mar, a high official in Mecca, ordered coffeehouses closed and coffee banned, arguing that it incited seditious conversation and distracted worshippers. He convened religious scholars and merchants to build a legal case.\n\nThe ban collapsed almost immediately: the Ottoman Sultan **Suleiman I** overturned it in **1524**, ruling that coffee was licit. The first of many attempts to control what people drink in public had failed — a pattern that would repeat in Istanbul, England, and beyond (see [[The Coffeehouse Era]]).",
+      "sources": [
+        { "title": "History of coffee — Wikipedia", "url": "https://en.wikipedia.org/wiki/History_of_coffee" },
+        { "title": "The History of Coffee Prohibition — Specialty Coffee Slovenia", "url": "https://specialtykava.si/en/the-history-of-coffee-prohibition-attempts-to-ban-the-worlds-beloved-brew/" }
+      ]
+    },
+    {
+      "id": "istanbul-coffeehouse-1554",
+      "date": "1554",
+      "title": "First Coffeehouse, Istanbul",
+      "major": true,
+      "tagline": "Two merchants from Damascus open a shop that changes urban life.",
+      "content": "In **1554**, two merchants from Damascus and Aleppo — Shems and Hekim — opened the first known coffeehouse in Istanbul's Tahtakale quarter, during the reign of Suleiman the Magnificent. Within a generation, hundreds of similar establishments operated across the city.\n\nThe Ottoman coffeehouse (*kahvehane*) was a new kind of public space: men from all social strata could sit, talk, play chess, listen to poetry, and exchange political news — for the price of a cup. By the late 16th century, more than **600 coffeehouses** operated in Istanbul alone.\n\n## Why it matters\n- The coffeehouse as social institution is born here, decades before it reaches Europe.\n- It would travel with coffee itself — to Cairo, to Venice, to London — taking slightly different forms in each place but always serving as a **gathering point for public discourse**.\n- Open this event's timeline for the European chapter: [[The Coffeehouse Era]].",
+      "sources": [
+        { "title": "Ottoman coffeehouse — Wikipedia", "url": "https://en.wikipedia.org/wiki/Ottoman_coffeehouse" },
+        { "title": "History and Evolution of the Ottoman Coffeehouses of Istanbul", "url": "https://earthstoriez.com/coffee-houses-constantinople-istanbul-history" }
+      ]
+    },
+    {
+      "id": "coffeehouse-era",
+      "date": "1650",
+      "title": "The Coffeehouse Era",
+      "major": true,
+      "tagline": "England's 'penny universities' reshape commerce, politics, and thought.",
+      "content": "When coffee reaches Northern Europe in the mid-17th century, it carries the coffeehouse with it. England's version is distinctive: for the price of a **penny** (the entry fee), any man could sit all day, read pamphlets, argue politics, and network with merchants, lawyers, and wits. Critics called them hotbeds of sedition; admirers called them **penny universities**.\n\nBy the early 18th century, London had more than **500 coffeehouses** — each with its own character and clientele. Lawyers gathered at one, merchants at another, poets at a third. The Enlightenment was partly brewed here.\n\n*Open this event's timeline to follow the key moments.*",
+      "sources": [
+        { "title": "English coffeehouses in the 17th and 18th centuries — Wikipedia", "url": "https://en.wikipedia.org/wiki/Penny_University" },
+        { "title": "England's Coffeehouses and the Birth of Public Debate — Amusing Planet", "url": "https://www.amusingplanet.com/2025/12/englands-coffeehouses-and-birth-of.html" }
+      ],
+      "children": [
+        {
+          "id": "oxford-1650",
+          "date": "1650",
+          "display": "1650",
+          "title": "Oxford's First Coffeehouse",
+          "tagline": "Jacob the Jew opens a shop for scholars.",
+          "content": "In **1650**, a man named Jacob — an immigrant from the Levant — opens the first English coffeehouse at the Angel Inn in Oxford, catering to the university community. Scholars pay a penny to enter and get unlimited refills; the discussions earn the venue the nickname **penny university**.\n\nThe formula spreads to London within two years, when Pasqua Rosée opens a shop in Cornhill in **1652**.",
+          "sources": [
+            { "title": "English Coffeehouses, Penny Universities — Historic UK", "url": "https://www.historic-uk.com/CultureUK/English-Coffeehouses-Penny-Universities/" }
+          ]
+        },
+        {
+          "id": "charles-ii-ban",
+          "date": "1675",
+          "display": "Dec 1675",
+          "title": "Charles II's Suppression Proclamation",
+          "tagline": "The king tries to shut London's coffeehouses — and retreats in days.",
+          "content": "On **29 December 1675**, Charles II issues a royal proclamation ordering the suppression of all coffeehouses in England, declaring they had produced \"very evil and dangerous effects\" and served as nurseries of sedition against the Crown.\n\nThe backlash is immediate. Merchants, professionals, and petitioners flood the court with objections. The proclamation is quietly withdrawn within days — **never enforced**.\n\nThe attempt reveals what coffeehouses had become: too embedded in public life, commerce, and identity to be closed by royal decree.",
+          "sources": [
+            { "title": "English coffeehouses in the 17th and 18th centuries — Wikipedia", "url": "https://en.wikipedia.org/wiki/Penny_University" },
+            { "title": "When coffee was banned — Cafemalin", "url": "https://cafemalin.com/en/quand-le-cafe-etait-interdit-censures-scandales-et-revolutions/" }
+          ]
+        },
+        {
+          "id": "lloyds-coffeehouse",
+          "date": "1686",
+          "display": "c. 1686",
+          "title": "Lloyd's Coffee House",
+          "major": true,
+          "tagline": "A coffeehouse near the Thames becomes the world's insurance market.",
+          "content": "Edward Lloyd opens a coffeehouse on Tower Street in London — soon the regular meeting place for ship captains, merchants, and underwriters. Lloyd circulates **ship schedules and cargo lists** that underwriters use to price marine insurance.\n\nThis informal arrangement hardens into a formal market. Lloyd's of London — still the world's leading insurance market — traces its founding to this coffeehouse floor.\n\n## Why it matters\n- The coffeehouse is not just a social space: it is also **infrastructure for commerce**, a neutral place to do deals and share information before offices and stock exchanges exist.\n- The same pattern produces the London Stock Exchange (from Jonathan's Coffee House, 1698).",
+          "sources": [
+            { "title": "Lloyd's of London — Wikipedia", "url": "https://en.wikipedia.org/wiki/Lloyd%27s_of_London" },
+            { "title": "Penny University — Aroma Coffee Delivery", "url": "https://aromacoffee.net/penny-university/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baba-budan",
+      "date": "1670",
+      "display": "c. 1670",
+      "title": "Baba Budan to India",
+      "tagline": "A Sufi pilgrim smuggles seven raw beans out of Mocha — hidden in his beard.",
+      "content": "According to tradition, the Indian Sufi pilgrim **Baba Budan** returned from the hajj via Mocha and concealed **seven raw coffee beans** (raw beans could germinate; roasted ones could not) in his clothing or beard, defying Yemen's export controls.\n\nHe planted them in the **Chandragiri hills** of Mysore (present-day Karnataka), establishing India's first coffee cultivation. The hills are still called Baba Budan Giri and the area remains a significant coffee-growing region.\n\nThe date is uncertain — some sources place the event closer to 1600; most cite \"early 17th century.\" Whatever the exact year, the story captures a real historical process: Yemen's monopoly was breaking down by persistent smuggling.",
+      "sources": [
+        { "title": "Baba Budan — Wikipedia", "url": "https://en.wikipedia.org/wiki/Baba_Budan" },
+        { "title": "Baba Budan and the seven coffee seeds from Arabia", "url": "https://earthstoriez.com/india-baba-budan-and-his-seven-coffee-seeds" }
+      ]
+    },
+    {
+      "id": "dutch-java",
+      "date": "1696",
+      "title": "Dutch Cultivation in Java",
+      "tagline": "The VOC plants coffee in Java — the first commercial cultivation outside Arabia.",
+      "content": "In **1696**, at the instigation of Amsterdam's burgomaster Nicolaas Witsen, the Dutch East India Company (VOC) shipped coffee plants from Malabar, India, to Java. The first planting was destroyed by flood and earthquake. A second attempt in **1699** succeeded; by **1711**, the first exports from Java reached Europe.\n\nWithin decades, Java had become synonymous with coffee itself — a metonymy still alive in the American slang word for the beverage. The VOC had broken Yemen's century-long monopoly and established the colonial coffee economy that would eventually be superseded by [[Brazil's Coffee Century]].",
+      "sources": [
+        { "title": "Coffee production in Indonesia — Wikipedia", "url": "https://en.wikipedia.org/wiki/Coffee_production_in_Indonesia" },
+        { "title": "History of coffee in Indonesia — KOPKOPI", "url": "https://kopkopi.com/coffee-in-indonesia-a-timeline/" }
+      ]
+    },
+    {
+      "id": "de-clieu-martinique",
+      "date": "1720",
+      "title": "De Clieu to Martinique",
+      "tagline": "A French naval officer crosses the Atlantic with a single seedling — sharing his water ration with it.",
+      "content": "In **1720**, the French naval officer **Gabriel de Clieu** obtained a coffee seedling from the royal greenhouse of Versailles and carried it across the Atlantic to **Martinique**. The voyage was harrowing: the ship was becalmed for weeks, and de Clieu wrote that he shared his meager water ration with the plant to keep it alive.\n\nThe seedling survived and thrived. Within fifty years, Martinique counted **18,680 coffee trees**, and the plant had spread to Haiti, Mexico, and across the Caribbean. Historians note that coffee was already present in French Saint-Domingue by 1715 and Dutch Surinam by 1718 — but de Clieu's documented journey makes him the symbolic founding figure of New World coffee.\n\n## Why it matters\n- The Caribbean and then Latin America would inherit the crop and ultimately reshape the world market.\n- The lineage from this single seedling runs directly to [[Brazil's Coffee Century]].",
+      "sources": [
+        { "title": "Gabriel de Clieu — Wikipedia", "url": "https://en.wikipedia.org/wiki/Gabriel_de_Clieu" },
+        { "title": "Coffee History: From Europe to the Caribbean — CoffeeReview.com", "url": "https://www.coffeereview.com/coffee-reference/coffee-basics/coffee-history/from-europe-to-the-caribbean/" }
+      ]
+    },
+    {
+      "id": "brazils-coffee-century",
+      "date": "1852",
+      "display": "mid-19th c.",
+      "title": "Brazil's Coffee Century",
+      "major": true,
+      "tagline": "Brazil becomes the world's coffee superpower — a title it still holds.",
+      "content": "Coffee reached Brazil in **1727** via Francisco de Melo Palheta (the story of his persuading a French Guiana governor's wife to give him seeds is another legend of coffee smuggling). For a century the crop grew slowly in the north. Then in the early 19th century, demand in Europe and America exploded.\n\nBy the **1840s**, Brazil had become the world's leading coffee exporter. By mid-century, it produced roughly **half** of the global supply; by 1900, **three-quarters**. The boom was underwritten by enslaved labor on vast plantations (*fazendas*) in the Paraíba Valley and São Paulo state — the abolition of slavery in 1888 reshaped but did not diminish the industry.\n\nThe São Paulo coffee barons' political power became so great that the period 1889–1930 is called the *café com leite* republic — a rotation of power between coffee and dairy interests.\n\n## Why it matters\n- Brazil's dominance transformed coffee from a luxury into a **commodity**, driving down prices and enabling mass consumption.\n- Its production surplus helped create the market for the industrial processes — including instant coffee — that followed.",
+      "sources": [
+        { "title": "Coffee production in Brazil — Wikipedia", "url": "https://en.wikipedia.org/wiki/Coffee_production_in_Brazil" },
+        { "title": "Brazilian coffee cycle — Wikipedia", "url": "https://en.wikipedia.org/wiki/Brazilian_coffee_cycle" }
+      ]
+    },
+    {
+      "id": "espresso-age",
+      "date": "1901",
+      "title": "The Espresso Age",
+      "major": true,
+      "tagline": "From a Milanese patent to crema — how pressure reinvented the cup.",
+      "content": "Espresso was born from a desire for **speed**: the original machine patents emerged in an era when factory workers had short breaks and café owners needed faster throughput. What began as industrial efficiency became, within fifty years, the defining aesthetic of Italian coffee culture — and eventually the substrate of a global industry.\n\n*Open this event's timeline to follow the engineering lineage.*",
+      "sources": [
+        { "title": "Espresso — Wikipedia", "url": "https://en.wikipedia.org/wiki/Espresso" }
+      ],
+      "children": [
+        {
+          "id": "bezzera-patent",
+          "date": "1901-12-19",
+          "display": "Dec 1901",
+          "title": "Bezzera's Patent",
+          "major": true,
+          "tagline": "Luigi Bezzera patents the first removable-portafilter espresso machine.",
+          "content": "On **19 December 1901**, Milan barista **Luigi Bezzera** applied for a patent on innovations to the espresso machine, including the first removable *portafilter* grouphead — allowing individual portions to be made quickly without cooling the boiler.\n\nBezzera's motivation was reportedly practical: he wanted his employees to spend less time on their coffee breaks. The machine he envisioned — the *Tipo Gigante* — used steam pressure to force water through ground coffee in seconds.\n\nHis patent was acquired by **Desiderio Pavoni**, who founded La Pavoni in 1905 and began commercial production. The machines were exhibited at the 1906 Milan Fair.",
+          "sources": [
+            { "title": "Luigi Bezzera — Wikipedia", "url": "https://en.wikipedia.org/wiki/Luigi_Bezzera" },
+            { "title": "The Evolution of Espresso with Bezzera", "url": "https://www.bezzera.it/en/news/Espresso-Evolution" }
+          ]
+        },
+        {
+          "id": "gaggia-lever",
+          "date": "1948",
+          "title": "Gaggia and the Crema",
+          "major": true,
+          "tagline": "A Milan barista raises the pressure to 9 bars — and discovers crema.",
+          "content": "In **1948**, Achille Gaggia commercialized a spring-lever machine that forced water through coffee at **8–10 bars** of pressure — compared to the 1.5 bars of earlier steam machines. The result was a shorter, denser, more aromatic shot topped by a **golden foam** nobody had seen before.\n\nCustomers were initially suspicious of the \"scum\" on top. Gaggia rebranded it *caffè crème* — suggesting the espresso was so rich it produced its own cream. The name stuck, if not the spelling: today the foam is universally called *crema*.\n\nGaggia's machine set the template for modern espresso: **9 bars of pressure**, 25–30 seconds, a 1-ounce shot. Every espresso machine made since is a descendant.",
+          "sources": [
+            { "title": "Gaggia — Wikipedia", "url": "https://en.wikipedia.org/wiki/Gaggia" },
+            { "title": "100 Years Of Espresso Machines: What Changed? — The Golden Lamb", "url": "https://thegoldenlamb.com/coffee-history/history-of-espresso-machines/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nescafe-launch",
+      "date": "1938-04-01",
+      "display": "Apr 1938",
+      "title": "Nescafé Launches",
+      "tagline": "Nestlé turns a Brazilian surplus into the world's first mass-market instant coffee.",
+      "content": "On **1 April 1938**, Nestlé launched *Nescafé* in Switzerland — the result of years of work by chemist Max Morgenthaler to solve a practical problem: Brazil's chronic coffee surplus after the 1929 crash.\n\nThe technique dried equal parts coffee extract and soluble carbohydrates into a powder that dissolved instantly in hot water. The product was mediocre by any artisan standard but enormously convenient.\n\n## Why it matters\n- Nescafé's rollout to 30 countries by 1940 and its adoption as standard ration in US military supply chains during WWII normalized coffee as **mass-consumption commodity** rather than craft beverage.\n- WWII soldiers who returned home as habitual Nescafé drinkers created the postwar instant-coffee market that Nescafé dominated for decades.\n- The very blandness of instant coffee eventually provoked a reaction — the quality-driven movements that produced [[Peet's Coffee and the Specialty Turn]] and beyond.",
+      "sources": [
+        { "title": "Nescafé — Wikipedia", "url": "https://en.wikipedia.org/wiki/Nescaf%C3%A9" },
+        { "title": "75 Years of the Nestlé Brand that Invented Instant Coffee — Nestlé CWA", "url": "https://www.nestle-cwa.com/en/celebrating-75-years" }
+      ]
+    },
+    {
+      "id": "peets-coffee-specialty",
+      "date": "1966",
+      "title": "Peet's Coffee and the Specialty Turn",
+      "major": true,
+      "tagline": "Alfred Peet opens in Berkeley — dark-roasted, single-origin, and artisanal.",
+      "content": "In **1966**, Dutch-born Alfred Peet opened *Peet's Coffee, Tea & Spices* on Vine Street in Berkeley, California. Peet — who had worked in the coffee trade in Europe and the Dutch East Indies — was appalled by the thin, stale commodity coffee dominating the American market.\n\nHis shop offered **dark-roasted, high-quality Arabica beans** sourced with care, sold in small batches and brewed to order. The shop became a local institution and a school for a generation of coffee entrepreneurs.\n\nThree of his regulars — Jerry Baldwin, Zev Siegl, and Gordon Bowker — borrowed Peet's model almost wholesale when they founded **Starbucks** in Seattle in 1971 (see [[Starbucks and the Global Coffee Chain]]). Peet himself supplied their first beans.",
+      "sources": [
+        { "title": "Alfred Peet — Wikipedia", "url": "https://en.wikipedia.org/wiki/Alfred_Peet" },
+        { "title": "The History of Peet's Coffee — Peet's Coffee", "url": "https://www.peets.com/blogs/peets/the-history-of-peets-coffee" }
+      ]
+    },
+    {
+      "id": "starbucks-global-chain",
+      "date": "1971",
+      "title": "Starbucks and the Global Coffee Chain",
+      "major": true,
+      "tagline": "From a Seattle bean shop to the template for the modern café world.",
+      "content": "Starbucks was founded on **30 March 1971** at Seattle's Pike Place Market by Jerry Baldwin, Zev Siegl, and Gordon Bowker — three men who had learned about quality coffee from [[Peet's Coffee and the Specialty Turn|Alfred Peet]]. For its first sixteen years it sold beans, not drinks.\n\nThe transformation came from **Howard Schultz**, who joined the company in 1982 and visited Milan in 1983, where the *espresso bar* culture — the morning ritual, the communal third place, the practiced craft — gave him a model for what Starbucks could become. The founders resisted. Schultz left in 1985 to start his own chain, *Il Giornale*, then **bought Starbucks in 1987** for $3.8 million and merged the two.\n\nThe result was the template for the global café chain: espresso drinks made to customized specifications, a branded \"third place\" between home and office, rapid franchised growth. By the 2000s, Starbucks had more than 10,000 locations worldwide.\n\n*Open this event's timeline to follow the chapter from espresso bars to the third wave.*",
+      "sources": [
+        { "title": "Starbucks — Wikipedia", "url": "https://en.wikipedia.org/wiki/Starbucks" },
+        { "title": "Howard Schultz — Wikipedia", "url": "https://en.wikipedia.org/wiki/Howard_Schultz" }
+      ],
+      "children": [
+        {
+          "id": "schultz-milan-1983",
+          "date": "1983",
+          "title": "Schultz in Milan",
+          "major": true,
+          "tagline": "A marketing director visits an espresso bar and has an idea that changes everything.",
+          "content": "On a buying trip to Milan in **1983**, Howard Schultz walks into the city's espresso bars and encounters something he cannot find in America: a **morning ritual and a sense of community** built around coffee. The barista knows regulars by name. People linger over their shot standing at a marble counter.\n\n\"In each shop I visited I began to see the same people and interactions,\" he later wrote. \"It dawned on me that what these coffee bars had created, aside from the romance and theater of coffee, was a morning ritual and a sense of community.\"\n\nHe returns to Seattle determined to transplant this culture. The Starbucks founders are unconvinced.",
+          "sources": [
+            { "title": "35 Years After Milan's Espresso Bars Inspired Howard Schultz — Yahoo Finance", "url": "https://finance.yahoo.com/news/35-years-milan-apos-espresso-111918402.html" },
+            { "title": "Howard Schultz — Wikipedia", "url": "https://en.wikipedia.org/wiki/Howard_Schultz" }
+          ]
+        },
+        {
+          "id": "schultz-buys-starbucks",
+          "date": "1987",
+          "title": "Schultz Buys Starbucks",
+          "tagline": "Il Giornale acquires Starbucks for $3.8 million — the chain era begins.",
+          "content": "In **1987**, Howard Schultz acquires Starbucks for $3.8 million with backing from investors including Bill Gates Sr. He merges his own *Il Giornale* cafés into the brand and begins rapid national expansion — from 17 stores at acquisition to more than 100 by 1992 and nearly 5,000 by 2000.\n\nThe Starbucks model standardizes the [[The Espresso Age|espresso drink]] for a mass audience and — perhaps more consequentially — makes the daily café visit a middle-class habit across the English-speaking world.",
+          "sources": [
+            { "title": "Starbucks — Wikipedia", "url": "https://en.wikipedia.org/wiki/Starbucks" }
+          ]
+        },
+        {
+          "id": "third-wave-coined",
+          "date": "2002",
+          "title": "The Third Wave",
+          "major": true,
+          "tagline": "Trish Rothgeb names a movement already in motion.",
+          "content": "In the **December 2002** issue of *The Flamekeeper* — the newsletter of the Roasters Guild of the Specialty Coffee Association of America — roaster **Trish Rothgeb** coins the phrase **\"third wave of coffee.\"**\n\nShe borrows the wave metaphor from feminism to describe successive cultural shifts:\n- **First wave**: commodity coffee as everyday necessity (mass-market brands, instant, 20th century)\n- **Second wave**: espresso-based café culture, Starbucks, specialty roasting (1970s–1990s)\n- **Third wave**: coffee treated as a **craft and artisanal product** — origin-specific, relationship-sourced, freshly roasted, and brewed with precision\n\nThe movement is already underway when Rothgeb names it: Intelligentsia (1995), Stumptown (1999), and Counter Culture (1995) are its founding roasters.",
+          "sources": [
+            { "title": "Third-wave coffee — Wikipedia", "url": "https://en.wikipedia.org/wiki/Third-wave_coffee" },
+            { "title": "Who coined the term 'Third Wave' for coffee? — Seattle Times", "url": "https://www.seattletimes.com/business/local-business/who-coined-the-term-third-wave-for-coffee/" }
+          ]
+        },
+        {
+          "id": "james-hoffmann-wbc",
+          "date": "2007",
+          "title": "James Hoffmann, World Barista Champion",
+          "tagline": "The third wave finds its most influential communicator.",
+          "content": "In **2007**, British barista **James Hoffmann** wins the World Barista Championship in Tokyo, having won the UK championship the year before. The following year he co-founds **Square Mile Coffee Roasters** in London.\n\nHoffmann becomes the third wave's most effective ambassador: his 2014 book *The World Atlas of Coffee* reaches a wide general audience, and his YouTube channel (launched 2016, now exceeding 2.5 million subscribers) introduces specialty coffee — brewing technique, equipment, origin, science — to a global audience that would never enter a specialty café.\n\n## Why it matters\n- The third wave moves from trade subculture to mainstream through communicators like Hoffmann.\n- The YouTube channel model — deep, honest, consumer-focused coffee content — is itself a product of the specialty coffee ethos applied to media.",
+          "sources": [
+            { "title": "James Hoffmann — Wikipedia", "url": "https://en.wikipedia.org/wiki/James_Hoffmann" },
+            { "title": "James Hoffmann Is Coffee's Original Influencer — Imbibe Magazine", "url": "https://imbibemagazine.com/james-hoffmann-square-mile-coffee/" }
+          ]
+        }
+      ]
+    }
+  ]
+}
