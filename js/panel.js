@@ -17,6 +17,10 @@ function setReadingTarget(evEl){
 
 handlers.openReader = (node, evEl) => {
   if (state.busy) return;
+  if (!node.children && node.pathIds){
+    const url = buildTimelinePath(state.timelineId, node.pathIds, BASE);
+    if (location.pathname !== url){ history.pushState(null, '', url); state.readerPushed = true; }
+  }
   const panel = els.panel;
   const want = state.layout === 'v' ? 'vp' : 'hp';
   if (!panel.classList.contains(want)){
@@ -54,6 +58,11 @@ handlers.closeReader = () => {
     state.cur.querySelectorAll('.open').forEach(x => x.classList.remove('open'));
     const cont = state.cur.querySelector('.events,.htrack');
     if (cont) cont.classList.remove('reading');
+  }
+  if (state.readerPushed){ state.readerPushed = false; history.back(); }
+  else if (state.idx && !state.busy && state.path.length){
+    const url = buildTimelinePath(state.timelineId, state.path[state.path.length - 1].pathIds, BASE);
+    if (location.pathname !== url) history.replaceState(null, '', url);
   }
 };
 

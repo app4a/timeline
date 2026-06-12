@@ -213,17 +213,30 @@ export async function renderTimelineRoute(parsed){
   els.rail.hidden = false;
   els.seg.hidden = false;
   const chain = resolvePath(state.idx, parsed.path);
-  if (chain.length - 1 !== parsed.path.length){   // unknown tail — normalize URL to deepest valid
+  let focusLeaf = null;
+  let levelChain = chain;
+  const deepest = chain[chain.length - 1];
+  if (!deepest.isRoot && !deepest.children){       // leaf URL -> parent level + open reader
+    focusLeaf = deepest;
+    levelChain = chain.slice(0, -1);
+  }
+  if (chain.length - 1 !== parsed.path.length){    // unknown tail — normalize URL to deepest valid
     history.replaceState(null, '', buildTimelinePath(parsed.id, chain.slice(1).map(n => n.id), BASE));
   }
-  if (!state.cur || !els.stage.contains(state.cur)) { state.path = chain; renderCurrent(); }
-  else transitionTo(chain);
+  if (!state.cur || !els.stage.contains(state.cur)) { state.path = levelChain; renderCurrent(); }
+  else if (state.path[state.path.length - 1] !== levelChain[levelChain.length - 1]) transitionTo(levelChain);
+  if (focusLeaf){
+    state.readerPushed = false;                    // URL already points at the leaf
+    const delay = state.busy ? 900 : 0;
+    setTimeout(() => handlers.focusChild(focusLeaf), delay);
+  }
 }
 
 /* ---------- handler wiring (instant versions; Task 10 adds morphs) ---------- */
 handlers.drill = (node, fromEl) => {
   if (state.busy || !node.children) return;
   handlers.closeReader?.();
+  state.readerPushed = false;
   state.pendingFrom = fromEl ? fromEl.getBoundingClientRect() : null;
   navigate(buildTimelinePath(state.timelineId, node.pathIds, BASE));
 };
