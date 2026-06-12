@@ -1,5 +1,5 @@
-import { els, state, handlers } from './state.js';
-import { parseHash, buildLibraryHash } from './router.js';
+import { els, state, handlers, navigate, BASE } from './state.js';
+import { parsePath, buildLibraryPath } from './router.js';
 import { renderLibrary } from './library.js';
 import { renderTimelineRoute, renderCurrent } from './viewer.js';
 import { initSearch } from './search.js';
@@ -10,6 +10,11 @@ els.seg   = document.getElementById('seg');
 els.panel = document.getElementById('panel');
 els.search = document.getElementById('search');
 els.hint = document.getElementById('hint');
+
+document.querySelector('.brand').addEventListener('click', e => {
+  e.preventDefault();
+  navigate(buildLibraryPath(BASE));
+});
 
 function renderHint(){
   if (!state.idx){ els.hint.innerHTML = ''; return; }
@@ -64,7 +69,7 @@ function errorCard(err){
   lvl.className = 'level';
   lvl.innerHTML = '<div class="level-in"><div class="errcard">' +
     '<h2>Hmm.</h2><p>' + msg + '</p>' +
-    '<a href="' + buildLibraryHash() + '">← Back to the library</a></div></div>';
+    '<a href="' + buildLibraryPath(BASE) + '">← Back to the library</a></div></div>';
   els.stage.querySelectorAll('.level').forEach(l => l.remove());
   els.stage.appendChild(lvl);
   state.cur = null; state.sel = -1;
@@ -74,7 +79,7 @@ function errorCard(err){
 }
 
 async function route(){
-  const parsed = parseHash(location.hash);
+  const parsed = parsePath(location.pathname, BASE);
   try {
     if (parsed.view === 'library') await renderLibrary();
     else await renderTimelineRoute(parsed);
@@ -82,6 +87,11 @@ async function route(){
   renderHint();
 }
 
+handlers.route = route;
+
 initSearch();
-window.addEventListener('hashchange', route);
-route();
+window.addEventListener('popstate', route);
+
+const legacy = location.hash.match(/^#\/t\/(.+)$/);
+if (legacy) location.replace(BASE + 't/' + legacy[1].replace(/\/+$/, '') + '/');
+else route();

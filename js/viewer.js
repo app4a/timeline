@@ -1,7 +1,7 @@
 import './panel.js';
-import { state, els, handlers } from './state.js';
+import { state, els, handlers, navigate, BASE } from './state.js';
 import { loadTimeline, indexTimeline, resolvePath, displayDate, getRead, markRead } from './data.js';
-import { buildTimelineHash } from './router.js';
+import { buildTimelinePath } from './router.js';
 import { renderRail } from './rail.js';
 
 export function here(){ return state.path[state.path.length - 1]; }
@@ -214,7 +214,7 @@ export async function renderTimelineRoute(parsed){
   els.seg.hidden = false;
   const chain = resolvePath(state.idx, parsed.path);
   if (chain.length - 1 !== parsed.path.length){   // unknown tail — normalize URL to deepest valid
-    history.replaceState(null, '', buildTimelineHash(parsed.id, chain.slice(1).map(n => n.id)));
+    history.replaceState(null, '', buildTimelinePath(parsed.id, chain.slice(1).map(n => n.id), BASE));
   }
   if (!state.cur || !els.stage.contains(state.cur)) { state.path = chain; renderCurrent(); }
   else transitionTo(chain);
@@ -225,12 +225,12 @@ handlers.drill = (node, fromEl) => {
   if (state.busy || !node.children) return;
   handlers.closeReader?.();
   state.pendingFrom = fromEl ? fromEl.getBoundingClientRect() : null;
-  location.hash = buildTimelineHash(state.timelineId, node.pathIds);
+  navigate(buildTimelinePath(state.timelineId, node.pathIds, BASE));
 };
 handlers.goUpTo = (i) => {
   if (state.busy || i >= state.path.length - 1) return;
   handlers.closeReader?.();
-  location.hash = buildTimelineHash(state.timelineId, state.path[i].pathIds);
+  navigate(buildTimelinePath(state.timelineId, state.path[i].pathIds, BASE));
 };
 handlers.focusChild = (node) => {
   let evEl = null;

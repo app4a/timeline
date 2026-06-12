@@ -1,5 +1,6 @@
-import { state, els, handlers } from './state.js';
+import { state, els, handlers, navigate, BASE } from './state.js';
 import { displayDate } from './data.js';
+import { buildTimelinePath } from './router.js';
 
 export function searchNodes(idx, query){
   const q = (query || '').trim().toLowerCase();
@@ -50,10 +51,8 @@ export function initSearch(){
       const target = node.parent;
       if (target === state.path[state.path.length - 1]) handlers.focusChild(node);
       else {
-        import('./router.js').then(({ buildTimelineHash }) => {
-          location.hash = buildTimelineHash(state.timelineId, target.pathIds);
-          setTimeout(() => handlers.focusChild(node), 900);
-        });
+        navigate(buildTimelinePath(state.timelineId, target.pathIds, BASE));
+        setTimeout(() => handlers.focusChild(node), 900);
       }
     }
   }

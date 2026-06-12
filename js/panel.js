@@ -1,7 +1,7 @@
-import { state, els, handlers } from './state.js';
+import { state, els, handlers, navigate, BASE } from './state.js';
 import { mdToHtml } from './markdown.js';
 import { displayDate, loadTimeline, indexTimeline, resolvePath } from './data.js';
-import { buildTimelineHash } from './router.js';
+import { buildTimelinePath } from './router.js';
 
 function resolveWiki(target){
   if (target.includes('/')) return true;             // cross-timeline: validated at build time
@@ -67,7 +67,7 @@ async function followWiki(target, fromEl){
     else {
       handlers.closeReader();
       state.pendingFrom = fromEl ? fromEl.getBoundingClientRect() : null;
-      location.hash = buildTimelineHash(state.timelineId, node.parent.pathIds);
+      navigate(buildTimelinePath(state.timelineId, node.parent.pathIds, BASE));
       setTimeout(() => handlers.focusChild(node), 900);
     }
     return;
@@ -79,9 +79,9 @@ async function followWiki(target, fromEl){
     const chain = resolvePath(idx, segs);
     const node = chain[chain.length - 1];
     const landTimeline = node.children ? node : node.parent;
-    location.hash = buildTimelineHash(tlId, landTimeline.pathIds);
+    navigate(buildTimelinePath(tlId, landTimeline.pathIds, BASE));
     if (!node.children) setTimeout(() => handlers.focusChild(node), 900);
-  } catch { location.hash = buildTimelineHash(tlId, []); }
+  } catch { navigate(buildTimelinePath(tlId, [], BASE)); }
 }
 
 document.addEventListener('click', e => {

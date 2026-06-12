@@ -1,6 +1,6 @@
-import { els, state, handlers } from './state.js';
+import { els, state, handlers, navigate, BASE } from './state.js';
 import { loadIndex } from './data.js';
-import { buildTimelineHash } from './router.js';
+import { buildTimelinePath } from './router.js';
 
 export async function renderLibrary(){
   handlers.closeReader?.();
@@ -23,7 +23,7 @@ export async function renderLibrary(){
     card.innerHTML = `<h2></h2><p></p><div class="meta"><span><b>${t.eventCount}</b> moments</span><span>updated ${t.updated}</span></div>`;
     card.querySelector('h2').textContent = t.title;
     card.querySelector('p').textContent = t.tagline;
-    card.onclick = () => { location.hash = buildTimelineHash(t.id, []); };
+    card.onclick = () => navigate(buildTimelinePath(t.id, [], BASE));
     grid.appendChild(card);
   }
   inner.appendChild(grid);
