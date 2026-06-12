@@ -28,7 +28,8 @@ export async function renderLibrary(){
   }
   inner.appendChild(grid);
   lvl.appendChild(inner);
-  els.stage.replaceChildren(lvl);
+  els.stage.querySelectorAll('.level').forEach(l => l.remove());
+  els.stage.appendChild(lvl);
   lvl.animate([{opacity:0, transform:'translateY(8px)'},{opacity:1, transform:'none'}],
               {duration:380, easing:'cubic-bezier(.2,.7,.2,1)'});
 }

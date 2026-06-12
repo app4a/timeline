@@ -60,10 +60,13 @@ function errorCard(err){
   const msg = err.code === 'notfound' ? 'That timeline doesn’t exist.'
             : err.code === 'badjson'  ? 'This timeline’s data file is malformed.'
             : 'Couldn’t load data — are you offline?';
-  els.stage.innerHTML =
-    '<div class="level"><div class="level-in"><div class="errcard">' +
+  const lvl = document.createElement('div');
+  lvl.className = 'level';
+  lvl.innerHTML = '<div class="level-in"><div class="errcard">' +
     '<h2>Hmm.</h2><p>' + msg + '</p>' +
-    '<a href="' + buildLibraryHash() + '">← Back to the library</a></div></div></div>';
+    '<a href="' + buildLibraryHash() + '">← Back to the library</a></div></div>';
+  els.stage.querySelectorAll('.level').forEach(l => l.remove());
+  els.stage.appendChild(lvl);
   console.error(err);
 }
 
