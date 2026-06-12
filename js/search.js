@@ -33,7 +33,8 @@ export function initSearch(){
     results.forEach((r, i) => {
       const row = document.createElement('div');
       row.className = 'sk-row' + (i === cursor ? ' cur' : '');
-      const crumb = [state.idx.root.title, ...r.node.pathIds.slice(0, -1)].join(' / ');
+      const parents = []; for (let p = r.node.parent; p; p = p.parent) parents.unshift(p.title);
+      const crumb = parents.join(' / ');
       row.innerHTML = '<div><div class="sk-t"></div><div class="sk-c"></div></div><div class="sk-d"></div>';
       row.querySelector('.sk-t').textContent = r.node.title;
       row.querySelector('.sk-c').textContent = crumb;

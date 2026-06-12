@@ -16,6 +16,7 @@ function setReadingTarget(evEl){
 }
 
 handlers.openReader = (node, evEl) => {
+  if (state.busy) return;
   const panel = els.panel;
   const want = state.layout === 'v' ? 'vp' : 'hp';
   if (!panel.classList.contains(want)){
