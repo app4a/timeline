@@ -235,3 +235,13 @@ kbd{ font-family:var(--sans); font-size:10px; font-weight:700; border:1px solid 
 .jumpchip i{ font-style:normal; color:var(--muted); margin-left:4px; padding:0 2px; }
 .jumpchip i:hover{ color:var(--ink); }
 .jumpchip:hover{ border-color:var(--accent); }
+
+/* ===== SSG static content (visible pre-hydration / to crawlers) ===== */
+.level.ssg h1{ font-size:clamp(30px,2.4vw + 14px,48px); letter-spacing:-.028em; margin:0 0 10px; }
+.ssg-events{ list-style:none; padding:0; margin:18px 0; }
+.ssg-events li{ margin:12px 0; font-size:15px; }
+.ssg-events a{ color:var(--ink); text-decoration:none; font-weight:600; }
+.ssg-events a b{ color:var(--accent); font-weight:700; }
+.ssg-events span{ color:var(--muted); display:block; font-size:13px; }
+.ssg-lib{ list-style:none; padding:0; } .ssg-lib li{ margin:10px 0; }
+.ssg-lib a{ color:var(--accent); font-weight:700; text-decoration:none; }

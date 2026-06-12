@@ -97,3 +97,46 @@ export function sitemap(timelines, { site, base }){
 ${urls.map(u => `  <url><loc>${u}</loc><lastmod>${lastmods[u]}</lastmod></url>`).join('\n')}
 </urlset>\n`;
 }
+
+/* ---------- emit pipeline (CLI) ---------- */
+import { readFileSync, readdirSync, mkdirSync, writeFileSync, cpSync, rmSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { join, dirname } from 'node:path';
+
+export function buildSite({ root, out, site, base }){
+  const shell = readFileSync(join(root, 'index.html'), 'utf8');
+  const index = JSON.parse(readFileSync(join(root, 'timelines/index.json'), 'utf8'));
+  const timelines = index.timelines.map(t =>
+    JSON.parse(readFileSync(join(root, `timelines/${t.id}.json`), 'utf8')));
+  rmSync(out, { recursive: true, force: true });
+  mkdirSync(out, { recursive: true });
+  const write = (rel, content) => {
+    const f = join(out, rel);
+    mkdirSync(dirname(f), { recursive: true });
+    writeFileSync(f, content);
+  };
+  let pages = 0;
+  write('index.html', libraryPage(shell, index, { site, base })); pages++;
+  for (const tl of timelines){
+    const emit = (pathIds) => { write(join('t', tl.id, ...pathIds, 'index.html'),
+      nodePage(shell, tl, pathIds, { site, base })); pages++; };
+    emit([]);
+    (function walk(evs, p){ for (const e of evs || []){ emit([...p, e.id]); walk(e.children, [...p, e.id]); } })(tl.events, []);
+  }
+  write('sitemap.xml', sitemap(timelines, { site, base }));
+  write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${site}${base}sitemap.xml\n`);
+  write('404.html', libraryPage(shell, index, { site, base })
+    .replace('</head>', '<meta name="robots" content="noindex"></head>'));
+  for (const dir of ['css', 'js', 'assets', 'timelines']) cpSync(join(root, dir), join(out, dir), { recursive: true });
+  return pages;
+}
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]){
+  const root = fileURLToPath(new URL('..', import.meta.url));
+  const site = process.env.SITE_ORIGIN || 'https://app4a.github.io';
+  const base = process.env.SITE_BASE || '/timeline/';
+  const { execSync } = await import('node:child_process');
+  execSync('node tools/validate.js', { stdio: 'inherit', cwd: root });   // content gate before build
+  const pages = buildSite({ root, out: join(root, '_site'), site, base });
+  console.log(`✓ built ${pages} pages into _site/`);
+}
