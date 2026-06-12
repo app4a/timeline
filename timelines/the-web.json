@@ -7,7 +7,7 @@
     {
       "id": "arpanet", "date": "1969-10-29", "display": "1969", "title": "ARPANET", "major": true,
       "tagline": "The first packet-switched network goes live.",
-      "content": "UCLA and Stanford exchange the first ARPANET message — intended to be *LOGIN*, it crashes after **\"LO\"**. Packet switching works, and the network that will become the Internet is born.",
+      "content": "UCLA and SRI (Stanford Research Institute) exchange the first ARPANET message — intended to be *LOGIN*, it crashes after **\"LO\"**. Packet switching works, and the network that will become the Internet is born.",
       "sources": [ { "title": "ARPANET — Wikipedia", "url": "https://en.wikipedia.org/wiki/ARPANET" } ]
     },
     {
@@ -46,7 +46,7 @@
     {
       "id": "mosaic", "date": "1993-04-22", "display": "1993", "title": "Mosaic", "major": true,
       "tagline": "The browser that showed images — and everyone the point.",
-      "content": "NCSA **Mosaic** puts images inline with text and installs in minutes. The Web's population explodes from thousands to millions; its authors go on to found Netscape.",
+      "content": "NCSA **Mosaic** brings inline images to a mass audience and installs in minutes. The Web's population explodes from thousands to millions; its authors go on to found Netscape.",
       "sources": [ { "title": "Mosaic — Wikipedia", "url": "https://en.wikipedia.org/wiki/Mosaic_(web_browser)" } ]
     },
     {

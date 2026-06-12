@@ -30,7 +30,7 @@
       ]
     },
     {
-      "id": "alexnet", "date": "2012-09-30", "display": "2012", "title": "AlexNet", "major": true,
+      "id": "alexnet", "date": "2012-10", "display": "2012", "title": "AlexNet", "major": true,
       "tagline": "Deep learning wins, and everything changes.",
       "content": "A three-person team — Alex Krizhevsky, Ilya Sutskever, Geoffrey Hinton — enters a deep **convolutional neural network** into the ImageNet competition and wins by an unheard-of margin (15.3% error vs 26.2% for second place).\n\nThe recipe: a decades-old idea (neural nets), two new ingredients (**GPUs** + huge labeled datasets scraped from [[the-web/www-proposal|the Web]]), and the conviction to scale it.\n\n## Why it matters\n- Overnight, \"neural networks\" went from unfashionable to *the* method.\n- The scaling lesson — more data, more compute, better results — leads directly to [[Transformers]] and ultimately [[ChatGPT]].\n- Two of the three authors go on to found or lead the labs of the LLM era.",
       "sources": [
@@ -52,15 +52,16 @@
           "sources": [ { "title": "arXiv:1706.03762", "url": "https://arxiv.org/abs/1706.03762" } ]
         },
         {
+          "id": "gpt-1", "date": "2018-06-11", "display": "Jun 2018", "title": "GPT-1",
+          "tagline": "OpenAI bets on generative pretraining.",
+          "content": "OpenAI's **GPT-1** takes the opposite bet from BERT: predict the *next* token, generatively, and scale it. At 117M parameters it is modest — but the line GPT-1 → GPT-2 → GPT-3 → [[ChatGPT]] is a straight application of the same recipe at growing scale.",
+          "sources": [ { "title": "Improving Language Understanding by Generative Pre-Training (PDF)", "url": "https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf" } ]
+        },
+        {
           "id": "bert", "date": "2018-10-11", "display": "Oct 2018", "title": "BERT",
           "tagline": "Bidirectional pretraining conquers understanding tasks.",
           "content": "Google's **BERT** pretrains a Transformer on masked-word prediction over Wikipedia, then fine-tunes it for any task. It tops 11 benchmarks at once and powers Google Search within a year — the first mass deployment of Transformer language understanding.",
           "sources": [ { "title": "arXiv:1810.04805", "url": "https://arxiv.org/abs/1810.04805" } ]
-        },
-        {
-          "id": "gpt-1", "date": "2018-06-11", "display": "Jun 2018", "title": "GPT-1",
-          "tagline": "OpenAI bets on generative pretraining.",
-          "content": "OpenAI's **GPT-1** takes the opposite bet from BERT: predict the *next* token, generatively, and scale it. At 117M parameters it is modest — but the line GPT-1 → GPT-2 → GPT-3 → [[ChatGPT]] is a straight application of the same recipe at growing scale."
         },
         {
           "id": "vision-transformer", "date": "2020-10-22", "display": "Oct 2020", "title": "Vision Transformer",

@@ -20,13 +20,13 @@ It is also the contract the future read API / MCP server serves unchanged.
 |---|---|---|---|
 | `id` | string | yes | kebab-case, unique among its siblings; becomes a URL segment |
 | `date` | string | yes | `YYYY` or `YYYY-MM` or `YYYY-MM-DD` (sortable precision) |
-| `display` | string | no | human date override, e.g. `"Nov 2022"`; derived from `date` if absent |
+| `display` | string | no | human date override, e.g. "Nov 2022"; when absent the renderer derives it from date: YYYY → "YYYY", YYYY-MM → "Mon YYYY", YYYY-MM-DD → "Mon D, YYYY" |
 | `title` | string | yes | short event name (also the wiki-link target) |
 | `tagline` | string | no | one line shown on the timeline row |
 | `major` | boolean | no | emphasized title; default `false` |
 | `content` | string | no | markdown (see below) |
 | `sources` | {title,url}[] | no | citations; `url` must start with `http` |
-| `children` | Event[] | no | the timeline *inside* this event — same shape, any depth |
+| `children` | Event[] | no | the timeline *inside* this event — same shape, any depth; chronological order |
 
 ## Markdown subset in `content`
 
