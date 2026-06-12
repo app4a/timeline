@@ -1,6 +1,10 @@
 # Timeline Phase 2 — Publish & Author
 
-**Date:** 2026-06-12 · **Status:** Approved pending user review · **Builds on:** `2026-06-12-timeline-design.md` (MVP, shipped on master)
+**Date:** 2026-06-12 · **Status:** Approved · **Builds on:** `2026-06-12-timeline-design.md` (MVP, shipped on master)
+
+> Scope note: a "branch-canvas" drill visualization and reading-composition system were explored
+> in mockups (`.superpowers/brainstorm/`) and **rejected by the user** — phase 2 makes no visual-design
+> changes beyond the return chip. Focus: publishing, SEO, navigation state, and authoring.
 
 ## Purpose
 
