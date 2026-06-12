@@ -80,6 +80,86 @@ export function renderCurrent(){
   renderRail();
 }
 
+const EASE = 'cubic-bezier(.5,.05,.1,1)', SOFT = 'cubic-bezier(.2,.7,.2,1)';
+const rowsOf = lvl => lvl.querySelectorAll('.event');
+
+function morphDown(inc, out, fromRect){
+  const title = inc.querySelector('.lvtitle'), sub = inc.querySelector('.lvsub'),
+        cr = inc.querySelector('.crumb'), up = inc.querySelector('.upcirc');
+  const evs = rowsOf(inc);
+  evs.forEach(e => e.style.opacity = 0);
+  if (fromRect){
+    const last = title.getBoundingClientRect();
+    const dx = fromRect.left - last.left, dy = fromRect.top - last.top;
+    const sc = Math.max(.3, Math.min(1, fromRect.height / last.height));
+    title.animate([{transform:`translate(${dx}px,${dy}px) scale(${sc})`},{transform:'none'}],
+                  {duration:640, easing:EASE, fill:'both'});
+  } else {
+    title.animate([{opacity:0, transform:'translateY(10px)'},{opacity:1, transform:'none'}],
+                  {duration:480, easing:SOFT, fill:'both'});
+  }
+  [cr, up].forEach(el => el && el.animate([{opacity:0},{opacity:1}], {duration:420, delay:240, fill:'both'}));
+  sub && sub.animate([{opacity:0, transform:'translateY(8px)'},{opacity:1, transform:'none'}],
+                     {duration:460, delay:300, easing:SOFT, fill:'both'});
+  if (out){
+    rowsOf(out).forEach((r,i) => r.animate(
+      [{opacity:1},{opacity:0, transform: state.layout==='v' ? 'translateY(-14px)' : 'translateX(-20px)'}],
+      {duration:300, delay:i*22, easing:'ease', fill:'both'}));
+    out.querySelectorAll('.crumb,.titlerow,.lvsub').forEach(el =>
+      el.animate([{opacity:1},{opacity:0}], {duration:260, fill:'both'}));
+  }
+  evs.forEach((e,i) => { e.style.opacity = '';
+    e.animate([{opacity:0, transform: state.layout==='v' ? 'translateY(20px)' : 'translateX(36px)'},
+               {opacity:1, transform:'none'}],
+              {duration:500, delay:260 + i*65, easing:SOFT, fill:'both'}); });
+}
+
+function morphUp(inc, out, leavingNode){
+  out.style.zIndex = 2;
+  const outTitle = out.querySelector('.lvtitle');
+  let target = null;
+  rowsOf(inc).forEach(e => { if (e.__node === leavingNode) target = e.querySelector('.ti'); });
+  rowsOf(inc).forEach(e => e.style.opacity = 0);
+  const first = outTitle.getBoundingClientRect();
+  const last = (target || inc.querySelector('.lvtitle')).getBoundingClientRect();
+  const dx = last.left - first.left, dy = last.top - first.top;
+  const sc = Math.max(.2, last.height / first.height);
+  outTitle.animate([{transform:'none', opacity:1},
+                    {transform:`translate(${dx}px,${dy}px) scale(${sc})`, opacity:.15}],
+                   {duration:560, easing:EASE, fill:'both'});
+  out.querySelectorAll('.lvsub,.crumb,.upcirc').forEach(el =>
+    el.animate([{opacity:1},{opacity:0}], {duration:200, fill:'both'}));
+  rowsOf(out).forEach((r,i) => r.animate([{opacity:1},{opacity:0, transform:'translateY(12px)'}],
+    {duration:240, delay:i*16, fill:'both'}));
+  inc.querySelector('.level-in').animate([{opacity:0},{opacity:1}], {duration:360, fill:'both'});
+  rowsOf(inc).forEach((e,i) => { e.style.opacity = '';
+    e.animate([{opacity:0, transform: state.layout==='v' ? 'translateY(-12px)' : 'translateX(-22px)'},
+               {opacity:1, transform:'none'}],
+              {duration:440, delay:140 + i*48, easing:SOFT, fill:'both'}); });
+}
+
+function transitionTo(newChain){
+  const oldChain = state.path;
+  state.path = newChain;
+  const inc = buildLevel(newChain[newChain.length - 1]);
+  els.stage.appendChild(inc);
+  const out = state.cur;
+  state.cur = inc; state.sel = -1;
+  const extendsOld = newChain.length > oldChain.length &&
+    oldChain.every((n, i) => newChain[i] === n);
+  const shrinksOld = newChain.length < oldChain.length &&
+    newChain.every((n, i) => oldChain[i] === n);
+  state.busy = true;
+  if (out && extendsOld)      morphDown(inc, out, state.pendingFrom);
+  else if (out && shrinksOld) morphUp(inc, out, oldChain[oldChain.length - 1]);
+  else if (out)               { inc.animate([{opacity:0, transform:'scale(.985)'},{opacity:1, transform:'none'}],
+                                            {duration:380, easing:SOFT, fill:'both'});
+                                out.animate([{opacity:1},{opacity:0}], {duration:240, fill:'both'}); }
+  state.pendingFrom = null;
+  setTimeout(() => { if (out) out.remove(); state.busy = false; renderRail(); }, out ? 860 : 0);
+  if (!out) renderRail();
+}
+
 export async function renderTimelineRoute(parsed){
   if (state.timelineId !== parsed.id){
     const tl = await loadTimeline(parsed.id);     // throws {code} — handled by app.js
@@ -92,14 +172,15 @@ export async function renderTimelineRoute(parsed){
   if (chain.length - 1 !== parsed.path.length){   // unknown tail — normalize URL to deepest valid
     history.replaceState(null, '', buildTimelineHash(parsed.id, chain.slice(1).map(n => n.id)));
   }
-  state.path = chain;
-  renderCurrent();                                 // morph replaces this in Task 10
+  if (!state.cur || !els.stage.contains(state.cur)) { state.path = chain; renderCurrent(); }
+  else transitionTo(chain);
 }
 
 /* ---------- handler wiring (instant versions; Task 10 adds morphs) ---------- */
 handlers.drill = (node, fromEl) => {
   if (state.busy || !node.children) return;
   handlers.closeReader?.();
+  state.pendingFrom = fromEl ? fromEl.getBoundingClientRect() : null;
   location.hash = buildTimelineHash(state.timelineId, node.pathIds);
 };
 handlers.goUpTo = (i) => {
