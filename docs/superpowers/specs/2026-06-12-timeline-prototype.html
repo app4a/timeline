@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timeline — morph prototype v2</title>
+<style>
+  :root{
+    --bg:#fbfbfd; --ink:#17171f; --soft:#4c4c58; --muted:#9a9aa6; --faint:#c9c9d6;
+    --line:#e7e7ef; --accent:#5b6cff; --accent-soft:rgba(91,108,255,.09);
+    --ease:cubic-bezier(.5,.05,.1,1); --soft-ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; color:var(--ink); background:var(--bg);
+        display:flex; flex-direction:column; -webkit-font-smoothing:antialiased; overflow:hidden; }
+
+  /* ---------- top bar ---------- */
+  .topbar{ flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 26px; border-bottom:1px solid var(--line); background:#fff; z-index:30; }
+  .brand{ font-size:13px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .brand .dot{ width:8px;height:8px;border-radius:50%;background:var(--accent) }
+  .seg{ display:flex; gap:4px; background:#f0f0f6; padding:4px; border-radius:99px; }
+  .seg button{ all:unset; cursor:pointer; font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:99px; color:var(--muted); }
+  .seg button.on{ background:#fff; color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.12); }
+
+  /* ---------- app grid: rail + stage ---------- */
+  .app{ flex:1 1 auto; display:grid; grid-template-columns:clamp(240px,19vw,320px) 1fr; min-height:0; }
+  @media(max-width:980px){ .app{grid-template-columns:1fr} .rail{display:none} }
+
+  /* ---------- tree rail (map) ---------- */
+  .rail{ border-right:1px solid var(--line); background:#fff; overflow:auto; padding:22px 14px 30px; scrollbar-gutter:stable; }
+  .rail-h{ display:flex; align-items:center; justify-content:space-between; padding:0 10px 12px; }
+  .rail-h .lb{ font-size:10.5px; font-weight:800; letter-spacing:.14em; color:var(--muted); }
+  .depth{ font-size:10px; font-weight:800; color:var(--accent); background:var(--accent-soft); border-radius:99px; padding:3px 9px; }
+  .rnode{ display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:9px; cursor:pointer; font-size:13px; color:var(--soft); position:relative; transition:background .15s,color .15s; }
+  .rnode:hover{ background:#f3f3f9; color:var(--ink); }
+  .rnode .tick{ width:7px; height:7px; border-radius:50%; border:1.5px solid var(--faint); flex:0 0 auto; transition:all .2s; }
+  .rnode.seen .tick{ background:rgba(91,108,255,.3); }
+  .legend{ display:flex; flex-wrap:wrap; gap:6px 14px; padding:2px 10px 14px; font-size:10.5px; color:var(--muted); }
+  .legend i{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; }
+  .legend .du{ border:1.5px solid var(--faint); background:var(--bg); }
+  .legend .ds{ border:1.5px solid var(--faint); background:rgba(91,108,255,.3); }
+  .legend .do{ border:1.5px solid var(--accent); background:var(--accent); box-shadow:0 0 0 2px rgba(91,108,255,.18); }
+  .rnode .nm{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .rnode .more{ margin-left:auto; font-size:10px; font-weight:800; color:var(--accent); opacity:.85; flex:0 0 auto; }
+  .rnode.anc{ font-weight:600; color:var(--ink); }
+  .rnode.here{ background:var(--accent-soft); color:var(--ink); font-weight:700; }
+  .rnode.here .tick{ background:var(--accent); border-color:var(--accent); box-shadow:0 0 0 4px rgba(91,108,255,.14); }
+  .rkids{ border-left:1.5px solid var(--line); margin-left:13px; padding-left:6px; }
+
+  /* ---------- stage / level ---------- */
+  .stage{ position:relative; overflow:hidden; min-height:0; }
+  .level{ position:absolute; inset:0; overflow:auto; padding:clamp(26px,3.5vh,52px) clamp(26px,4vw,80px) 70px; scrollbar-gutter:stable both-edges; }
+  .level-in{ max-width:1200px; margin:0 auto; }
+  .level.h .level-in{ max-width:none; }           /* horizontal: timeline gets the whole screen */
+  .level.h .lvhead{ max-width:1200px; margin:0 auto; }
+  .lvhead{ width:100%; }
+  /* quiet, thin scrollbars */
+  .level,.rail,.pb,.hwrap{ scrollbar-width:thin; scrollbar-color:var(--faint) transparent; }
+  .level::-webkit-scrollbar,.rail::-webkit-scrollbar,.pb::-webkit-scrollbar,.hwrap::-webkit-scrollbar{ width:7px; height:7px; }
+  .level::-webkit-scrollbar-thumb,.rail::-webkit-scrollbar-thumb,.pb::-webkit-scrollbar-thumb,.hwrap::-webkit-scrollbar-thumb{ background:var(--faint); border-radius:99px; }
+  .level::-webkit-scrollbar-track,.rail::-webkit-scrollbar-track,.pb::-webkit-scrollbar-track,.hwrap::-webkit-scrollbar-track{ background:transparent; }
+
+  .crumb{ font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:700; display:flex; align-items:center; gap:8px; flex-wrap:wrap; min-height:14px; }
+  .crumb span.c{ cursor:pointer; transition:color .15s }
+  .crumb span.c:hover{ color:var(--accent) }
+  .crumb .sep{ color:var(--faint) }
+  .titlerow{ display:flex; align-items:center; gap:18px; margin-top:16px; }
+  .upcirc{ all:unset; cursor:pointer; width:42px; height:42px; border-radius:50%; background:#fff; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--soft); flex:0 0 auto; box-shadow:0 2px 8px -4px rgba(20,20,50,.18); transition:all .18s; }
+  .upcirc:hover{ color:var(--accent); border-color:var(--accent); transform:translateY(-1px); box-shadow:0 6px 16px -6px rgba(91,108,255,.45); }
+  .lvtitle{ font-size:clamp(30px,2.4vw + 14px,48px); font-weight:780; letter-spacing:-.028em; margin:0; display:inline-block; transform-origin:left top; will-change:transform; }
+  .lvsub{ font-size:clamp(14px,.4vw + 11px,17px); color:var(--muted); margin:10px 0 0; line-height:1.6; max-width:62ch; }
+
+  /* ---------- vertical events ---------- */
+  .events{ position:relative; margin-top:clamp(26px,3.5vh,44px); padding-left:34px; }
+  .events::before{ content:''; position:absolute; left:7px; top:12px; bottom:12px; width:2px; background:var(--line); }
+  .event{ position:relative; transition:opacity .3s; }
+  .events.reading .event:not(.open){ opacity:.55; }
+  /* dot language — one meaning only: read state. hollow = unread · tint = read · solid+halo = reading now.
+     importance is carried by title weight, not the dot. */
+  .marker{ position:absolute; left:-32px; top:17px; width:13px; height:13px; border-radius:50%; background:var(--bg); border:2px solid var(--faint); transition:all .2s; z-index:1; }
+  .event.seen .marker{ background:rgba(91,108,255,.25); }
+  .event:hover .marker{ border-color:var(--accent); transform:scale(1.2); box-shadow:0 0 0 5px rgba(91,108,255,.12); }
+  .hev:hover .marker{ transform:translate(-50%,-50%) scale(1.2); }
+  .row{ cursor:pointer; padding:13px 16px; border-radius:14px; transition:background .18s; }
+  .row:hover{ background:#f2f2f8; }
+  .event.focused .row{ outline:2px solid var(--accent); outline-offset:-2px; }
+  .yr{ font-size:clamp(11px,.3vw + 9px,12.5px); font-weight:800; letter-spacing:.06em; color:var(--accent); text-transform:uppercase; }
+  .ti{ font-size:clamp(16px,.7vw + 11px,21px); font-weight:650; margin-top:3px; letter-spacing:-.012em; display:inline-block; transform-origin:left top; }
+  .event.major .ti{ font-weight:760; }
+  .tag{ font-size:11px; color:var(--muted); margin-top:3px; }
+  .kids{ display:inline-flex; align-items:center; gap:6px; margin-top:10px; font-size:11.5px; font-weight:700; color:var(--accent); background:var(--accent-soft); padding:6px 12px; border-radius:99px; transition:background .15s; }
+  .kids:hover{ background:rgba(91,108,255,.2); }
+  .event.open .row{ background:#f2f2f8; }
+  .hev.open .hcard, .hev.open .hcard:hover{ background:#fff; border-color:var(--line); box-shadow:0 14px 30px -16px rgba(40,40,90,.45); }
+  .htrack.reading .event:not(.open){ opacity:.55; }
+  .event.open .marker{ background:var(--accent); border-color:var(--accent); box-shadow:0 0 0 5px rgba(91,108,255,.18); }
+  .panel .kids{ cursor:pointer; border:none; margin-top:14px; }
+  .event.pulse .row, .hev.pulse .hcard{ animation:pulsebg 1.4s ease; }
+  @keyframes pulsebg{ 0%{background:rgba(91,108,255,.16)} 100%{background:transparent} }
+
+  /* ---------- markdown reading ---------- */
+  .md{ font-family:Charter,Georgia,'Times New Roman',serif; font-size:clamp(15px,.4vw + 12.5px,17.5px); line-height:1.72; color:#33333d; max-width:70ch; padding:6px 4px 14px; }
+  .md p{ margin:.85em 0; }
+  .md h2{ font-family:inherit; font-size:1.22em; margin:1.3em 0 .4em; letter-spacing:-.01em; }
+  .md h3{ font-size:1.05em; margin:1.1em 0 .35em; }
+  .md ul{ margin:.6em 0; padding-left:1.3em; }
+  .md li{ margin:.three em 0; margin:.3em 0; }
+  .md blockquote{ margin:.9em 0; padding:.25em 1.1em; border-left:3px solid var(--accent); color:#555562; font-style:italic; background:#f6f6fb; border-radius:0 10px 10px 0; }
+  .md code{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.85em; background:#f0f0f6; padding:.15em .4em; border-radius:5px; }
+  .md a.ext{ color:var(--accent); text-decoration:underline; text-underline-offset:2px; }
+  .md a.wl{ color:var(--accent); font-weight:600; cursor:pointer; text-decoration:none; border-bottom:1.5px dashed rgba(91,108,255,.5); transition:background .15s,border-color .15s; }
+  .md a.wl:hover{ background:var(--accent-soft); border-bottom-color:var(--accent); }
+  .md a.wl::after{ content:'⤴'; font-size:.75em; margin-left:2px; opacity:.7; }
+
+  /* ---------- horizontal mode ---------- */
+  .hwrap{ position:relative; margin-top:clamp(20px,3vh,38px); height:clamp(380px,52vh,560px); overflow-x:auto; overflow-y:hidden; cursor:grab; }
+  .hwrap.drag{ cursor:grabbing; }
+  /* events spread across the full width when they fit; only genuinely overflowing timelines scroll */
+  .htrack{ position:relative; display:flex; align-items:center; justify-content:space-evenly; gap:clamp(40px,4.5vw,86px); height:100%; padding:0 60px; width:max-content; min-width:100%; }
+  .haxis{ position:absolute; left:30px; right:30px; top:50%; height:2px; background:var(--line); }
+  .hev{ position:relative; width:clamp(170px,13vw,236px); flex:0 0 auto; height:100%; }
+  .hev .marker{ position:static; margin:0; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); }
+  .hcard{ position:absolute; left:50%; transform:translateX(-50%); width:100%; text-align:center; cursor:pointer; padding:12px 13px; border-radius:14px; border:1px solid transparent; transition:all .18s; }
+  .hcard:hover{ background:#fff; border-color:var(--line); box-shadow:0 14px 30px -16px rgba(40,40,90,.45); }
+  .hev.focused .hcard{ outline:2px solid var(--accent); outline-offset:-2px; }
+  .hev.up .hcard{ bottom:calc(50% + 22px); }
+  .hev.dn .hcard{ top:calc(50% + 22px); }
+  .hev .kids{ margin-top:8px; }
+
+  /* reading panel — overlay, never reflows the timeline.
+     vertical mode → right sheet (.vp) · horizontal mode → bottom sheet (.hp) */
+  .panel{ position:absolute; background:#fff; z-index:25; display:flex; transition:transform .5s var(--ease); visibility:hidden; }
+  .panel.vp,.panel.hp{ visibility:visible; }
+  .panel .ph .yr{ font-size:12px; }
+  .panel .ph .pt{ font-size:clamp(20px,1.1vw + 13px,28px); font-weight:740; letter-spacing:-.02em; margin-top:5px; }
+  .panel .pb{ flex:1; overflow:auto; padding:18px clamp(26px,3vw,52px) 26px; scrollbar-gutter:stable; }
+  .panel.hp{ left:0; right:0; bottom:0; height:clamp(230px,30vh,380px); border-top:1px solid var(--line);
+             border-radius:18px 18px 0 0; box-shadow:0 -28px 60px -42px rgba(20,20,50,.4); transform:translateY(112%); }
+  .panel.hp .ph{ width:clamp(240px,24vw,340px); flex:0 0 auto; padding:24px 30px; border-right:1px solid var(--line); }
+  .panel.vp{ top:0; right:0; bottom:0; width:clamp(420px,33vw,620px); border-left:1px solid var(--line);
+             box-shadow:-28px 0 60px -42px rgba(20,20,50,.35); transform:translateX(112%); flex-direction:column; }
+  .panel.vp .ph{ padding:24px 28px 16px; border-bottom:1px solid var(--line); }
+  .panel.openp{ transform:none; }
+  .pclose{ all:unset; cursor:pointer; position:absolute; top:16px; right:18px; font-size:20px; color:var(--muted); line-height:1; }
+  .pclose:hover{ color:var(--ink) }
+
+  .hintbar{ position:absolute; bottom:14px; right:20px; z-index:20; font-size:11px; color:var(--muted); background:rgba(255,255,255,.85); backdrop-filter:blur(6px); border:1px solid var(--line); border-radius:99px; padding:6px 14px; }
+  kbd{ font-family:inherit; font-size:10px; font-weight:700; border:1px solid var(--faint); border-bottom-width:2px; border-radius:5px; padding:1px 5px; background:#fff; color:var(--soft); }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span> Timeline <span style="color:var(--muted);font-weight:500">· morph prototype v2</span></div>
+    <div class="seg" id="seg">
+      <button class="on" data-l="v">Vertical</button>
+      <button data-l="h">Horizontal</button>
+    </div>
+  </div>
+
+  <div class="app">
+    <aside class="rail" id="rail"></aside>
+    <main class="stage" id="stage">
+      <div class="panel" id="panel">
+        <button class="pclose" onclick="closePanel()">×</button>
+        <div class="ph"><div class="yr" id="pyr"></div><div class="pt" id="pti"></div><div id="pmeta"></div></div>
+        <div class="pb" id="pbody"></div>
+      </div>
+      <div class="hintbar" id="hint"></div>
+    </main>
+  </div>
+
+<script>
+/* ============================== DATA ============================== */
+const T = {
+y:'', t:'Artificial Intelligence', major:true,
+d:'From a 1950 thought experiment to machines that act on our behalf — the whole story, layer by layer. Click a moment to read it; open the ones with a timeline inside to go deeper.',
+children:[
+{ y:'1950', t:'The Turing Test', major:true, d:'Can a machine make you believe it is human?', md:`
+Alan Turing publishes **“Computing Machinery and Intelligence”**, opening with a question he immediately replaces with a sharper one:
+
+> “I propose to consider the question, ‘Can machines think?’ … replaced by the imitation game.”
+
+Instead of arguing about definitions of *thinking*, Turing proposes a test: if a machine can hold a conversation indistinguishable from a human’s, the philosophical question stops mattering.
+
+## Why it matters
+- It reframes intelligence as **behavior**, not mechanism — a move the whole field inherits.
+- Nearly every chatbot debate since, including the reaction to [[ChatGPT]], replays this argument.
+- It set a benchmark culture: AI progress would be measured by tests and games for the next 70 years.
+`},
+{ y:'1956', t:'"AI" is coined', major:true, d:'A summer workshop gives the field its name.', md:`
+At the **Dartmouth Summer Research Project**, John McCarthy — with Marvin Minsky, Claude Shannon and Nathaniel Rochester — coins the term **artificial intelligence** in the funding proposal:
+
+> “Every aspect of learning or any other feature of intelligence can in principle be so precisely described that a machine can be made to simulate it.”
+
+Ten researchers spend the summer at Dartmouth College sketching how machines might use language, form abstractions, and improve themselves.
+
+## Why it matters
+- The name itself was a **bet**: that intelligence is describable, hence computable. Compare [[The Turing Test]] — behavior over mechanism.
+- It created a *field* with an identity, funding story, and research agenda.
+- Most of the founders believed human-level AI was a generation away. The over-promise → disappointment → “AI winter” cycle starts here.
+`},
+{ y:'1997', t:'Deep Blue', d:'A machine defeats the world chess champion.', md:`
+IBM’s **Deep Blue** beats Garry Kasparov 3½–2½ — the first defeat of a reigning world champion by a machine under tournament conditions.
+
+Deep Blue evaluated roughly **200 million positions per second**. It didn’t *understand* chess; it searched it. That distinction — brute search versus learned intuition — frames the next era: when [[AlexNet]] arrives, the balance tips from hand-built search toward learning.
+
+## Why it matters
+- First mainstream proof that a machine could beat the best human at a “thinking” task.
+- Cemented the pattern of **games as milestones** (checkers → chess → Go → StarCraft).
+`},
+{ y:'2012', t:'AlexNet', major:true, d:'Deep learning wins, and everything changes.', md:`
+A three-person team — Alex Krizhevsky, Ilya Sutskever, Geoffrey Hinton — enters a deep **convolutional neural network** into the ImageNet competition and wins by an unheard-of margin (15.3% error vs 26.2% for second place).
+
+The recipe: a decades-old idea (neural nets), two new ingredients (**GPUs** + **huge labeled datasets**), and the conviction to scale it.
+
+## Why it matters
+- Overnight, “neural networks” went from unfashionable to *the* method.
+- The scaling lesson — more data, more compute, better results — leads directly to [[Transformers]] and ultimately [[ChatGPT]].
+- Two of the three authors go on to found or lead the labs of the LLM era.
+`},
+{ y:'2017', t:'Transformers', major:true, d:'The architecture behind everything modern.', md:`
+Eight Google researchers publish **“Attention Is All You Need”**, introducing the *Transformer* — an architecture that drops recurrence entirely and relies on **self-attention**: every token can directly look at every other token.
+
+## Why it matters
+- It parallelizes beautifully on GPUs → training can scale to internet-sized data.
+- It is the **“T” in GPT**. Every modern large language model, including [[ChatGPT]], is a descendant.
+- Its children conquered not just text but images ([[Vision Transformer]]), audio, code and biology.
+
+*Open this event’s timeline to follow the lineage in detail.*
+`,
+children:[
+  { y:'Jun 2017', t:'Attention Is All You Need', major:true, d:'The paper itself.', md:`
+The paper that started it: attention layers + feed-forward blocks, no recurrence, trained on translation. Its famous title was a half-joke that became the most-cited sentence in modern AI.
+`},
+  { y:'Oct 2018', t:'BERT', d:'Bidirectional pretraining conquers understanding tasks.', md:`
+Google’s **BERT** pretrains a Transformer on masked-word prediction over Wikipedia, then fine-tunes it for any task. It tops 11 benchmarks at once and powers Google Search within a year — the first mass deployment of Transformer language understanding.
+`},
+  { y:'Jun 2018', t:'GPT-1', d:'OpenAI bets on generative pretraining.', md:`
+OpenAI’s **GPT-1** takes the opposite bet from BERT: predict the *next* token, generatively, and scale it. At 117M parameters it is modest — but the line GPT-1 → GPT-2 → GPT-3 → [[ChatGPT]] is a straight application of the same recipe at growing scale.
+`},
+  { y:'Oct 2020', t:'Vision Transformer', d:'Attention eats computer vision too.', md:`
+**ViT** splits an image into patches and feeds them to a standard Transformer — no convolutions. Given enough data it beats the best CNNs, proving the architecture is general-purpose. This is the lineage behind GPT-4’s image understanding ([[GPT-4V]]).
+`}
+]},
+{ y:'2022', t:'ChatGPT', major:true, d:'AI goes mainstream: 100M users in two months.', md:`
+On **November 30, 2022**, OpenAI releases a “research preview” of a chatbot built on GPT-3.5. It reaches **1 million users in 5 days** and ~100 million in two months — the fastest-growing consumer product in history at the time.
+
+## What actually shipped
+Under the hood it was not a new model but a new *interface*: a [[Transformers]]-based LLM fine-tuned with **RLHF** (reinforcement learning from human feedback) to follow instructions and refuse harmful requests, wrapped in a plain chat box anyone could use.
+
+## Why it matters
+- It moved AI from research demos into **daily life** — homework, code, email, therapy-adjacent chats — within weeks.
+- It triggered the industry pivot: Google declared “code red”, Microsoft invested $10B in OpenAI, and every major lab reoriented around LLMs.
+- It restarted the [[The Turing Test]] debate in public, at dinner-table scale.
+- Its rapid version history — see [[GPT-4]] — became the cadence the whole industry marches to.
+
+*Open this event’s timeline for the version-by-version story.*
+`,
+children:[
+  { y:'Nov 2022', t:'GPT-3.5', d:'The launch model.', md:`
+The model behind the original launch — GPT-3 refined with instruction-following and RLHF. Free, fast, and good *enough* to astonish: the gap between “research curiosity” and “useful assistant” closed here.
+`},
+  { y:'Mar 2023', t:'GPT-4', major:true, d:'The capability jump.', md:`
+**GPT-4** lands four months after launch and resets expectations: top-decile scores on the bar exam, strong code generation, far fewer hallucinations, and (later) the ability to see images.
+
+It also begins the *productization* era — system prompts, function calling, longer context — the raw material that [[GPT-4 Turbo]] and [[DevDay 2023]] turn into a platform.
+
+*This event has its own timeline — open it to follow GPT-4’s evolution.*
+`,
+  children:[
+    { y:'Mar 2023', t:'GPT-4 launch', major:true, d:'Top-decile bar exam, multimodal teased.', md:`
+Launched March 14, 2023 alongside a technical report famous for what it *didn’t* say — no parameter count, no architecture details. The era of competitive secrecy begins.
+`},
+    { y:'Sep 2023', t:'GPT-4V', d:'The model gets eyes.', md:`
+GPT-4 with vision rolls out: screenshots, charts, photos, handwriting. The conceptual ancestor is the [[Vision Transformer]] — patches in, tokens out, one architecture for everything.
+`},
+    { y:'Nov 2023', t:'GPT-4 Turbo', major:true, d:'Cheaper, faster, 128K context.', md:`
+Announced at OpenAI’s first developer conference: a faster GPT-4 at a third of the price with a **128K-token context window** — entire books in a single prompt.
+
+The platform story matters as much as the model — see [[DevDay 2023]] for what shipped around it.
+`,
+    children:[
+      { y:'Nov 6, 2023', t:'DevDay 2023', major:true, d:'OpenAI’s first developer conference.', md:`
+OpenAI’s first DevDay packs a year of platform strategy into one keynote. The theme: GPT-4 stops being a chatbot and becomes **infrastructure**.
+
+*Open this event’s timeline for the announcements, one by one.*
+`,
+      children:[
+        { y:'Keynote', t:'128K context window', major:true, d:'Books-length prompts.', md:`
+Context jumps from 8K to **128K tokens** — about 300 pages. Whole codebases and contracts fit in one prompt, unlocking retrieval-light workflows.
+`},
+        { y:'Keynote', t:'Custom GPTs', d:'Everyone can publish an assistant.', md:`
+Anyone can package instructions + files + tools into a shareable **GPT** — no code. The first mass-market experiment in personalized agents, and a precursor of [[The age of agents]].
+`},
+        { y:'Keynote', t:'Price cuts', d:'3× cheaper input tokens.', md:`
+GPT-4 Turbo input tokens priced ~3× lower than GPT-4. The cost curve of intelligence keeps falling — the quiet enabler of every AI product business model.
+`}
+      ]},
+      { y:'Apr 2024', t:'Turbo 2024-04-09', d:'The refresh.', md:`
+A refreshed Turbo with vision built in and majorly improved instruction-following — the workhorse model until GPT-4o replaces it a month later.
+`}
+    ]},
+    { y:'May 2024', t:'GPT-4o', d:'Natively multimodal, realtime.', md:`
+“o” for *omni*: one network handles text, vision and **realtime voice** with ~300ms latency — conversation at human speed. The assistant stops feeling like a terminal and starts feeling like a presence.
+`}
+  ]},
+  { y:'2025', t:'Reasoning models', major:true, d:'Models that think before they answer.', md:`
+The o-series and successors introduce **test-time reasoning**: the model deliberates in a hidden chain of thought before answering. Math, code and science benchmarks jump again — and the technique spreads industry-wide within months, feeding directly into [[The age of agents]].
+`}
+]},
+{ y:'2025', t:'The age of agents', major:true, d:'From answering to acting.', md:`
+The frontier shifts from *chat* to *action*: models that plan multi-step work, call tools, browse, write and run code, and operate computers — checked on by humans rather than driven by them.
+
+## Why it matters
+- The unit of value moves from “a good answer” to **“a finished task.”**
+- Interfaces invert: instead of you visiting [[ChatGPT]], agents visit your tools.
+- Built on two prior layers: [[Transformers]] for capability, [[Reasoning models]] for reliability.
+
+*Open the timeline to see the building blocks land.*
+`,
+children:[
+  { y:'2024', t:'Tool use matures', d:'Function calling becomes standard.', md:`
+Structured tool calling becomes a first-class capability across every major model — the hands that reasoning needed.
+`},
+  { y:'2025', t:'Computer use', d:'Models operate real software.', md:`
+Models learn to drive real GUIs — clicking, typing, reading screens — turning any software into an API.
+`},
+  { y:'2025', t:'Multi-agent teams', d:'Agents that delegate to agents.', md:`
+Orchestrators spawn specialist sub-agents that research, write and review in parallel. Workflows start to look like *org charts*.
+`}
+]}
+]};
+
+/* ============================== INDEX ============================== */
+const byTitle=new Map();
+(function index(n,p){ n.parent=p; n.slug=n.t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); byTitle.set(n.t.toLowerCase(),n); (n.children||[]).forEach(c=>index(c,n)); })(T,null);
+function pathTo(n){ const p=[]; while(n){p.unshift(n); n=n.parent;} return p; }
+
+/* ============================== MARKDOWN ============================== */
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function inline(s){
+  s=s.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g,(m,t,l)=>wl(t,l));
+  s=s.replace(/\[\[([^\]]+)\]\]/g,(m,t)=>wl(t,t));
+  s=s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a class="ext" href="$2" target="_blank" rel="noopener">$1</a>');
+  s=s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  s=s.replace(/\*([^*]+)\*/g,'<em>$1</em>');
+  s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
+  return s;
+}
+function wl(t,l){ t=t.trim(); const n=byTitle.get(t.toLowerCase()); if(!n) return l; return '<a class="wl" data-t="'+esc(t)+'">'+esc(l.trim())+'</a>'; }
+function mdToHtml(md){
+  const lines=esc(md.trim()).split('\n'); let out='',buf=[],list=null,quote=null;
+  const flushP=()=>{ if(buf.length){ out+='<p>'+inline(buf.join(' '))+'</p>'; buf=[]; } };
+  const flushL=()=>{ if(list){ out+='<ul>'+list.map(i=>'<li>'+inline(i)+'</li>').join('')+'</ul>'; list=null; } };
+  const flushQ=()=>{ if(quote){ out+='<blockquote>'+inline(quote.join(' '))+'</blockquote>'; quote=null; } };
+  for(const ln of lines){
+    const l=ln.trim();
+    if(!l){ flushP();flushL();flushQ(); continue; }
+    if(l.startsWith('### ')){ flushP();flushL();flushQ(); out+='<h3>'+inline(l.slice(4))+'</h3>'; }
+    else if(l.startsWith('## ')){ flushP();flushL();flushQ(); out+='<h2>'+inline(l.slice(3))+'</h2>'; }
+    else if(l.startsWith('- ')){ flushP();flushQ(); (list=list||[]).push(l.slice(2)); }
+    else if(l.startsWith('&gt;')){ flushP();flushL(); (quote=quote||[]).push(l.replace(/^&gt;\s?/,'')); }
+    else buf.push(l);
+  }
+  flushP();flushL();flushQ();
+  return out;
+}
+
+/* ============================== STATE ============================== */
+const stage=document.getElementById('stage'), rail=document.getElementById('rail'), panel=document.getElementById('panel'), hintEl=document.getElementById('hint');
+let path=[T], layout='v', cur=null, busy=false, sel=-1;
+const visited=new Set();
+const here=()=>path[path.length-1];
+
+/* ============================== LEVEL BUILD ============================== */
+function buildLevel(node){
+  const lvl=document.createElement('div'); lvl.className='level '+layout;
+  const w=document.createElement('div'); w.className='level-in'; lvl.appendChild(w);
+  const head=document.createElement('div'); head.className='lvhead'; w.appendChild(head);
+
+  const crumb=document.createElement('div'); crumb.className='crumb';
+  path.forEach((n,i)=>{
+    if(i){ const s=document.createElement('span'); s.className='sep'; s.textContent='/'; crumb.appendChild(s); }
+    const c=document.createElement('span'); c.textContent=n.t;
+    if(i<path.length-1){ c.className='c'; c.onclick=()=>goUpTo(i); }
+    crumb.appendChild(c);
+  });
+  head.appendChild(crumb);
+
+  const trow=document.createElement('div'); trow.className='titlerow';
+  if(path.length>1){
+    const up=document.createElement('button'); up.className='upcirc';
+    up.innerHTML='↑'; up.title='Up to '+path[path.length-2].t+' (Esc)';
+    up.onclick=()=>goUpTo(path.length-2);
+    trow.appendChild(up);
+  }
+  const h1=document.createElement('h1'); h1.className='lvtitle'; h1.textContent=node.t; trow.appendChild(h1);
+  head.appendChild(trow);
+  const sub=document.createElement('p'); sub.className='lvsub'; sub.textContent=node.d||''; head.appendChild(sub);
+
+  if(layout==='v') w.appendChild(buildVertical(node));
+  else w.appendChild(buildHorizontal(node));
+  return lvl;
+}
+
+function evMeta(ch){
+  return { kidsLabel: ch.children ? '▸ '+ch.children.length+' moments inside' : null };
+}
+
+function buildVertical(node){
+  const evs=document.createElement('div'); evs.className='events';
+  (node.children||[]).forEach((ch,i)=>{
+    const ev=document.createElement('div'); ev.className='event'+(ch.major?' major':'')+(visited.has(ch.slug)?' seen':''); ev.__node=ch;
+    const mk=document.createElement('div'); mk.className='marker';
+    const row=document.createElement('div'); row.className='row';
+    row.innerHTML='<div class="yr">'+esc(ch.y)+'</div>';
+    const ti=document.createElement('div'); ti.className='ti'; ti.textContent=ch.t; row.appendChild(ti);
+    if(ch.d){ const tg=document.createElement('div'); tg.className='tag'; tg.textContent=ch.d; row.appendChild(tg); }
+    if(ch.children){
+      const pill=document.createElement('span'); pill.className='kids'; pill.textContent=evMeta(ch).kidsLabel;
+      pill.onclick=e=>{ e.stopPropagation(); drill(ch, ti); };
+      row.appendChild(document.createElement('br')); row.appendChild(pill);
+    }
+    row.onclick=()=>openPanel(ch,ev);
+    ev.appendChild(mk); ev.appendChild(row);
+    evs.appendChild(ev);
+  });
+  return evs;
+}
+
+function buildHorizontal(node){
+  const wrap=document.createElement('div'); wrap.className='hwrap';
+  const track=document.createElement('div'); track.className='htrack';
+  const axis=document.createElement('div'); axis.className='haxis'; track.appendChild(axis);
+  (node.children||[]).forEach((ch,i)=>{
+    const ev=document.createElement('div'); ev.className='hev event '+(i%2?'dn':'up')+(ch.major?' major':'')+(visited.has(ch.slug)?' seen':''); ev.__node=ch;
+    const mk=document.createElement('div'); mk.className='marker';
+    const card=document.createElement('div'); card.className='hcard';
+    card.innerHTML='<div class="yr">'+esc(ch.y)+'</div>';
+    const ti=document.createElement('div'); ti.className='ti'; ti.textContent=ch.t; card.appendChild(ti);
+    if(ch.children){
+      const pill=document.createElement('span'); pill.className='kids'; pill.textContent='▸ '+ch.children.length+' inside';
+      pill.onclick=e=>{ e.stopPropagation(); drill(ch, ti); };
+      card.appendChild(document.createElement('br')); card.appendChild(pill);
+    }
+    card.onclick=()=>openPanel(ch, ev);
+    ev.appendChild(mk); ev.appendChild(card);
+    track.appendChild(ev);
+  });
+  wrap.appendChild(track);
+  // drag + wheel — with click/drag discrimination so card clicks always land
+  let down=false,moved=false,sx=0,sl=0;
+  wrap.addEventListener('pointerdown',e=>{down=true;moved=false;sx=e.clientX;sl=wrap.scrollLeft;});
+  window.addEventListener('pointermove',e=>{ if(!down)return; const dx=e.clientX-sx; if(!moved&&Math.abs(dx)<6)return; moved=true; wrap.classList.add('drag'); wrap.scrollLeft=sl-dx; });
+  window.addEventListener('pointerup',()=>{down=false;wrap.classList.remove('drag')});
+  wrap.addEventListener('click',e=>{ if(moved){ e.stopPropagation(); e.preventDefault(); moved=false; } },true);
+  wrap.addEventListener('wheel',e=>{ if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){ wrap.scrollLeft+=e.deltaY; e.preventDefault(); } },{passive:false});
+  return wrap;
+}
+
+/* ============================== READING ============================== */
+function renderMd(ch){ if(!ch.__html) ch.__html = ch.md ? mdToHtml(ch.md) : '<p style="color:var(--muted)">No notes yet.</p>'; return ch.__html; }
+
+/* reading is always an overlay panel — the timeline itself never reflows */
+function openPanel(ch, ev){
+  const want = layout==='v' ? 'vp' : 'hp';
+  if(!panel.classList.contains(want)){
+    panel.classList.remove('openp','vp','hp');
+    panel.classList.add(want);
+    void panel.offsetWidth; /* settle the closed position first so the slide-in animates from the correct edge */
+  }
+  document.getElementById('pyr').textContent=ch.y;
+  document.getElementById('pti').textContent=ch.t;
+  document.getElementById('pmeta').innerHTML = ch.children?'<button class="kids" id="panelDrill">▸ open the '+esc(ch.t)+' timeline</button>':'';
+  document.getElementById('pbody').innerHTML='<div class="md">'+renderMd(ch)+'</div>';
+  document.getElementById('pbody').scrollTop=0;
+  panel.classList.add('openp');
+  setReadingTarget(ev);
+  /* never move the timeline on a direct click — the item is already under the cursor.
+     horizontal mode glides along the axis only, the one motion that aids orientation. */
+  if(ev && layout==='h') ev.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+  markSeen(ch, ev);
+  const pd=document.getElementById('panelDrill');
+  if(pd) pd.onclick=()=>drill(ch, document.getElementById('pti'));
+}
+function setReadingTarget(ev){
+  cur.querySelectorAll('.open').forEach(x=>x.classList.remove('open'));
+  const cont=cur.querySelector('.events,.htrack');
+  if(cont) cont.classList.add('reading');
+  if(ev) ev.classList.add('open');
+}
+function closePanel(){
+  panel.classList.remove('openp');
+  if(cur){ cur.querySelectorAll('.open').forEach(x=>x.classList.remove('open'));
+    const cont=cur.querySelector('.events,.htrack'); if(cont) cont.classList.remove('reading'); }
+}
+
+function markSeen(ch, ev){ visited.add(ch.slug); if(ev) ev.classList.add('seen'); renderRail(); }
+
+/* ============================== RAIL (map) ============================== */
+function renderRail(){
+  rail.innerHTML='';
+  const h=document.createElement('div'); h.className='rail-h';
+  h.innerHTML='<span class="lb">YOU ARE HERE</span><span class="depth">Level '+path.length+'</span>';
+  rail.appendChild(h);
+  const lg=document.createElement('div'); lg.className='legend';
+  lg.innerHTML='<span><i class="du"></i>unread</span><span><i class="ds"></i>read</span><span><i class="do"></i>reading now</span>';
+  rail.appendChild(lg);
+  let host=rail;
+  path.forEach((n,i)=>{
+    const r=document.createElement('div'); r.className='rnode '+(i===path.length-1?'here':'anc');
+    r.innerHTML='<span class="tick"></span><span class="nm">'+esc(n.t)+'</span>'+(n.children?'<span class="more">'+n.children.length+'</span>':'');
+    if(i<path.length-1) r.onclick=()=>goUpTo(i);
+    if(visited.has(n.slug)) r.classList.add('seen');
+    host.appendChild(r);
+    const kid=document.createElement('div'); kid.className='rkids'; host.appendChild(kid); host=kid;
+    if(i===path.length-1){
+      (n.children||[]).forEach(ch=>{
+        const c=document.createElement('div'); c.className='rnode'+(visited.has(ch.slug)?' seen':'');
+        c.innerHTML='<span class="tick"></span><span class="nm">'+esc(ch.t)+'</span>'+(ch.children?'<span class="more">▸ '+ch.children.length+'</span>':'');
+        c.onclick=()=>{ if(ch.children){ const tEl=findTitleEl(ch); drill(ch, tEl); } else focusChild(ch); };
+        host.appendChild(c);
+      });
+    }
+  });
+}
+function findTitleEl(ch){ let r=null; cur.querySelectorAll('.event').forEach(e=>{ if(e.__node===ch) r=e.querySelector('.ti'); }); return r; }
+
+/* ============================== NAVIGATION ============================== */
+function setHash(){ try{ history.replaceState(null,'','#/'+path.slice(1).map(n=>n.slug).join('/')); }catch(e){} }
+
+function drill(node, fromEl){
+  if(busy||!node.children) return; busy=true; closePanel();
+  const fromRect = fromEl ? fromEl.getBoundingClientRect() : null;
+  path=pathTo(node); setHash();
+  const inc=buildLevel(node); stage.appendChild(inc);
+  morphDown(inc, cur, fromRect);
+  const out=cur; cur=inc; sel=-1; renderRail();
+  setTimeout(()=>{ if(out)out.remove(); busy=false; }, 860);
+}
+
+function goUpTo(i){
+  if(busy||i>=path.length-1) return; busy=true; closePanel();
+  const leaving=path[path.length-1];
+  path=path.slice(0,i+1); setHash();
+  const inc=buildLevel(here()); stage.appendChild(inc);
+  morphUp(inc, cur, leaving);
+  const out=cur; cur=inc; sel=-1; renderRail();
+  setTimeout(()=>{ if(out)out.remove(); busy=false; }, 800);
+}
+
+function focusChild(ch){
+  let evEl=null; cur.querySelectorAll('.event').forEach(e=>{ if(e.__node===ch) evEl=e; });
+  if(!evEl) return;
+  /* arrivals from links/map may be off-screen — center them; direct clicks never scroll */
+  evEl.scrollIntoView({behavior:'smooth', block:layout==='v'?'center':'nearest', inline:layout==='h'?'center':'nearest'});
+  evEl.classList.add('pulse'); setTimeout(()=>evEl.classList.remove('pulse'),1500);
+  openPanel(ch, evEl);
+}
+
+function jumpToTitle(title, fromEl){
+  const n=byTitle.get(title.toLowerCase()); if(!n) return;
+  if(n.children){ drill(n, fromEl); }
+  else {
+    const parentNode=n.parent;
+    if(parentNode===here()){ focusChild(n); return; }
+    if(busy) return; busy=true; closePanel();
+    const fromRect=fromEl?fromEl.getBoundingClientRect():null;
+    path=pathTo(parentNode); setHash();
+    const inc=buildLevel(parentNode); stage.appendChild(inc);
+    morphDown(inc, cur, fromRect);
+    const out=cur; cur=inc; sel=-1; renderRail();
+    setTimeout(()=>{ if(out)out.remove(); busy=false; focusChild(n); }, 880);
+  }
+}
+stage.addEventListener('click',e=>{ const w=e.target.closest('.wl'); if(w) jumpToTitle(w.dataset.t, w); });
+
+/* ============================== MORPHS ============================== */
+const EASE='cubic-bezier(.5,.05,.1,1)', SOFT='cubic-bezier(.2,.7,.2,1)';
+function rowsOf(lvl){ return lvl.querySelectorAll('.event'); }
+
+function morphDown(inc, out, fromRect){
+  const title=inc.querySelector('.lvtitle'), sub=inc.querySelector('.lvsub'), cr=inc.querySelector('.crumb'), up=inc.querySelector('.upcirc');
+  const evs=rowsOf(inc);
+  evs.forEach(e=>e.style.opacity=0);
+  if(fromRect){
+    const last=title.getBoundingClientRect();
+    const dx=fromRect.left-last.left, dy=fromRect.top-last.top, sc=Math.max(.3,Math.min(1,fromRect.height/last.height));
+    title.animate([{transform:`translate(${dx}px,${dy}px) scale(${sc})`},{transform:'none'}],{duration:640,easing:EASE,fill:'both'});
+  } else {
+    title.animate([{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:480,easing:SOFT,fill:'both'});
+  }
+  [cr,up].forEach(el=>{ if(el) el.animate([{opacity:0},{opacity:1}],{duration:420,delay:240,fill:'both'}); });
+  if(sub) sub.animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:460,delay:300,easing:SOFT,fill:'both'});
+  if(out){
+    rowsOf(out).forEach((r,i)=>r.animate([{opacity:1},{opacity:0,transform:layout==='v'?'translateY(-14px)':'translateX(-20px)'}],{duration:300,delay:i*22,easing:'ease',fill:'both'}));
+    out.querySelectorAll('.crumb,.titlerow,.lvsub').forEach(el=>el.animate([{opacity:1},{opacity:0}],{duration:260,fill:'both'}));
+  }
+  evs.forEach((e,i)=>{ e.style.opacity=''; e.animate([{opacity:0,transform:layout==='v'?'translateY(20px)':'translateX(36px)'},{opacity:1,transform:'none'}],{duration:500,delay:260+i*65,easing:SOFT,fill:'both'}); });
+}
+
+function morphUp(inc, out, leavingNode){
+  out.style.zIndex=2;
+  const outTitle=out.querySelector('.lvtitle');
+  let target=null; rowsOf(inc).forEach(e=>{ if(e.__node===leavingNode) target=e.querySelector('.ti'); });
+  rowsOf(inc).forEach(e=>e.style.opacity=0);
+  const first=outTitle.getBoundingClientRect();
+  const last=(target||inc.querySelector('.lvtitle')).getBoundingClientRect();
+  const dx=last.left-first.left, dy=last.top-first.top, sc=Math.max(.2,last.height/first.height);
+  outTitle.animate([{transform:'none',opacity:1},{transform:`translate(${dx}px,${dy}px) scale(${sc})`,opacity:.15}],{duration:560,easing:EASE,fill:'both'});
+  const outIn=out.querySelector('.level-in');
+  outIn.querySelectorAll('.lvsub,.crumb,.upcirc').forEach(el=>el.animate([{opacity:1},{opacity:0}],{duration:200,fill:'both'}));
+  rowsOf(out).forEach((r,i)=>r.animate([{opacity:1},{opacity:0,transform:'translateY(12px)'}],{duration:240,delay:i*16,fill:'both'}));
+  inc.querySelector('.level-in').animate([{opacity:0},{opacity:1}],{duration:360,fill:'both'});
+  rowsOf(inc).forEach((e,i)=>{ e.style.opacity=''; e.animate([{opacity:0,transform:layout==='v'?'translateY(-12px)':'translateX(-22px)'},{opacity:1,transform:'none'}],{duration:440,delay:140+i*48,easing:SOFT,fill:'both'}); });
+}
+
+/* ============================== LAYOUT TOGGLE ============================== */
+document.querySelectorAll('#seg button').forEach(b=>{
+  b.onclick=()=>{
+    if(busy||b.dataset.l===layout) return;
+    document.querySelectorAll('#seg button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); layout=b.dataset.l; closePanel(); panel.classList.remove('vp','hp');
+    const inc=buildLevel(here()); stage.appendChild(inc);
+    inc.animate([{opacity:0,transform:'scale(.985)'},{opacity:1,transform:'none'}],{duration:380,easing:SOFT,fill:'both'});
+    if(cur){ const o=cur; o.animate([{opacity:1},{opacity:0}],{duration:240,fill:'both'}); setTimeout(()=>o.remove(),300); }
+    cur=inc; sel=-1; renderHint();
+  };
+});
+
+/* ============================== KEYBOARD ============================== */
+function renderHint(){
+  hintEl.innerHTML = layout==='v'
+    ? '<kbd>↑</kbd><kbd>↓</kbd> move &nbsp; <kbd>Enter</kbd> read &nbsp; <kbd>⇧Enter</kbd> open timeline &nbsp; <kbd>Esc</kbd> up'
+    : '<kbd>←</kbd><kbd>→</kbd> move &nbsp; <kbd>Enter</kbd> read &nbsp; <kbd>⇧Enter</kbd> open timeline &nbsp; <kbd>Esc</kbd> up';
+}
+window.addEventListener('keydown',e=>{
+  if(busy) return;
+  const evs=[...cur.querySelectorAll('.event')];
+  const fwd = layout==='v' ? 'ArrowDown' : 'ArrowRight';
+  const bck = layout==='v' ? 'ArrowUp' : 'ArrowLeft';
+  if(e.key===fwd||e.key===bck){
+    e.preventDefault();
+    sel = e.key===fwd ? Math.min(evs.length-1, sel+1) : Math.max(0, sel-1);
+    evs.forEach((x,i)=>x.classList.toggle('focused', i===sel));
+    if(evs[sel]) evs[sel].scrollIntoView({behavior:'smooth',block:'center',inline:'center'});
+  }
+  if(e.key==='Enter' && evs[sel]){
+    const ch=evs[sel].__node;
+    if(e.shiftKey && ch.children){ drill(ch, evs[sel].querySelector('.ti')); }
+    else openPanel(ch, evs[sel]);
+  }
+  if(e.key==='Escape'){ if(panel.classList.contains('openp')) closePanel(); else if(path.length>1) goUpTo(path.length-2); }
+});
+
+/* ============================== INIT (hash deep-link) ============================== */
+(function init(){
+  let node=T;
+  const segs=(location.hash||'').replace(/^#\/?/,'').split('/').filter(Boolean);
+  for(const s of segs){ const nx=(node.children||[]).find(c=>c.slug===s); if(nx&&nx.children) node=nx; else break; }
+  path=pathTo(node);
+  cur=buildLevel(node); stage.appendChild(cur);
+  renderRail(); renderHint(); setHash();
+})();
+</script>
+</body>
+</html>
