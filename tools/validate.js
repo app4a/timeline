@@ -25,18 +25,19 @@ export function validateTimeline(tl, fileId) {
 
   const titles = new Set();
   walk(tl.events, ev => titles.add((ev.title || '').toLowerCase()));
-  const byPath = new Map();
-  walk(tl.events, (ev, p) => byPath.set(at(p, ev.id), ev));
 
   const checkLevel = (events, p) => {
     const seen = new Set();
     for (const ev of events) {
-      const here = at(p, ev.id);
+      const here = at(p, ev.id ?? '<missing-id>');
       if (!KEBAB.test(ev.id || '')) errs.push(`${here}: id must be kebab-case`);
       if (seen.has(ev.id)) errs.push(`${here}: duplicate sibling id`);
       seen.add(ev.id);
       if (!DATE.test(ev.date || '')) errs.push(`${here}: date "${ev.date}" must be YYYY[-MM[-DD]]`);
       if (typeof ev.title !== 'string' || !ev.title) errs.push(`${here}: missing title`);
+      if (ev.display !== undefined && typeof ev.display !== 'string') errs.push(`${here}: display must be a string`);
+      if (ev.tagline !== undefined && typeof ev.tagline !== 'string') errs.push(`${here}: tagline must be a string`);
+      if (ev.major !== undefined && typeof ev.major !== 'boolean') errs.push(`${here}: major must be a boolean`);
       if (ev.children !== undefined && (!Array.isArray(ev.children) || ev.children.length === 0))
         errs.push(`${here}: children must be a non-empty array when present`);
       if (ev.sources !== undefined) {
@@ -46,6 +47,11 @@ export function validateTimeline(tl, fileId) {
             errs.push(`${here}: each source needs title and http(s) url`);
       }
       if (ev.children) checkLevel(ev.children, [...p, ev.id]);
+    }
+    for (let i = 1; i < events.length; i++) {
+      const a = events[i-1].date, b = events[i].date;
+      if (a && b && String(a) > String(b))
+        errs.push(`${at(p, events[i].id ?? '<missing-id>')}: date "${b}" is before sibling "${a}" — siblings must be chronological`);
     }
   };
   checkLevel(tl.events, []);
@@ -80,6 +86,7 @@ function resolveCross(target, timelinesById) {
   const [tlId, ...segs] = target.split('/').filter(Boolean);
   const tl = timelinesById[tlId];
   if (!tl) return false;
+  if (segs.length === 0) return false;
   let nodes = tl.events;
   for (const seg of segs) {
     const hit = (nodes || []).find(e => e.id === seg);

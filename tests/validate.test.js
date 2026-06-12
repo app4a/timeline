@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validateTimeline, validateIndex } from '../tools/validate.js';
+import { validateTimeline, validateIndex, countEvents } from '../tools/validate.js';
 
 const good = { id:'t', title:'T', tagline:'x', updated:'2026-06-12', events:[
   { id:'a', date:'1990', title:'A' },
@@ -12,7 +12,7 @@ test('valid timeline has no errors', () => {
 });
 
 test('id must match filename', () => {
-  assert.ok(validateTimeline(good, 'other').some(e => e.includes('id')));
+  assert.ok(validateTimeline(good, 'other').some(e => e.includes('must match filename')));
 });
 
 test('rejects bad date and duplicate sibling ids', () => {
@@ -46,4 +46,29 @@ test('index eventCount is enforced', () => {
   const idx = { timelines:[{ id:'t', title:'T', tagline:'x', eventCount: 99, updated:'2026-06-12' }] };
   const errs = validateIndex(idx, { t: good });
   assert.ok(errs.some(e => e.includes('eventCount')));
+});
+
+test('siblings must be chronological at every level', () => {
+  const bad = { ...good, events:[
+    { id:'a', date:'1995', title:'A' },
+    { id:'b', date:'1991', title:'B' }
+  ]};
+  assert.ok(validateTimeline(bad, 't').some(e => e.includes('chronological')));
+  const badNested = { ...good, events:[
+    { id:'a', date:'1990', title:'A', children:[
+      { id:'x', date:'1992', title:'X' }, { id:'y', date:'1991', title:'Y' } ] }
+  ]};
+  assert.ok(validateTimeline(badNested, 't').some(e => e.includes('chronological')));
+});
+
+test('rejects wrong field types', () => {
+  const bad = { ...good, events:[ { id:'a', date:'1990', title:'A', major:'yes', display:42 } ]};
+  const errs = validateTimeline(bad, 't');
+  assert.ok(errs.some(e => e.includes('major')));
+  assert.ok(errs.some(e => e.includes('display')));
+});
+
+test('countEvents counts all depths', () => {
+  assert.equal(countEvents(good), 3);
+  assert.equal(countEvents({ events:[] }), 0);
 });
