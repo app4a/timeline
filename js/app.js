@@ -10,6 +10,19 @@ els.seg   = document.getElementById('seg');
 els.panel = document.getElementById('panel');
 els.search = document.getElementById('search');
 els.hint = document.getElementById('hint');
+els.jumpchip = document.getElementById('jumpchip');
+
+export function renderJumpChip(){
+  const top = state.jumpStack[state.jumpStack.length - 1];
+  els.jumpchip.hidden = !top;
+  if (top) document.getElementById('jumpchipname').textContent = top.title;
+}
+els.jumpchip.addEventListener('click', e => {
+  if (e.target.id === 'jumpchipx'){ state.jumpStack = []; renderJumpChip(); return; }
+  const top = state.jumpStack.pop();
+  renderJumpChip();
+  if (top) navigate(top.url);
+});
 
 document.querySelector('.brand').addEventListener('click', e => {
   if (e.metaKey || e.ctrlKey || e.altKey || e.button !== 0) return;
@@ -86,6 +99,9 @@ async function route(){
     else await renderTimelineRoute(parsed);
   } catch (err) { errorCard(err); }
   renderHint();
+  if (state.clearJumpOnRoute) { state.jumpStack = []; }
+  state.clearJumpOnRoute = true;          // default; jump initiators set it false just before navigate
+  renderJumpChip();
 }
 
 handlers.route = route;

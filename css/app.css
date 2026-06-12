@@ -224,3 +224,14 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
 kbd{ font-family:var(--sans); font-size:10px; font-weight:700; border:1px solid var(--faint);
      border-bottom-width:2px; border-radius:5px; padding:1px 5px; background:#fff; color:var(--soft); }
 .rnode.here{ cursor:default; }
+
+/* return chip after wiki/search jumps */
+.jumpchip{ all:unset; cursor:pointer; position:absolute; bottom:14px; left:20px; z-index:24;
+           display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600;
+           color:var(--ink); background:#fff; border:1px solid var(--line); border-radius:99px;
+           padding:8px 14px; box-shadow:0 10px 26px -14px rgba(21,21,26,.4); }
+.jumpchip[hidden]{ display:none; }
+.jumpchip b{ color:var(--accent); font-weight:700; }
+.jumpchip i{ font-style:normal; color:var(--muted); margin-left:4px; padding:0 2px; }
+.jumpchip i:hover{ color:var(--ink); }
+.jumpchip:hover{ border-color:var(--accent); }

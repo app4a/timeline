@@ -46,11 +46,18 @@ export function initSearch(){
   }
   function go(node){
     close();
-    if (node.children) handlers.drill(node, null);
-    else {
+    if (node.children){
+      state.jumpStack.push({ title: state.path[state.path.length - 1].title, url: location.pathname });
+      if (state.jumpStack.length > 5) state.jumpStack.shift();
+      state.clearJumpOnRoute = false;
+      handlers.drill(node, null);
+    } else {
       const target = node.parent;
       if (target === state.path[state.path.length - 1]) handlers.focusChild(node);
       else {
+        state.jumpStack.push({ title: state.path[state.path.length - 1].title, url: location.pathname });
+        if (state.jumpStack.length > 5) state.jumpStack.shift();
+        state.clearJumpOnRoute = false;
         navigate(buildTimelinePath(state.timelineId, target.pathIds, BASE));
         setTimeout(() => handlers.focusChild(node), 900);
       }
