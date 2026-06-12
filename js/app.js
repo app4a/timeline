@@ -68,6 +68,8 @@ function errorCard(err){
   els.stage.querySelectorAll('.level').forEach(l => l.remove());
   els.stage.appendChild(lvl);
   state.cur = null; state.sel = -1;
+  state.idx = null; state.timelineId = null; state.path = [];
+  els.rail.hidden = true; els.seg.hidden = true;
   console.error(err);
 }
 
