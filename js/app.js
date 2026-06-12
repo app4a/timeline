@@ -2,11 +2,13 @@ import { els, state, handlers } from './state.js';
 import { parseHash, buildLibraryHash } from './router.js';
 import { renderLibrary } from './library.js';
 import { renderTimelineRoute, renderCurrent } from './viewer.js';
+import { initSearch } from './search.js';
 
 els.stage = document.getElementById('stage');
 els.rail  = document.getElementById('rail');
 els.seg   = document.getElementById('seg');
 els.panel = document.getElementById('panel');
+els.search = document.getElementById('search');
 
 document.querySelectorAll('#seg button').forEach(b => {
   b.onclick = () => {
@@ -41,5 +43,6 @@ async function route(){
   } catch (err) { errorCard(err); }
 }
 
+initSearch();
 window.addEventListener('hashchange', route);
 route();
