@@ -1,12 +1,26 @@
-import { els, state } from './state.js';
+import { els, state, handlers } from './state.js';
 import { parseHash, buildLibraryHash } from './router.js';
 import { renderLibrary } from './library.js';
-import { renderTimelineRoute } from './viewer.js';
+import { renderTimelineRoute, renderCurrent } from './viewer.js';
 
 els.stage = document.getElementById('stage');
 els.rail  = document.getElementById('rail');
 els.seg   = document.getElementById('seg');
 els.panel = document.getElementById('panel');
+
+document.querySelectorAll('#seg button').forEach(b => {
+  b.onclick = () => {
+    if (state.busy || b.dataset.l === state.layout) return;
+    document.querySelectorAll('#seg button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    state.layout = b.dataset.l;
+    handlers.closeReader?.();
+    els.panel.classList.remove('vp','hp');
+    renderCurrent();
+    state.cur.animate([{opacity:0, transform:'scale(.985)'},{opacity:1, transform:'none'}],
+                      {duration:380, easing:'cubic-bezier(.2,.7,.2,1)', fill:'both'});
+  };
+});
 
 function errorCard(err){
   const msg = err.code === 'notfound' ? 'That timeline doesn’t exist.'
