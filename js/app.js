@@ -67,6 +67,7 @@ function errorCard(err){
     '<a href="' + buildLibraryHash() + '">← Back to the library</a></div></div>';
   els.stage.querySelectorAll('.level').forEach(l => l.remove());
   els.stage.appendChild(lvl);
+  state.cur = null; state.sel = -1;
   console.error(err);
 }
 
