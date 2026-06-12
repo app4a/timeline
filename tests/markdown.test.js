@@ -32,3 +32,23 @@ test('wiki links resolve, label, and fall back to plain text', () => {
   assert.equal(mdToHtml('see [[Nope]]', never), '<p>see Nope</p>');
   assert.match(mdToHtml('see [[the-web/google|Google]]', always), /<a class="wl" data-wiki="the-web\/google">Google<\/a>/);
 });
+
+test('space-flanked numbers are never corrupted by the stash mechanism', () => {
+  assert.equal(mdToHtml('BERT tops 11 benchmarks', never), '<p>BERT tops 11 benchmarks</p>');
+  assert.equal(mdToHtml('reaches 1 million users in 5 days', never), '<p>reaches 1 million users in 5 days</p>');
+  const html = mdToHtml('[[A]] then 0 and [[B]]', always);
+  assert.match(html, /<a class="wl" data-wiki="A">A<\/a> then 0 and <a class="wl" data-wiki="B">B<\/a>/);
+});
+
+test('double quotes cannot break out of attributes', () => {
+  const html = mdToHtml('see [[abc" onmouseover="alert(1)]]', always);
+  assert.ok(!html.includes('onmouseover="alert'));
+  assert.ok(html.includes('&quot;'));
+});
+
+test('non-http(s) URL schemes are not linkified', () => {
+  const js = mdToHtml('[x](javascript:alert`1`)', never);
+  assert.ok(!js.includes('href="javascript:'));
+  assert.ok(js.includes('x'));
+  assert.match(mdToHtml('[ok](https://w3.org)', never), /href="https:\/\/w3\.org"/);
+});

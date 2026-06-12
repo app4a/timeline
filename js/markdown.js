@@ -1,4 +1,4 @@
-function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function wikiLink(target, label, resolveWiki){
   target = target.trim();
@@ -9,15 +9,17 @@ function wikiLink(target, label, resolveWiki){
 function inline(s, resolveWiki){
   // placeholders keep later passes from re-processing link internals
   const slots = [];
-  const stash = html => { slots.push(html); return ' ' + (slots.length - 1) + ' '; };
+  const stash = html => { slots.push(html); return '\x01' + (slots.length - 1) + '\x01'; };
   s = s.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, (m,t,l) => stash(wikiLink(t, l, resolveWiki)));
   s = s.replace(/\[\[([^\]]+)\]\]/g,            (m,t)   => stash(wikiLink(t, t, resolveWiki)));
-  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,     (m,l,u) => stash('<a class="ext" href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(l) + '</a>'));
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,     (m,l,u) => /^https?:\/\//i.test(u)
+    ? stash('<a class="ext" href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(l) + '</a>')
+    : stash(esc(l)));
   s = esc(s);
   s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
   s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
-  return s.replace(/ (\d+) /g, (m,i) => slots[+i]);
+  return s.replace(/\x01(\d+)\x01/g, (m,i) => slots[+i]);
 }
 
 export function mdToHtml(md, resolveWiki){
