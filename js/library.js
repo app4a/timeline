@@ -3,6 +3,7 @@ import { loadIndex } from './data.js';
 import { buildTimelinePath } from './router.js';
 
 export async function renderLibrary(){
+  state.readerPushed = false;
   handlers.closeReader?.();
   state.idx = null;
   state.timelineId = null;

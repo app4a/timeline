@@ -239,13 +239,14 @@ export async function renderTimelineRoute(parsed){
 /* ---------- handler wiring (instant versions; Task 10 adds morphs) ---------- */
 handlers.drill = (node, fromEl) => {
   if (state.busy || !node.children) return;
+  state.readerPushed = false;  // suppress closeReader's history.back(): the leaf entry stays behind the new one, so Back returns to reading
   handlers.closeReader?.();
-  state.readerPushed = false;
   state.pendingFrom = fromEl ? fromEl.getBoundingClientRect() : null;
   navigate(buildTimelinePath(state.timelineId, node.pathIds, BASE));
 };
 handlers.goUpTo = (i) => {
   if (state.busy || i >= state.path.length - 1) return;
+  state.readerPushed = false;
   handlers.closeReader?.();
   navigate(buildTimelinePath(state.timelineId, state.path[i].pathIds, BASE));
 };

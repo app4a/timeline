@@ -86,6 +86,7 @@ async function followWiki(target, fromEl){
       handlers.renderJumpChip?.();
     }
     else {
+      state.readerPushed = false;
       handlers.closeReader();
       state.pendingFrom = fromEl ? fromEl.getBoundingClientRect() : null;
       pushJump();
@@ -95,6 +96,7 @@ async function followWiki(target, fromEl){
     return;
   }
   const [tlId, ...segs] = target.split('/').filter(Boolean);   // cross-timeline
+  state.readerPushed = false;
   handlers.closeReader();
   try {
     const idx = indexTimeline(await loadTimeline(tlId));
