@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timeline — learn anything, layer by layer</title>
+<meta name="description" content="Beautiful, drillable timelines. Understand any topic by seeing where it came from.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/"><img src="assets/logo.svg" alt="" width="64" height="24">Timeline</a>
+    <div class="seg" id="seg" hidden>
+      <button class="on" data-l="v">Vertical</button>
+      <button data-l="h">Horizontal</button>
+    </div>
+  </header>
+  <div class="app">
+    <aside class="rail" id="rail" hidden></aside>
+    <main class="stage" id="stage"></main>
+  </div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
