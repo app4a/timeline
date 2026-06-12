@@ -5,6 +5,8 @@
   "scripts": {
     "test": "node --test",
     "validate": "node tools/validate.js",
-    "serve": "python3 -m http.server 8080"
+    "build": "node tools/build-site.js",
+    "serve": "node tools/serve.js",
+    "serve:site": "node tools/serve.js --dir _site"
   }
 }
