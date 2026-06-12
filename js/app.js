@@ -12,6 +12,7 @@ els.search = document.getElementById('search');
 els.hint = document.getElementById('hint');
 
 document.querySelector('.brand').addEventListener('click', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey || e.button !== 0) return;
   e.preventDefault();
   navigate(buildLibraryPath(BASE));
 });
