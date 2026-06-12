@@ -6,6 +6,7 @@ import { renderTimelineRoute } from './viewer.js';
 els.stage = document.getElementById('stage');
 els.rail  = document.getElementById('rail');
 els.seg   = document.getElementById('seg');
+els.panel = document.getElementById('panel');
 
 function errorCard(err){
   const msg = err.code === 'notfound' ? 'That timeline doesn’t exist.'
