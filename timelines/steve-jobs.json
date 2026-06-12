@@ -1,0 +1,381 @@
+{
+  "id": "steve-jobs",
+  "title": "Steve Jobs",
+  "tagline": "From a San Francisco adoption in 1955 to a trillion-dollar legacy — the biography of the man who put a dent in the universe.",
+  "updated": "2026-06-12",
+  "events": [
+    {
+      "id": "birth-and-adoption",
+      "date": "1955-02-24",
+      "title": "Birth and adoption",
+      "major": true,
+      "tagline": "A San Francisco adoption sets an unlikely founder in motion.",
+      "content": "Steven Paul Jobs is born on **February 24, 1955** in San Francisco to Joanne Schieble and Abdulfattah Jandali, both graduate students who are unmarried and feel unable to raise a child. He is placed for adoption and taken home by Paul and Clara Jobs — a machinist and a bookkeeper living in Mountain View, California.\n\nSchieble's one condition: the adoptive parents must be college graduates. Paul and Clara are not, so she initially refuses to sign the papers. She relents only after the couple promises to send the boy to college — a promise that shapes Jobs's complicated relationship with formal education for the rest of his life.\n\n## Why it matters\n- The adoption instills in Jobs a lifelong sense of being **chosen** — and, at times, abandoned — that psychologists and biographers trace through every chapter of his career.\n- The move to Mountain View places him in the epicenter of what will become **Silicon Valley**; neighbors include engineers from Lockheed and Hewlett-Packard.\n- Paul Jobs's garage workshop — where he teaches young Steve to take things apart and put them together cleanly — is the first design school Jobs ever attends.",
+      "sources": [
+        { "title": "Steve Jobs — Wikipedia", "url": "https://en.wikipedia.org/wiki/Steve_Jobs" },
+        { "title": "Steve Jobs biography — Biography.com", "url": "https://www.biography.com/business-leaders/steve-jobs" }
+      ]
+    },
+    {
+      "id": "reed-and-calligraphy",
+      "date": "1972",
+      "title": "Reed College and calligraphy",
+      "tagline": "A dropout audits one class that rewires the personal computer forever.",
+      "content": "Jobs enrolls at **Reed College** in Portland, Oregon, in fall 1972 — the first of his family to attend college. He drops out after a single semester but continues to live on campus for another 18 months, sleeping on floors and auditing whatever classes intrigue him. One of those classes is **calligraphy**, taught by Robert Palladino, a Trappist monk and master letterform instructor.\n\nJobs studies serif and sans-serif typefaces, varying letter spacing, and the craft of beautiful typography with no practical goal in mind. A decade later, designing the Macintosh, he draws directly on those audited lessons to give the Mac its multiple proportional typefaces — something no personal computer had ever offered.\n\nIn his 2005 **Stanford commencement address** (see [[Stanford Commencement]]), Jobs calls this the canonical example of connecting dots backward: \"You can't connect the dots looking forward; you can only connect them looking backwards.\"",
+      "sources": [
+        { "title": "Steve Jobs and Reed College — Reed College", "url": "https://www.reed.edu/about/steve-jobs.html" },
+        { "title": "How a Calligraphy Pen Rewrote Steve Jobs' Life — Hollywood Reporter", "url": "https://www.hollywoodreporter.com/business/digital/steve-jobs-death-apple-calligraphy-248900/" }
+      ]
+    },
+    {
+      "id": "atari-and-india",
+      "date": "1974",
+      "title": "Atari and India",
+      "tagline": "An engineering job funds a spiritual pilgrimage that clarifies a worldview.",
+      "content": "In February 1974, Jobs joins **Atari** in Los Gatos as a technician, one of the company's odder hires — brilliant but difficult, often barefoot, deeply interested in Zen Buddhism. Atari founder Nolan Bushnell tolerates his eccentricities because he can solve problems no one else can.\n\nThat summer Jobs uses his Atari wages to travel to **India** with Reed friend Daniel Kottke, seeking the Neem Karoli Baba. He arrives to find the guru has died the previous year. Jobs spends seven months traveling, shaving his head, studying Hinduism, and sitting with the recognition that **intuition** — not logical analysis — is the most powerful tool a person has.\n\nHe returns to Atari in early 1975 with a shaved head and a Zen practice he will maintain for the rest of his life. The spare, non-ornamented aesthetic of Zen bleeds into every product he touches.",
+      "sources": [
+        { "title": "Steve Jobs — Wikipedia", "url": "https://en.wikipedia.org/wiki/Steve_Jobs" }
+      ]
+    },
+    {
+      "id": "apple-founded",
+      "date": "1976-04-01",
+      "title": "Apple Computer is founded",
+      "major": true,
+      "tagline": "Three men sign a partnership agreement in a garage on April Fools' Day.",
+      "content": "On **April 1, 1976**, Steve Jobs, Steve Wozniak, and Ronald Wayne sign the founding documents of **Apple Computer Company** in the Jobs family garage on Crist Drive in Los Altos. Jobs and Wozniak each hold 45%; Wayne, who contributes the original logo and partnership agreement, holds 10%.\n\nWayne exits 12 days later, selling his stake back for $800 — a decision that would eventually cost him roughly $35 billion. Wozniak's engineering genius supplies the product; Jobs's commercial instinct supplies the market. He negotiates the first retail order from Paul Terrell's Byte Shop: 50 fully assembled units at $500 each, payable on delivery.\n\n## Why it matters\n- Apple introduces the idea that a **personal computer should be a finished product**, not a kit — a conviction that guides everything Jobs does until his death.\n- The partnership structure — visionary + engineer — becomes the template for Silicon Valley origin stories.\n- The first product revenue ($25,000 from the Byte Shop order) funds the components for the next machine, the [[Apple II]], which turns a garage project into a company.",
+      "sources": [
+        { "title": "The Founding of Apple Computer — Library of Congress", "url": "https://guides.loc.gov/this-month-in-business-history/april/apple-computer-founded" },
+        { "title": "Apple Inc. — Wikipedia", "url": "https://en.wikipedia.org/wiki/Apple_Inc." }
+      ],
+      "children": [
+        {
+          "id": "apple-i",
+          "date": "1976-07",
+          "display": "Jul 1976",
+          "title": "Apple I",
+          "tagline": "Wozniak's board; Jobs's pitch.",
+          "content": "Wozniak first demonstrates the board at the **Homebrew Computer Club** in April 1976. Jobs convinces him it should be sold, not given away. The Apple I goes on sale in July 1976 at **$666.66** — Wozniak likes repeating digits. Only about 200 units are produced; fewer than 70 are known to survive.\n\nThe Apple I is a bare circuit board; buyers must supply their own keyboard, monitor, and power supply. But Jobs insists the board come fully assembled — no soldering required — a small but decisive step toward the computer as consumer appliance.",
+          "sources": [
+            { "title": "Apple I — Mac History", "url": "https://www.mac-history.net/apple-i-and-apple-ii/" }
+          ]
+        },
+        {
+          "id": "apple-ii",
+          "date": "1977-04",
+          "display": "Apr 1977",
+          "title": "Apple II",
+          "major": true,
+          "tagline": "The machine that makes Apple a real company.",
+          "content": "Introduced at the **West Coast Computer Faire** in April 1977, the Apple II is a revelation: a beige plastic case, a built-in keyboard, color graphics, and a BASIC interpreter in ROM. Jobs insists on a clean exterior with no visible screws — he has Paul Jobs fabricate the molds himself.\n\nThe Apple II ships with a power supply so quiet it startles engineers used to fan noise. VisiCalc, the first spreadsheet, ships for the Apple II in 1979, giving businesses a reason to buy a personal computer — and driving Apple to a **$583 million IPO** in December 1980, the largest US IPO since Ford Motor Company.\n\n## Why it matters\n- It establishes Apple's defining argument: that **technology and liberal arts together** produce something greater than either alone.\n- The machine runs in production until 1993 — 16 years — a longevity record that funding the R&D for everything that follows.",
+          "sources": [
+            { "title": "Apple II — Wikipedia", "url": "https://en.wikipedia.org/wiki/Apple_II" },
+            { "title": "Apple II — Smithsonian", "url": "https://americanhistory.si.edu/collections/object/nmah_334638" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "macintosh",
+      "date": "1984-01-24",
+      "title": "Macintosh",
+      "major": true,
+      "tagline": "A computer for the rest of us — and the ad that changed advertising.",
+      "content": "On **January 24, 1984**, Steve Jobs pulls the original Macintosh from a canvas bag at Apple's annual shareholders meeting at the Flint Center in Cupertino and lets the machine speak for itself: \"Hello. I am Macintosh.\" The audience erupts.\n\nThe Mac is the first mass-market computer with a **graphical user interface and mouse** — concepts Jobs had seen at Xerox PARC in 1979 and recognized immediately as the future. The machine ships with MacPaint and MacWrite; its proportional fonts, drawn from Jobs's [[Reed College and calligraphy|calligraphy]] studies, make the screen look like a printed page.\n\n## Why it matters\n- The Mac establishes **direct manipulation** (drag, click, drop) as the grammar of computing — a grammar still in use on every smartphone in the world.\n- It introduces the idea that a computer's **industrial design** matters as much as its specs — the case sculpted, the color chosen, the packaging treated as part of the experience.\n- The machine ships ahead of the [[\"1984\" Super Bowl Ad|ad that announced it]], itself a milestone in how technology brands tell their stories.",
+      "sources": [
+        { "title": "Macintosh — Wikipedia", "url": "https://en.wikipedia.org/wiki/Macintosh_128K" },
+        { "title": "Remembering Apple's 1984 Super Bowl Ad — Smithsonian", "url": "https://americanhistory.si.edu/explore/stories/remembering-apples-1984-super-bowl-ad" }
+      ],
+      "children": [
+        {
+          "id": "1984-ad",
+          "date": "1984-01-22",
+          "display": "Jan 22, 1984",
+          "title": "\"1984\" Super Bowl Ad",
+          "major": true,
+          "tagline": "Ridley Scott directs the most famous minute in advertising history.",
+          "content": "Two days before the Mac ships, a 60-second commercial directed by **Ridley Scott** airs during Super Bowl XVIII on January 22, 1984. A woman in running shorts hurls a sledgehammer at a giant screen showing a droning authoritarian figure — an unmistakable metaphor for IBM.\n\nThe spot was so provocative that Apple's board voted to pull it before it aired; Jobs and agency Chiat\\Day ran it anyway. It wins every major advertising award of the year and is still cited as the most influential Super Bowl commercial ever made.\n\n## Why it matters\n- It invents the idea that a **product launch ad can be a cultural event** — a template every major tech company has tried to replicate since.\n- It reframes Apple's market position: not a computer company, but a **rebellion** against corporate conformity.",
+          "sources": [
+            { "title": "1984 advertisement — Wikipedia", "url": "https://en.wikipedia.org/wiki/1984_(advertisement)" },
+            { "title": "Remembering Apple's 1984 Super Bowl Ad — Smithsonian", "url": "https://americanhistory.si.edu/explore/stories/remembering-apples-1984-super-bowl-ad" }
+          ]
+        },
+        {
+          "id": "macintosh-launch-event",
+          "date": "1984-01-24",
+          "display": "Jan 24, 1984",
+          "title": "The Flint Center launch",
+          "tagline": "Jobs introduces the Mac to a standing ovation — then lets it introduce itself.",
+          "content": "At the **Flint Center for the Performing Arts** at De Anza College, Jobs walks to the podium and quotes Bob Dylan: \"The times they are a-changin'.\" He then narrates the battle between IBM and Apple, builds to a climax, and pulls the beige Macintosh from a canvas bag.\n\nThe Mac's synthesized voice speaks: *\"Hello. I am Macintosh. It sure is great to get out of that bag.\"* Jobs is visibly moved. The crowd of Apple employees and shareholders give the machine a two-minute standing ovation — for a computer.\n\nThe showmanship — the buildup, the reveal, the machine speaking — becomes Jobs's signature keynote template, honed over three decades into what the press later calls the **\"Stevenote.\"**"
+        }
+      ]
+    },
+    {
+      "id": "ouster",
+      "date": "1985-09-17",
+      "title": "The ouster",
+      "major": true,
+      "tagline": "Apple's board backs Sculley; Jobs resigns the company he founded.",
+      "content": "By early 1985, internal tensions between Jobs and CEO John Sculley — whom Jobs himself had recruited from Pepsi — have become unmanageable. The Mac, despite its cultural impact, is selling below forecast. The board strips Jobs of his operational role in April, sidelining him to a nominal chairman position.\n\nOn **May 23, 1985**, Jobs attempts a boardroom coup to oust Sculley while the CEO is traveling. Executive Jean-Louis Gassée tips off Sculley; the board sides unanimously with the CEO. On **September 17, 1985**, Jobs submits his resignation letter and walks out of Apple.\n\n## Why it matters\n- The ouster is the crucible: Jobs spends eleven years away from Apple building businesses that are failures ([[NeXT and Pixar|NeXT and Pixar]]) — and one that transforms entertainment (Pixar). The lessons reshape his management philosophy fundamentally.\n- When he returns in [[The Return]], the Steve Jobs who walks back in is measurably more patient, more focused, and more willing to trust other people's craft.",
+      "sources": [
+        { "title": "Showdown at Apple — Mac History", "url": "https://www.mac-history.net/showdown-at-apple-john-sculley-vs-steve-jobs/" },
+        { "title": "Steve Jobs — Wikipedia", "url": "https://en.wikipedia.org/wiki/Steve_Jobs" }
+      ]
+    },
+    {
+      "id": "next-and-pixar",
+      "date": "1985-10",
+      "title": "NeXT and Pixar",
+      "major": true,
+      "tagline": "Eleven years in the wilderness — one total commercial failure, one cultural triumph.",
+      "content": "Stripped of his role at Apple, Jobs immediately begins building again. He founds **NeXT Computer** in October 1985 with a handful of Apple employees; two months later, he acquires the computer graphics division of George Lucas's Industrial Light & Magic and names it **Pixar**.\n\nThe two ventures could not be more different in outcome. NeXT produces beautiful, expensive workstations that almost no one buys. Pixar invents a new art form and a new industry. Together they give Jobs eleven years to think, fail, iterate, and grow — the interval that turns a brilliant but volatile 30-year-old into the most precise product leader of his generation.\n\n*Open the nested timeline for each chapter.*",
+      "sources": [
+        { "title": "NeXT — Computer History Museum", "url": "https://computerhistory.org/blog/next-steve-jobs-dot-com-ipo-that-never-happened/" },
+        { "title": "Pixar — Wikipedia", "url": "https://en.wikipedia.org/wiki/Pixar" }
+      ],
+      "children": [
+        {
+          "id": "next-founded",
+          "date": "1985-10",
+          "display": "Oct 1985",
+          "title": "NeXT Computer founded",
+          "tagline": "Jobs bets his Apple windfall on a workstation for higher education.",
+          "content": "Jobs founds **NeXT Inc.** in October 1985, taking five Apple employees with him — a move that triggers a lawsuit from Apple alleging theft of trade secrets. (The suit is later settled.)\n\nThe NeXT workstation is a marvel of industrial design: a perfect matte-black magnesium cube, 12 inches on a side. It runs a sophisticated Unix-based operating system — **NeXTSTEP** — whose object-oriented frameworks are years ahead of anything on the market. The price ($6,500–$9,999) is also years ahead of anything a university can afford.\n\nNeXT sells fewer than 50,000 machines in its lifetime. But the software is quietly revolutionary — and becomes the foundation of macOS when Apple acquires NeXT in [[NeXT Acquired by Apple|1996]].",
+          "sources": [
+            { "title": "NeXT — Computer History Museum", "url": "https://computerhistory.org/blog/next-steve-jobs-dot-com-ipo-that-never-happened/" }
+          ]
+        },
+        {
+          "id": "pixar-acquired",
+          "date": "1986-02-03",
+          "display": "Feb 1986",
+          "title": "Pixar acquisition",
+          "tagline": "Jobs pays $10 million for Lucas's computer graphics unit — and owns the future.",
+          "content": "On **February 3, 1986**, Jobs purchases the computer graphics division of George Lucas's company for **$10 million**, investing $5 million for the technology and $5 million in operating capital. He incorporates it as **Pixar Animation Studios**.\n\nLucas is selling to fund his divorce. Jobs is buying what he calls \"a hardware company\" — Pixar at the time sells the Pixar Image Computer to medical and government clients. The animation shorts are a sideline. Jobs comes close to selling Pixar multiple times over the next decade as losses mount; each time he chooses to hold on.",
+          "sources": [
+            { "title": "Pixar — Wikipedia", "url": "https://en.wikipedia.org/wiki/Pixar" },
+            { "title": "Steve Jobs — Pixar Wiki", "url": "https://pixar.fandom.com/wiki/Steve_Jobs" }
+          ]
+        },
+        {
+          "id": "toy-story",
+          "date": "1995-11-22",
+          "display": "Nov 1995",
+          "title": "Toy Story",
+          "major": true,
+          "tagline": "The first fully computer-animated feature film grosses $362 million worldwide.",
+          "content": "**Toy Story** premieres on November 22, 1995 — the first entirely computer-animated feature film in history. Directed by John Lasseter, it earns over $362 million worldwide and receives universal acclaim, earning a special Academy Award for Lasseter.\n\nFor Jobs, Toy Story is the validation of a nine-year bet. Within weeks of the release, Pixar goes public in a **$132 million IPO** that makes Jobs a billionaire for the first time — from a company he did not found. He holds 80% of Pixar.\n\n## Why it matters\n- Pixar creates the template for the modern animated blockbuster and reshapes the entire animation industry.\n- The IPO fortune gives Jobs the financial independence to take risks when he returns to Apple — he never needs Apple to survive again.\n- The creative discipline Lasseter instills at Pixar — story first, no compromises, iterate until right — mirrors Jobs's own product philosophy and reinforces it.",
+          "sources": [
+            { "title": "Toy Story — Wikipedia", "url": "https://en.wikipedia.org/wiki/Toy_Story" }
+          ]
+        },
+        {
+          "id": "next-acquired",
+          "date": "1996-12-20",
+          "display": "Dec 1996",
+          "title": "NeXT acquired by Apple",
+          "tagline": "Apple pays $429 million to bring Jobs — and NeXTSTEP — home.",
+          "content": "On **December 20, 1996**, Apple announces it will acquire NeXT for **$429 million** in cash and stock. The stated rationale is the NeXTSTEP operating system, which Apple needs as the foundation of its next-generation OS.\n\nThe unstated consequence is that Steve Jobs walks back through the door. He arrives initially as an advisor, but the board rapidly realizes he is the only person who can reverse Apple's slide. Within seven months, Gil Amelio is out and Jobs is in as [[Interim CEO]].",
+          "sources": [
+            { "title": "Apple buys NeXT — Cult of Mac", "url": "https://www.cultofmac.com/apple-history/apple-buys-next" },
+            { "title": "25 Years Ago, Apple Acquired NeXT — MacRumors", "url": "https://www.macrumors.com/2021/12/22/apple-acquiring-next-25th-anniversary/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-return",
+      "date": "1997",
+      "title": "The Return",
+      "major": true,
+      "tagline": "Jobs takes Apple from 90 days from bankruptcy to a design renaissance.",
+      "content": "When Jobs returns to Apple in 1997, the company is weeks from insolvency. He immediately kills 70% of Apple's product line — \"deciding what not to do is as important as deciding what to do\" — and restructures around a simple 2×2 grid: consumer/pro, desktop/portable.\n\nThe moves that follow are surgical: a **$150 million investment from Microsoft** (securing Office for Mac and ending the \"Apple vs. Microsoft\" war), an outsourcing deal that eliminates Apple's factories, and the recruitment of a British designer named **Jonathan Ive** who has been quietly redesigning Apple's industrial design vocabulary.\n\nWithin three years, Apple is profitable. Within four, the [[iMac G3|iMac]] is on the cover of every design magazine in the world.\n\n*Open the nested timeline for each move.*",
+      "sources": [
+        { "title": "Steve Jobs returned to Apple on July 9, 1997 — AppleInsider", "url": "https://appleinsider.com/articles/18/07/10/gil-amelio-resigned-at-apple-ceo-21-years-ago-paving-the-way-for-steve-jobs-ascension-as-ceo" },
+        { "title": "History of Apple 1997–1998 — iGotOffer", "url": "https://igotoffer.com/apple/history-apple-1997-1998" }
+      ],
+      "children": [
+        {
+          "id": "interim-ceo",
+          "date": "1997-09-16",
+          "display": "Sep 1997",
+          "title": "Interim CEO",
+          "tagline": "Jobs takes the title he will keep for the next 14 years.",
+          "content": "On **September 16, 1997**, Apple's board formally names Jobs **interim CEO** — the \"i\" prefix he keeps, pointedly, for three years. He refuses a salary of $1 and accepts instead a jet and options that make him the company's largest individual shareholder.\n\nHis first act as CEO: end the licensing of the Mac OS to clone manufacturers. Revenue per unit jumps immediately. His second: fire the entire board except two members and rebuild it with allies who will not second-guess him."
+        },
+        {
+          "id": "think-different",
+          "date": "1997-09-28",
+          "display": "Sep 1997",
+          "title": "Think Different",
+          "major": true,
+          "tagline": "\"Here's to the crazy ones\" — a campaign that tells Apple who it is again.",
+          "content": "On **September 28, 1997**, Apple launches the **\"Think Different\"** campaign — black-and-white photographs of Einstein, Gandhi, Picasso, Amelia Earhart, and other historical visionaries, accompanied by a voiceover written by Craig Tanimoto at TBWA\\Chiat\\Day:\n\n> \"Here's to the crazy ones. The misfits. The rebels. The troublemakers...\"\n\nThe campaign wins a Grammy for best TV commercial music and runs for five years. More importantly, it signals to Apple employees — demoralized by years of decline — that the company has a reason to exist beyond market share.\n\n## Why it matters\n- Jobs understood that **brand is what a company believes about itself** before it is what a company sells. Think Different rebuilds the belief before the iMac ships.\n- It positions Apple in the tradition of creativity and rebellion, not the tradition of personal computing — a distinction that defines the next two decades.",
+          "sources": [
+            { "title": "Think Different — Wikipedia", "url": "https://en.wikipedia.org/wiki/Think_different" }
+          ]
+        },
+        {
+          "id": "imac-g3",
+          "date": "1998-08-15",
+          "display": "Aug 1998",
+          "title": "iMac G3",
+          "major": true,
+          "tagline": "A translucent blue teardrop puts design back at the center of Apple.",
+          "content": "Unveiled by Jobs in May 1998 and on sale from **August 15, 1998**, the **iMac G3** is a design shock: a translucent Bondi Blue all-in-one, curved where every computer of the era is rectangular, cheerful where the PC world is beige. Jonathan Ive's design; Jobs's insistence that it look like no computer anyone has ever seen.\n\nThe iMac sells 278,000 units in its first six weeks — the fastest-selling Mac ever — and returns Apple to profitability. It inaugurates the lowercase \"i\" prefix that Jobs applies to every subsequent product.\n\n## Why it matters\n- It proves the [[Think Different]] campaign's thesis with a physical object: Apple is different, and different sells.\n- Ive–Jobs creative partnership, cemented on this project, produces every major Apple product until Jobs's death.",
+          "sources": [
+            { "title": "iMac — Wikipedia", "url": "https://en.wikipedia.org/wiki/IMac_G3" },
+            { "title": "Apple's 1998 iMac launch — iGotOffer", "url": "https://igotoffer.com/apple/history-apple-1997-1998" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-i-decade",
+      "date": "2001",
+      "title": "The i-decade",
+      "major": true,
+      "tagline": "iPod, iTunes, iPhone, iPad — four products that remake four industries.",
+      "content": "Between 2001 and 2010, Jobs oversees a run of product launches unprecedented in business history: a portable music player that becomes a cultural icon, a digital store that ends the CD era, a smartphone that makes every phone that preceded it look like a prototype, and a tablet that creates a category no analyst believed existed.\n\nEach product begins with a **Jobs erasure**: what is wrong with what exists? The iPod answers: music players that hold too few songs. The iPhone answers: smartphones that require a stylus. The iPad answers: laptops that are too heavy to read on.\n\n*Open the nested timeline for each product.*",
+      "children": [
+        {
+          "id": "ipod",
+          "date": "2001-10-23",
+          "display": "Oct 2001",
+          "title": "iPod",
+          "major": true,
+          "tagline": "\"1,000 songs in your pocket.\"",
+          "content": "On **October 23, 2001**, Jobs unveils the first iPod with a single line: **\"1,000 songs in your pocket.\"** A scroll wheel, a 5 GB hard drive, a 10-hour battery — and a price of $399 that critics call too expensive.\n\nThe iPod goes on sale November 10, 2001. It sells 600,000 units in the first year. By 2004 it accounts for 16% of Apple's revenue. By 2007, it has sold 100 million units — the fastest any consumer device has reached that milestone to that point.\n\n## Why it matters\n- The iPod is the first demonstration that Apple can build a **post-Mac business** — that the company is a consumer electronics company as much as a computer company.\n- The halo effect — people who buy iPods become more likely to buy Macs — begins Apple's long march to become the most valuable company in the world.",
+          "sources": [
+            { "title": "Apple Presents iPod — Apple Newsroom", "url": "https://www.apple.com/newsroom/2001/10/23Apple-Presents-iPod/" },
+            { "title": "iPod — Wikipedia", "url": "https://en.wikipedia.org/wiki/IPod" }
+          ]
+        },
+        {
+          "id": "itunes-store",
+          "date": "2003-04-28",
+          "display": "Apr 2003",
+          "title": "iTunes Store",
+          "tagline": "99 cents a song — and the record industry never recovers.",
+          "content": "The **iTunes Music Store** opens on **April 28, 2003**, selling individual songs for 99 cents. Jobs negotiates deals with all five major labels — a feat widely considered impossible — by arguing that legal digital music is the only alternative to Napster-scale piracy.\n\nThe store sells one million songs in its first week. By 2008, it is the largest music retailer in the United States, having displaced Walmart. By 2013, it has sold 25 billion songs.\n\nThe iTunes Store is the first major demonstration of Jobs's talent for **platform economics**: control the hardware (iPod), the software (iTunes), and the distribution (store), and collect at every step.",
+          "sources": [
+            { "title": "iPod — Wikipedia (iTunes Store section)", "url": "https://en.wikipedia.org/wiki/IPod" }
+          ]
+        },
+        {
+          "id": "iphone",
+          "date": "2007-01-09",
+          "title": "iPhone",
+          "major": true,
+          "tagline": "\"An iPod, a phone, and an internet communicator\" — combined.",
+          "content": "On **January 9, 2007**, at Macworld San Francisco, Jobs takes the stage and announces he is going to introduce three revolutionary products: an iPod with touch controls, a mobile phone, and an internet communications device. Then he reveals they are all the same thing.\n\nThe **iPhone** has no physical keyboard — Jobs calls styluses \"yuck\" and proves a finger-driven multi-touch interface can be precise enough for a phone. It combines a phone, a camera, an email client, a web browser, and a music player in a slab of glass and aluminum that fits in a shirt pocket.\n\n## Why it matters\n- The iPhone does not just improve the smartphone market — it **abolishes it** and starts over. Every phone shipped since 2007 is measured against it.\n- It creates the **app economy**: by 2023, the App Store generates more than $1 trillion in annual developer billings and sales.\n- It is the most commercially successful consumer product in history.\n- The touch-first interface it introduces later shapes the cross-timeline moment when AI assistants land on mobile — see [[artificial-intelligence/age-of-agents|the age of agents]].",
+          "sources": [
+            { "title": "Apple Reinvents the Phone — Apple Newsroom", "url": "https://www.apple.com/newsroom/2007/01/09Apple-Reinvents-the-Phone-with-iPhone/" },
+            { "title": "iPhone — Wikipedia", "url": "https://en.wikipedia.org/wiki/IPhone_(1st_generation)" }
+          ]
+        },
+        {
+          "id": "ipad",
+          "date": "2010-01-27",
+          "display": "Jan 2010",
+          "title": "iPad",
+          "tagline": "A category analysts said couldn't work — until 300,000 sold on day one.",
+          "content": "On **January 27, 2010**, Jobs introduces the **iPad** from an armchair — deliberately casual, the device resting in his lap like a magazine. The premise: a device better than a smartphone or laptop for email, photos, video, browsing, and books. Starting at $499.\n\nAnalysts are skeptical: it is a large iPod Touch, they write; it is a netbook killer; it is a solution in search of a problem. Consumers disagree. The iPad sells **300,000 units on day one** and three million in its first 80 days, faster than any Apple product before it.\n\nBy 2011 — Jobs's last full year — iPad revenue exceeds that of the entire Mac line.",
+          "sources": [
+            { "title": "Apple Launches iPad — Apple Newsroom", "url": "https://www.apple.com/newsroom/2010/01/27Apple-Launches-iPad/" },
+            { "title": "iPad (1st generation) — Wikipedia", "url": "https://en.wikipedia.org/wiki/IPad_(1st_generation)" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "illness-and-death",
+      "date": "2003-10",
+      "title": "Illness and death",
+      "major": true,
+      "tagline": "Eight years of living with cancer — publicly, then privately, then publicly again.",
+      "content": "In October 2003, Jobs is diagnosed with a rare form of pancreatic cancer — an islet-cell neuroendocrine tumor. Unlike the more common and rapidly lethal pancreatic adenocarcinoma, this variant is often treatable. His doctors urge immediate surgery. Jobs refuses for nine months, pursuing dietary and alternative treatments — a decision he later says he regrets.\n\nHe undergoes a Whipple procedure in July 2004, keeps it from the public for months, and returns to Apple without missing a major product cycle. The cancer returns, spreading to the liver. Two more medical leaves follow. He resigns the CEO role on August 24, 2011, and dies on October 5.\n\n*Open the nested timeline for each chapter of the illness.*",
+      "sources": [
+        { "title": "Steve Jobs pancreatic cancer timeline — ABC News", "url": "https://abcnews.go.com/Health/CancerPreventionAndTreatment/steve-jobs-pancreatic-cancer-timeline/story?id=14681812" },
+        { "title": "Piecing together Jobs' health history — CNN", "url": "https://www.cnn.com/2011/HEALTH/08/25/steve.jobs.cancer.health/index.html" }
+      ],
+      "children": [
+        {
+          "id": "cancer-diagnosis",
+          "date": "2003-10",
+          "display": "Oct 2003",
+          "title": "Cancer diagnosis",
+          "tagline": "Jobs learns he has a tumor — and delays surgery for nine months.",
+          "content": "A routine kidney scan in October 2003 reveals a **neuroendocrine tumor** on Jobs's pancreas. Unlike the rapidly fatal adenocarcinoma, his variant is slow-growing and surgically treatable. His oncologists recommend immediate intervention.\n\nJobs refuses. He spends nine months on a vegan diet, acupuncture, herbal remedies, and treatments found online. When he finally agrees to surgery in July 2004, the tumor has grown. He never fully reconciles with the decision.",
+          "sources": [
+            { "title": "Steve Jobs pancreatic cancer timeline — ABC News", "url": "https://abcnews.go.com/Health/CancerPreventionAndTreatment/steve-jobs-pancreatic-cancer-timeline/story?id=14681812" }
+          ]
+        },
+        {
+          "id": "whipple-surgery",
+          "date": "2004-07",
+          "display": "Jul 2004",
+          "title": "Whipple surgery",
+          "tagline": "Surgery appears to remove the tumor; Jobs is back at Apple within months.",
+          "content": "In July 2004, Jobs undergoes a **pancreaticoduodenectomy** (Whipple procedure) at Stanford University Medical Center. The surgery appears successful. Apple discloses it to shareholders only after the fact — a transparency dispute that dogs Jobs for years.\n\nHe returns to Apple, thinner but apparently recovered, in time to lead the [[iTunes Store]] expansion and early [[iPhone]] development. For three years the cancer seems defeated."
+        },
+        {
+          "id": "stanford-commencement",
+          "date": "2005-06-12",
+          "display": "Jun 12, 2005",
+          "title": "Stanford Commencement",
+          "major": true,
+          "tagline": "\"Stay hungry, stay foolish\" — the speech heard 120 million times.",
+          "content": "On **June 12, 2005**, Jobs delivers the commencement address at Stanford University — the only one he ever gives. He tells three stories: about connecting dots (the [[Reed College and calligraphy|calligraphy]] course that seeded Mac typography), about love and loss (being fired from Apple and what it taught him), and about death:\n\n> \"No one wants to die. Even people who want to go to heaven don't want to die to get there. And yet death is the destination we all share... Remembering that I'll be dead soon is the most important tool I've ever encountered to help me make the big choices in life.\"\n\nHe closes: **\"Stay hungry. Stay foolish.\"**\n\n## Why it matters\n- The speech is the most-watched commencement address in history — over **120 million views** as of 2025 — and one of the most widely reproduced pieces of oratory of the 21st century.\n- It is a primary source on Jobs's values in a way no product ever is: intuition over analysis, craft over speed, mortality as a clarifying lens.\n- Delivered a year after his cancer surgery and before anyone outside his inner circle knows the disease will return, it reads in retrospect as a farewell Jobs did not know he was giving.",
+          "sources": [
+            { "title": "'You've got to find what you love' — Stanford Report", "url": "https://news.stanford.edu/stories/2005/06/youve-got-find-love-jobs-says" },
+            { "title": "Steve Jobs at Stanford, 2005 — NPR", "url": "https://apps.npr.org/commencement/speech/steve-jobs-stanford-university-2005/" }
+          ]
+        },
+        {
+          "id": "medical-leave-2009",
+          "date": "2009-01-14",
+          "display": "Jan 2009",
+          "title": "Second medical leave",
+          "tagline": "A liver transplant, kept secret for months, buys two more years.",
+          "content": "On **January 14, 2009**, Jobs announces a medical leave of absence, citing a \"hormone imbalance\" — a carefully worded disclosure that obscures the cancer's return. He receives a **liver transplant** in Tennessee in April 2009; the Wall Street Journal breaks the story two months later.\n\nHe returns to Apple in late June 2009, visibly gaunt but energized. He leads the introduction of the [[iPad]] and iPhone 4 from the stage, and engineers later say he worked harder in 2010–2011 than at any prior point in his career."
+        },
+        {
+          "id": "resignation",
+          "date": "2011-08-24",
+          "display": "Aug 24, 2011",
+          "title": "Resignation",
+          "major": true,
+          "tagline": "Jobs steps down as CEO six weeks before his death.",
+          "content": "On **August 24, 2011**, Jobs sends the Apple board a letter of resignation as CEO, recommending **Tim Cook** as his successor. The letter is characteristically brief:\n\n> \"I have always said if there ever came a day when I could no longer meet my duties and expectations as Apple's CEO, I would be the first to let you know. Unfortunately, that day has come.\"\n\nHe remains chairman. Cook is named CEO the same day. Jobs reportedly works at Apple headquarters and attends a board meeting the day he resigns.\n\n## Why it matters\n- The resignation is also a hand-off: Cook has been running Apple's day-to-day operations since January 2011. The transition is prepared, not improvised.\n- Apple's market capitalization on the day Jobs resigns: $346 billion. By 2023, under Cook, it crosses $3 trillion — the highest ever achieved by any company.",
+          "sources": [
+            { "title": "Steve Jobs Resigns as CEO — Apple Newsroom", "url": "https://www.apple.com/newsroom/2011/08/24Steve-Jobs-Resigns-as-CEO-of-Apple/" }
+          ]
+        },
+        {
+          "id": "death",
+          "date": "2011-10-05",
+          "display": "Oct 5, 2011",
+          "title": "Death",
+          "major": true,
+          "tagline": "Steve Jobs dies at 56, surrounded by family, in Palo Alto.",
+          "content": "Steve Jobs dies at his home in **Palo Alto, California** on **October 5, 2011**, from respiratory arrest caused by a relapse of his pancreatic neuroendocrine tumor. He is 56 years old.\n\nApple's statement, written by Tim Cook and posted to apple.com, reads:\n\n> \"Apple has lost a visionary and creative genius, and the world has lost an amazing human being.\"\n\nMemorials appear spontaneously at Apple stores in 47 countries within hours. The flower left at the door: an apple with a bite taken out.\n\n## Why it matters\n- Jobs dies at a moment when it is still possible to trace a **direct line** from his decisions to every smartphone, tablet, and digital music player on earth.\n- He is one of the few individuals of whom it can be said that the world would be structurally different had they not lived — not better or worse, but organized around different assumptions.",
+          "sources": [
+            { "title": "Apple's Official Announcement — Fast Company", "url": "https://www.fastcompany.com/1785466/apples-official-announcement-death-steve-jobs" },
+            { "title": "Steve Jobs — Wikipedia", "url": "https://en.wikipedia.org/wiki/Steve_Jobs" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "legacy",
+      "date": "2011",
+      "title": "Legacy",
+      "tagline": "The products endure; the philosophy becomes curriculum.",
+      "content": "Steve Jobs leaves Apple the most profitable company in the world and the template for what a technology company can aspire to be. The products — Mac, iPod, iPhone, iPad — each define their category for a decade or more. The approach he exemplifies — ruthless simplicity, obsessive craft, the conviction that technology and liberal arts belong together — becomes the dominant design philosophy of the 21st century.\n\nIn the years after his death, **four books**, one authorized biography, two films, and hundreds of business school cases attempt to systematize what he did. None fully succeed. The closest Jobs himself comes to articulating it is in the speech he never planned to give, at [[Stanford Commencement|Stanford in 2005]]:\n\n> \"Your time is limited, so don't waste it living someone else's life.\"\n\nApple's market capitalization crosses **$1 trillion** in August 2018 — seven years after his death — and $3 trillion in 2023. The [[Macintosh]] and the [[iPhone]] are still in production. The garage on Crist Drive in Los Altos is a California Historical Landmark.",
+      "sources": [
+        { "title": "Steve Jobs — Wikipedia", "url": "https://en.wikipedia.org/wiki/Steve_Jobs" }
+      ]
+    }
+  ]
+}
