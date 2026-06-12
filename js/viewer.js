@@ -101,7 +101,7 @@ function buildHorizontal(node){
     if (!moved && Math.abs(dx) < 6) return;
     moved = true; wrap.classList.add('drag'); wrap.scrollLeft = sl - dx;
   });
-  window.addEventListener('pointerup', () => { down = false; wrap.classList.remove('drag'); });
+  window.addEventListener('pointerup', () => { down = false; wrap.classList.remove('drag'); setTimeout(() => { moved = false; }, 0); });
   wrap.addEventListener('click', e => { if (moved){ e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
   wrap.addEventListener('wheel', e => {
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX)){ wrap.scrollLeft += e.deltaY; e.preventDefault(); }
