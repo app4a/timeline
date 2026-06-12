@@ -1,0 +1,18 @@
+{
+  "timelines": [
+    {
+      "id": "artificial-intelligence",
+      "title": "Artificial Intelligence",
+      "tagline": "From a 1950 thought experiment to machines that act on our behalf — the whole story, layer by layer.",
+      "eventCount": 26,
+      "updated": "2026-06-12"
+    },
+    {
+      "id": "the-web",
+      "title": "The Web",
+      "tagline": "How a physics lab's filing problem became humanity's nervous system.",
+      "eventCount": 10,
+      "updated": "2026-06-12"
+    }
+  ]
+}

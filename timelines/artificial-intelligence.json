@@ -1,0 +1,179 @@
+{
+  "id": "artificial-intelligence",
+  "title": "Artificial Intelligence",
+  "tagline": "From a 1950 thought experiment to machines that act on our behalf — the whole story, layer by layer.",
+  "updated": "2026-06-12",
+  "events": [
+    {
+      "id": "turing-test", "date": "1950", "title": "The Turing Test", "major": true,
+      "tagline": "Can a machine make you believe it is human?",
+      "content": "Alan Turing publishes **\"Computing Machinery and Intelligence\"**, opening with a question he immediately replaces with a sharper one:\n\n> \"I propose to consider the question, 'Can machines think?' … replaced by the imitation game.\"\n\nInstead of arguing about definitions of *thinking*, Turing proposes a test: if a machine can hold a conversation indistinguishable from a human's, the philosophical question stops mattering.\n\n## Why it matters\n- It reframes intelligence as **behavior**, not mechanism — a move the whole field inherits.\n- Nearly every chatbot debate since, including the reaction to [[ChatGPT]], replays this argument.\n- It set a benchmark culture: AI progress would be measured by tests and games for decades.",
+      "sources": [
+        { "title": "Computing Machinery and Intelligence (Mind, 1950)", "url": "https://academic.oup.com/mind/article/LIX/236/433/986238" },
+        { "title": "Turing test — Wikipedia", "url": "https://en.wikipedia.org/wiki/Turing_test" }
+      ]
+    },
+    {
+      "id": "ai-is-coined", "date": "1956", "title": "\"AI\" is coined", "major": true,
+      "tagline": "A summer workshop gives the field its name.",
+      "content": "At the **Dartmouth Summer Research Project**, John McCarthy — with Marvin Minsky, Claude Shannon and Nathaniel Rochester — coins the term **artificial intelligence** in the funding proposal:\n\n> \"Every aspect of learning or any other feature of intelligence can in principle be so precisely described that a machine can be made to simulate it.\"\n\nTen researchers spend the summer at Dartmouth College sketching how machines might use language, form abstractions, and improve themselves.\n\n## Why it matters\n- The name itself was a **bet**: that intelligence is describable, hence computable. Compare [[The Turing Test]] — behavior over mechanism.\n- It created a *field* with an identity, funding story, and research agenda.\n- Most of the founders believed human-level AI was a generation away. The over-promise → disappointment → \"AI winter\" cycle starts here.",
+      "sources": [
+        { "title": "Dartmouth workshop — Wikipedia", "url": "https://en.wikipedia.org/wiki/Dartmouth_workshop" }
+      ]
+    },
+    {
+      "id": "deep-blue", "date": "1997-05-11", "display": "1997", "title": "Deep Blue",
+      "tagline": "A machine defeats the world chess champion.",
+      "content": "IBM's **Deep Blue** beats Garry Kasparov 3½–2½ — the first defeat of a reigning world champion by a machine under tournament conditions.\n\nDeep Blue evaluated roughly **200 million positions per second**. It didn't *understand* chess; it searched it. That distinction — brute search versus learned intuition — frames the next era: when [[AlexNet]] arrives, the balance tips from hand-built search toward learning.\n\n## Why it matters\n- First mainstream proof that a machine could beat the best human at a \"thinking\" task.\n- Cemented the pattern of **games as milestones** (checkers → chess → Go → StarCraft).",
+      "sources": [
+        { "title": "IBM — Deep Blue history", "url": "https://www.ibm.com/history/deep-blue" }
+      ]
+    },
+    {
+      "id": "alexnet", "date": "2012-09-30", "display": "2012", "title": "AlexNet", "major": true,
+      "tagline": "Deep learning wins, and everything changes.",
+      "content": "A three-person team — Alex Krizhevsky, Ilya Sutskever, Geoffrey Hinton — enters a deep **convolutional neural network** into the ImageNet competition and wins by an unheard-of margin (15.3% error vs 26.2% for second place).\n\nThe recipe: a decades-old idea (neural nets), two new ingredients (**GPUs** + huge labeled datasets scraped from [[the-web/www-proposal|the Web]]), and the conviction to scale it.\n\n## Why it matters\n- Overnight, \"neural networks\" went from unfashionable to *the* method.\n- The scaling lesson — more data, more compute, better results — leads directly to [[Transformers]] and ultimately [[ChatGPT]].\n- Two of the three authors go on to found or lead the labs of the LLM era.",
+      "sources": [
+        { "title": "ImageNet Classification with Deep CNNs (NeurIPS 2012)", "url": "https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html" }
+      ]
+    },
+    {
+      "id": "transformers", "date": "2017-06-12", "display": "2017", "title": "Transformers", "major": true,
+      "tagline": "The architecture behind everything modern.",
+      "content": "Eight Google researchers publish **\"Attention Is All You Need\"**, introducing the *Transformer* — an architecture that drops recurrence entirely and relies on **self-attention**: every token can directly look at every other token.\n\n## Why it matters\n- It parallelizes beautifully on GPUs → training can scale to internet-sized data.\n- It is the **\"T\" in GPT**. Every modern large language model, including [[ChatGPT]], is a descendant.\n- Its children conquered not just text but images ([[Vision Transformer]]), audio, code and biology.\n\n*Open this event's timeline to follow the lineage in detail.*",
+      "sources": [
+        { "title": "Attention Is All You Need (arXiv:1706.03762)", "url": "https://arxiv.org/abs/1706.03762" }
+      ],
+      "children": [
+        {
+          "id": "attention-paper", "date": "2017-06-12", "display": "Jun 2017", "title": "Attention Is All You Need", "major": true,
+          "tagline": "The paper itself.",
+          "content": "The paper that started it: attention layers + feed-forward blocks, no recurrence, trained on translation. Its famous title was a half-joke that became the most-cited sentence in modern AI.",
+          "sources": [ { "title": "arXiv:1706.03762", "url": "https://arxiv.org/abs/1706.03762" } ]
+        },
+        {
+          "id": "bert", "date": "2018-10-11", "display": "Oct 2018", "title": "BERT",
+          "tagline": "Bidirectional pretraining conquers understanding tasks.",
+          "content": "Google's **BERT** pretrains a Transformer on masked-word prediction over Wikipedia, then fine-tunes it for any task. It tops 11 benchmarks at once and powers Google Search within a year — the first mass deployment of Transformer language understanding.",
+          "sources": [ { "title": "arXiv:1810.04805", "url": "https://arxiv.org/abs/1810.04805" } ]
+        },
+        {
+          "id": "gpt-1", "date": "2018-06-11", "display": "Jun 2018", "title": "GPT-1",
+          "tagline": "OpenAI bets on generative pretraining.",
+          "content": "OpenAI's **GPT-1** takes the opposite bet from BERT: predict the *next* token, generatively, and scale it. At 117M parameters it is modest — but the line GPT-1 → GPT-2 → GPT-3 → [[ChatGPT]] is a straight application of the same recipe at growing scale."
+        },
+        {
+          "id": "vision-transformer", "date": "2020-10-22", "display": "Oct 2020", "title": "Vision Transformer",
+          "tagline": "Attention eats computer vision too.",
+          "content": "**ViT** splits an image into patches and feeds them to a standard Transformer — no convolutions. Given enough data it beats the best CNNs, proving the architecture is general-purpose. This is the lineage behind GPT-4's image understanding ([[GPT-4V]]).",
+          "sources": [ { "title": "arXiv:2010.11929", "url": "https://arxiv.org/abs/2010.11929" } ]
+        }
+      ]
+    },
+    {
+      "id": "chatgpt", "date": "2022-11-30", "display": "2022", "title": "ChatGPT", "major": true,
+      "tagline": "AI goes mainstream: 100M users in two months.",
+      "content": "On **November 30, 2022**, OpenAI releases a \"research preview\" of a chatbot built on GPT-3.5. It reaches **1 million users in 5 days** and ~100 million in two months — the fastest-growing consumer product in history at the time.\n\n## What actually shipped\nUnder the hood it was not a new model but a new *interface*: a [[Transformers]]-based LLM fine-tuned with **RLHF** (reinforcement learning from human feedback) to follow instructions, wrapped in a plain chat box anyone could use.\n\n## Why it matters\n- It moved AI from research demos into **daily life** within weeks.\n- It triggered the industry pivot: Google declared \"code red\", Microsoft invested $10B in OpenAI, and every major lab reoriented around LLMs.\n- It restarted the [[The Turing Test]] debate in public, at dinner-table scale.\n- Its rapid version history — see [[GPT-4]] — became the cadence the whole industry marches to.\n\n*Open this event's timeline for the version-by-version story.*",
+      "sources": [
+        { "title": "Introducing ChatGPT — OpenAI", "url": "https://openai.com/blog/chatgpt" }
+      ],
+      "children": [
+        {
+          "id": "gpt-3-5", "date": "2022-11-30", "display": "Nov 2022", "title": "GPT-3.5", "major": true,
+          "tagline": "The launch model.",
+          "content": "The model behind the original launch — GPT-3 refined with instruction-following and RLHF. Free, fast, and good *enough* to astonish: the gap between \"research curiosity\" and \"useful assistant\" closed here."
+        },
+        {
+          "id": "gpt-4", "date": "2023-03-14", "display": "Mar 2023", "title": "GPT-4", "major": true,
+          "tagline": "The capability jump.",
+          "content": "**GPT-4** lands four months after launch and resets expectations: top-decile scores on the bar exam, strong code generation, far fewer hallucinations, and (later) the ability to see images.\n\nIt also begins the *productization* era — system prompts, function calling, longer context — the raw material that [[GPT-4 Turbo]] and [[DevDay 2023]] turn into a platform.\n\n*This event has its own timeline — open it to follow GPT-4's evolution.*",
+          "sources": [
+            { "title": "GPT-4 Technical Report (arXiv:2303.08774)", "url": "https://arxiv.org/abs/2303.08774" }
+          ],
+          "children": [
+            {
+              "id": "gpt-4-launch", "date": "2023-03-14", "display": "Mar 2023", "title": "GPT-4 launch", "major": true,
+              "tagline": "Top-decile bar exam, multimodal teased.",
+              "content": "Launched March 14, 2023 alongside a technical report famous for what it *didn't* say — no parameter count, no architecture details. The era of competitive secrecy begins."
+            },
+            {
+              "id": "gpt-4v", "date": "2023-09-25", "display": "Sep 2023", "title": "GPT-4V",
+              "tagline": "The model gets eyes.",
+              "content": "GPT-4 with vision rolls out: screenshots, charts, photos, handwriting. The conceptual ancestor is the [[Vision Transformer]] — patches in, tokens out, one architecture for everything."
+            },
+            {
+              "id": "gpt-4-turbo", "date": "2023-11-06", "display": "Nov 2023", "title": "GPT-4 Turbo", "major": true,
+              "tagline": "Cheaper, faster, 128K context.",
+              "content": "Announced at OpenAI's first developer conference: a faster GPT-4 at a third of the price with a **128K-token context window** — entire books in a single prompt.\n\nThe platform story matters as much as the model — see [[DevDay 2023]] for what shipped around it.",
+              "children": [
+                {
+                  "id": "devday-2023", "date": "2023-11-06", "display": "Nov 6, 2023", "title": "DevDay 2023", "major": true,
+                  "tagline": "OpenAI's first developer conference.",
+                  "content": "OpenAI's first DevDay packs a year of platform strategy into one keynote. The theme: GPT-4 stops being a chatbot and becomes **infrastructure**.\n\n*Open this event's timeline for the announcements, one by one.*",
+                  "sources": [
+                    { "title": "New models and developer products announced at DevDay — OpenAI", "url": "https://openai.com/blog/new-models-and-developer-products-announced-at-devday" }
+                  ],
+                  "children": [
+                    {
+                      "id": "context-128k", "date": "2023-11-06", "display": "Keynote", "title": "128K context window", "major": true,
+                      "tagline": "Books-length prompts.",
+                      "content": "Context jumps from 8K to **128K tokens** — about 300 pages. Whole codebases and contracts fit in one prompt, unlocking retrieval-light workflows."
+                    },
+                    {
+                      "id": "custom-gpts", "date": "2023-11-06", "display": "Keynote", "title": "Custom GPTs",
+                      "tagline": "Everyone can publish an assistant.",
+                      "content": "Anyone can package instructions + files + tools into a shareable **GPT** — no code. The first mass-market experiment in personalized agents, and a precursor of [[The age of agents]]."
+                    },
+                    {
+                      "id": "price-cuts", "date": "2023-11-06", "display": "Keynote", "title": "Price cuts",
+                      "tagline": "3× cheaper input tokens.",
+                      "content": "GPT-4 Turbo input tokens priced ~3× lower than GPT-4. The cost curve of intelligence keeps falling — the quiet enabler of every AI product business model."
+                    }
+                  ]
+                },
+                {
+                  "id": "turbo-2024-04", "date": "2024-04-09", "display": "Apr 2024", "title": "Turbo 2024-04-09",
+                  "tagline": "The refresh.",
+                  "content": "A refreshed Turbo with vision built in and majorly improved instruction-following — the workhorse model until GPT-4o replaces it a month later."
+                }
+              ]
+            },
+            {
+              "id": "gpt-4o", "date": "2024-05-13", "display": "May 2024", "title": "GPT-4o",
+              "tagline": "Natively multimodal, realtime.",
+              "content": "\"o\" for *omni*: one network handles text, vision and **realtime voice** with ~300ms latency — conversation at human speed. The assistant stops feeling like a terminal and starts feeling like a presence.",
+              "sources": [ { "title": "Hello GPT-4o — OpenAI", "url": "https://openai.com/index/hello-gpt-4o/" } ]
+            }
+          ]
+        },
+        {
+          "id": "reasoning-models", "date": "2025", "title": "Reasoning models", "major": true,
+          "tagline": "Models that think before they answer.",
+          "content": "The o-series and successors introduce **test-time reasoning**: the model deliberates in a hidden chain of thought before answering. Math, code and science benchmarks jump again — and the technique spreads industry-wide within months, feeding directly into [[The age of agents]]."
+        }
+      ]
+    },
+    {
+      "id": "age-of-agents", "date": "2025", "title": "The age of agents", "major": true,
+      "tagline": "From answering to acting.",
+      "content": "The frontier shifts from *chat* to *action*: models that plan multi-step work, call tools, browse, write and run code, and operate computers — checked on by humans rather than driven by them.\n\n## Why it matters\n- The unit of value moves from \"a good answer\" to **\"a finished task.\"**\n- Interfaces invert: instead of you visiting [[ChatGPT]], agents visit your tools.\n- Built on two prior layers: [[Transformers]] for capability, [[Reasoning models]] for reliability.\n\n*Open the timeline to see the building blocks land.*",
+      "children": [
+        {
+          "id": "tool-use", "date": "2024", "title": "Tool use matures",
+          "tagline": "Function calling becomes standard.",
+          "content": "Structured tool calling becomes a first-class capability across every major model — the hands that reasoning needed."
+        },
+        {
+          "id": "computer-use", "date": "2025", "title": "Computer use",
+          "tagline": "Models operate real software.",
+          "content": "Models learn to drive real GUIs — clicking, typing, reading screens — turning any software into an API."
+        },
+        {
+          "id": "multi-agent", "date": "2025", "title": "Multi-agent teams",
+          "tagline": "Agents that delegate to agents.",
+          "content": "Orchestrators spawn specialist sub-agents that research, write and review in parallel. Workflows start to look like *org charts*."
+        }
+      ]
+    }
+  ]
+}

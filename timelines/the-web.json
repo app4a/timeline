@@ -1,0 +1,64 @@
+{
+  "id": "the-web",
+  "title": "The Web",
+  "tagline": "How a physics lab's filing problem became humanity's nervous system.",
+  "updated": "2026-06-12",
+  "events": [
+    {
+      "id": "arpanet", "date": "1969-10-29", "display": "1969", "title": "ARPANET", "major": true,
+      "tagline": "The first packet-switched network goes live.",
+      "content": "UCLA and Stanford exchange the first ARPANET message — intended to be *LOGIN*, it crashes after **\"LO\"**. Packet switching works, and the network that will become the Internet is born.",
+      "sources": [ { "title": "ARPANET — Wikipedia", "url": "https://en.wikipedia.org/wiki/ARPANET" } ]
+    },
+    {
+      "id": "email", "date": "1971", "title": "Email",
+      "tagline": "The @ sign gets its job.",
+      "content": "Ray Tomlinson sends the first networked email and picks **@** to separate user from machine. The network's first killer app — decades before the Web itself."
+    },
+    {
+      "id": "tcp-ip", "date": "1983-01-01", "display": "1983", "title": "TCP/IP",
+      "tagline": "One protocol to connect all networks.",
+      "content": "ARPANET switches to **TCP/IP** on \"flag day\". Networks of networks can now interoperate — this is the moment *the* Internet, lowercase networks becoming one capital-I system, exists."
+    },
+    {
+      "id": "www-proposal", "date": "1989-03-12", "display": "1989", "title": "The Web is proposed", "major": true,
+      "tagline": "Tim Berners-Lee's memo: \"vague, but exciting.\"",
+      "content": "At CERN, Tim Berners-Lee writes **\"Information Management: A Proposal\"** — hypertext documents, addressed by URL, fetched over the network. His boss scribbles *\"vague, but exciting\"* on the cover.\n\n*Open this event's timeline for the birth steps.*",
+      "sources": [ { "title": "The original proposal (w3.org)", "url": "https://www.w3.org/History/1989/proposal.html" } ],
+      "children": [
+        {
+          "id": "first-browser", "date": "1990-12-25", "display": "1990", "title": "First browser & server", "major": true,
+          "tagline": "WorldWideWeb on a NeXT cube.",
+          "content": "Berners-Lee writes the first browser/editor (*WorldWideWeb*) and the first server (*httpd*) on a NeXT machine over Christmas 1990. The whole Web runs on one desk."
+        },
+        {
+          "id": "public-web", "date": "1991-08-06", "display": "1991", "title": "The Web goes public",
+          "tagline": "The first website explains itself.",
+          "content": "The project is announced publicly; `info.cern.ch` serves the first website — a page explaining what the World Wide Web is and how to join it."
+        },
+        {
+          "id": "w3c", "date": "1994-10-01", "display": "1994", "title": "W3C founded",
+          "tagline": "The Web gets a steward, not an owner.",
+          "content": "Berners-Lee founds the **World Wide Web Consortium** at MIT and CERN agrees to release the Web's code royalty-free — the decision that kept the Web open."
+        }
+      ]
+    },
+    {
+      "id": "mosaic", "date": "1993-04-22", "display": "1993", "title": "Mosaic", "major": true,
+      "tagline": "The browser that showed images — and everyone the point.",
+      "content": "NCSA **Mosaic** puts images inline with text and installs in minutes. The Web's population explodes from thousands to millions; its authors go on to found Netscape.",
+      "sources": [ { "title": "Mosaic — Wikipedia", "url": "https://en.wikipedia.org/wiki/Mosaic_(web_browser)" } ]
+    },
+    {
+      "id": "google", "date": "1998-09-04", "display": "1998", "title": "Google", "major": true,
+      "tagline": "Search makes the Web usable; ads make it an economy.",
+      "content": "Two Stanford students rank pages by their *links* (PageRank), and suddenly the exploding Web is navigable. The data and infrastructure born here later feed the deep-learning era — see [[artificial-intelligence/transformers|Transformers]], invented at Google.",
+      "sources": [ { "title": "History of Google — Wikipedia", "url": "https://en.wikipedia.org/wiki/History_of_Google" } ]
+    },
+    {
+      "id": "social-web", "date": "2004", "title": "The social Web",
+      "tagline": "The Web learns who you are.",
+      "content": "Facebook (2004), YouTube (2005), Twitter (2006): the Web's content becomes *us*. Attention becomes the commodity — and the training data this era produces later teaches machines to talk."
+    }
+  ]
+}
