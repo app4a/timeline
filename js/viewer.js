@@ -277,13 +277,19 @@ function transitionTo(newChain){
   const shrinksOld = newChain.length < oldChain.length &&
     newChain.every((n, i) => oldChain[i] === n);
   state.busy = true;
+  if (out){
+    // line handoff: fade the outgoing axis/spine out and delay the incoming one in,
+    // so the two overlapping levels never show a double line mid-morph
+    out.classList.add('leaving');
+    inc.classList.add('entering');
+  }
   if (out && extendsOld)      morphDown(inc, out, state.pendingFrom);
   else if (out && shrinksOld) morphUp(inc, out, oldChain[oldChain.length - 1]);
   else if (out)               { inc.animate([{opacity:0, transform:'scale(.985)'},{opacity:1, transform:'none'}],
                                             {duration:dur(380), easing:SOFT, fill:'both'});
                                 out.animate([{opacity:1},{opacity:0}], {duration:dur(240), fill:'both'}); }
   state.pendingFrom = null;
-  setTimeout(() => { if (out) out.remove(); state.busy = false; renderRail(); }, out ? dur(860) : 0);
+  setTimeout(() => { if (out) out.remove(); inc.classList.remove('entering'); state.busy = false; renderRail(); }, out ? dur(860) : 0);
   if (!out) renderRail();
 }
 

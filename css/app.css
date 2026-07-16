@@ -38,8 +38,13 @@
 }
 *{box-sizing:border-box}
 @media (prefers-reduced-motion: reduce){
-  *, *::before, *::after{ transition-duration:.01ms !important; animation-duration:.01ms !important; }
+  *, *::before, *::after{ transition-duration:.01ms !important; animation-duration:.01ms !important;
+                          animation-delay:0s !important; }
 }
+/* level-transition line handoff — only one axis/spine visible while two levels overlap */
+.level.leaving .haxis, .level.leaving .events::before{ opacity:0; transition:opacity .22s; }
+.level.entering .haxis, .level.entering .events::before{ animation:lineIn .3s .24s backwards; }
+@keyframes lineIn{ from{ opacity:0; } }
 .vh{ position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 /* keyboard focus — all:unset strips the UA ring, so restore it per control (WCAG 2.4.7) */
 .skbtn:focus-visible, .seg button:focus-visible, .upcirc:focus-visible, .pclose:focus-visible,
