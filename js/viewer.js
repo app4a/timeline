@@ -1,11 +1,38 @@
 import './panel.js';
 import { state, els, handlers, navigate, BASE } from './state.js';
 import { loadTimeline, indexTimeline, resolvePath, displayDate, getRead, markRead } from './data.js';
+import { groupEvents } from './density.js';
 import { buildTimelinePath } from './router.js';
 import { renderRail } from './rail.js';
 
 export function here(){ return state.path[state.path.length - 1]; }
 const pathKey = node => node.pathIds.join('/');
+
+/* density collapse — per-level expanded runs (session memory) */
+const levelKey = () => state.timelineId + ':' + here().pathIds.join('/');
+const expandedSet = () => {
+  const k = levelKey();
+  if (!state.expandedRuns.has(k)) state.expandedRuns.set(k, new Set());
+  return state.expandedRuns.get(k);
+};
+function runYears(items){
+  const y = it => (it.date || '').slice(0, 4).replace(/^0+/, '') || '?';
+  const a = y(items[0]), b = y(items[items.length - 1]);
+  return a === b ? a : a + '–' + b;
+}
+function qrunEl(cls, items){
+  const q = document.createElement('div'); q.className = cls;
+  const btn = document.createElement('button'); btn.className = 'qbtn';
+  btn.textContent = '+ ' + items.length + ' quieter moments · ' + runYears(items);
+  btn.setAttribute('aria-expanded', 'false');
+  btn.onclick = () => {
+    const set = expandedSet();
+    items.forEach(it => set.add(it.id));
+    renderCurrent();
+  };
+  q.appendChild(btn);
+  return q;
+}
 
 /* ---------- level construction ---------- */
 function buildLevel(node){
@@ -58,7 +85,13 @@ function buildVertical(node){
   const read = getRead(state.timelineId);
   const evs = document.createElement('div'); evs.className = 'events';
   const eras = showEras(node.children); let prevD = null;
-  for (const ch of node.children || []){
+  for (const group of groupEvents(node.children, expandedSet())){
+    if (group.type === 'collapsed'){
+      evs.appendChild(qrunEl('qrun', group.items));
+      prevD = decadeOf(group.items[group.items.length - 1]) ?? prevD;
+      continue;
+    }
+  for (const ch of group.items){
     if (eras){ const d = decadeOf(ch);
       if (d !== null && d !== prevD) evs.appendChild(eraPill('era', d));
       prevD = d; }
@@ -81,6 +114,7 @@ function buildVertical(node){
     ev.appendChild(mk); ev.appendChild(row);
     evs.appendChild(ev);
   }
+  }
   return evs;
 }
 
@@ -90,7 +124,15 @@ function buildHorizontal(node){
   const track = document.createElement('div'); track.className = 'htrack';
   const axis = document.createElement('div'); axis.className = 'haxis'; track.appendChild(axis);
   const eras = showEras(node.children); let prevD = null;
-  (node.children || []).forEach((ch, i) => {
+  let i = -1;
+  for (const group of groupEvents(node.children, expandedSet())){
+    if (group.type === 'collapsed'){
+      track.appendChild(qrunEl('hqrun', group.items));
+      prevD = decadeOf(group.items[group.items.length - 1]) ?? prevD;
+      continue;
+    }
+  for (const ch of group.items){
+    i++;
     if (eras){ const d = decadeOf(ch);
       if (d !== null && d !== prevD) track.appendChild(eraPill('hera', d));
       prevD = d; }
@@ -112,7 +154,8 @@ function buildHorizontal(node){
     card.onclick = () => handlers.openReader(ch, ev);
     ev.appendChild(mk); ev.appendChild(card);
     track.appendChild(ev);
-  });
+  }
+  }
   wrap.appendChild(track);
   /* drag + wheel — with click/drag discrimination so card clicks always land */
   const ac = new AbortController();
@@ -147,7 +190,7 @@ export function renderCurrent(){
 }
 
 const EASE = 'cubic-bezier(.5,.05,.1,1)', SOFT = 'cubic-bezier(.2,.7,.2,1)';
-const rowsOf = lvl => lvl.querySelectorAll('.event,.era,.hera');   // era pills join the morph staggers
+const rowsOf = lvl => lvl.querySelectorAll('.event,.era,.hera,.qrun,.hqrun');   // pills/expanders join the morph staggers
 
 function morphDown(inc, out, fromRect){
   const title = inc.querySelector('.lvtitle'), sub = inc.querySelector('.lvsub'),
@@ -273,8 +316,17 @@ handlers.goUpTo = (i) => {
   navigate(buildTimelinePath(state.timelineId, state.path[i].pathIds, BASE));
 };
 handlers.focusChild = (node) => {
-  let evEl = null;
-  state.cur.querySelectorAll('.event').forEach(e => { if (e.__node === node) evEl = e; });
+  const find = () => {
+    let el = null;
+    state.cur.querySelectorAll('.event').forEach(e => { if (e.__node === node) el = e; });
+    return el;
+  };
+  let evEl = find();
+  if (!evEl && node.parent === here()){        // target hidden in a collapsed run — expand it
+    expandedSet().add(node.id);
+    renderCurrent();
+    evEl = find();
+  }
   if (!evEl) return;
   evEl.scrollIntoView({ behavior:'smooth',
     block: state.layout === 'v' ? 'center' : 'nearest',

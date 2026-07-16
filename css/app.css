@@ -281,6 +281,15 @@ kbd{ font-family:var(--sans); font-size:10px; font-weight:700; border:1px solid 
 .prog .cont{ font-size:11.5px; font-weight:700; color:var(--accent); white-space:nowrap; }
 .prog .cont:hover{ text-decoration:underline; }
 
+/* ===== density collapse — quieter-moments expanders ===== */
+.qrun{ margin:6px 0; }
+.qbtn{ all:unset; cursor:pointer; display:inline-block; font:600 12px var(--sans); color:var(--muted);
+       border:1.5px dashed var(--faint); border-radius:99px; padding:7px 14px; margin-left:2px;
+       transition:color .15s, border-color .15s; }
+.qbtn:hover{ color:var(--accent); border-color:var(--accent); }
+.hqrun{ flex:0 0 auto; align-self:center; position:relative; z-index:2; }
+.hqrun .qbtn{ background:var(--paper); white-space:nowrap; }
+
 /* ===== decade markers (density-gated in JS) ===== */
 .era{ margin:22px 0 10px; position:relative; }
 .era span, .hera span{ display:inline-block; font:700 10px/1 var(--sans); letter-spacing:.12em;
