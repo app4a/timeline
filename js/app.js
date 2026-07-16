@@ -36,9 +36,11 @@ document.querySelector('.brand').addEventListener('click', e => {
 
 function renderHint(){
   if (!state.idx){ els.hint.innerHTML = ''; return; }
-  const move = state.layout === 'v' ? '<kbd>↑</kbd><kbd>↓</kbd>' : '<kbd>←</kbd><kbd>→</kbd>';
-  els.hint.innerHTML = move + ' move &nbsp; <kbd>Enter</kbd> read &nbsp; <kbd>⇧Enter</kbd> open timeline' +
-                       ' &nbsp; <kbd>Esc</kbd> up &nbsp; <kbd>⌘K</kbd> search';
+  const [move, drill, up] = state.layout === 'v'
+    ? ['<kbd>↑</kbd><kbd>↓</kbd>', '→', '←']
+    : ['<kbd>←</kbd><kbd>→</kbd>', '↓', '↑'];
+  els.hint.innerHTML = move + ' move &nbsp; <kbd>Enter</kbd> read &nbsp; <kbd>' + drill +
+                       '</kbd> drill in &nbsp; <kbd>' + up + '</kbd> up &nbsp; <kbd>⌘K</kbd> search';
 }
 
 window.addEventListener('keydown', e => {
@@ -47,11 +49,22 @@ window.addEventListener('keydown', e => {
   const evs = [...state.cur.querySelectorAll('.event')];
   const fwd = state.layout === 'v' ? 'ArrowDown' : 'ArrowRight';
   const bck = state.layout === 'v' ? 'ArrowUp' : 'ArrowLeft';
+  const drillKey = state.layout === 'v' ? 'ArrowRight' : 'ArrowDown';   // the cross-axis arrows drill/up
+  const upKey    = state.layout === 'v' ? 'ArrowLeft'  : 'ArrowUp';
   if (e.key === fwd || e.key === bck){
     e.preventDefault();
     state.sel = e.key === fwd ? Math.min(evs.length - 1, state.sel + 1) : Math.max(0, state.sel - 1);
     evs.forEach((x, i) => x.classList.toggle('focused', i === state.sel));
     evs[state.sel]?.scrollIntoView({ behavior:'smooth', block:'center', inline:'center' });
+  }
+  if (e.key === drillKey){
+    e.preventDefault();
+    const target = evs[state.sel]?.__node || state.readingNode;   // selected event, else the one being read
+    if (target?.children) handlers.drill(target, evs[state.sel]?.querySelector('.ti') || null);
+  }
+  if (e.key === upKey){
+    e.preventDefault();
+    if (state.path.length > 1) handlers.goUpTo(state.path.length - 2);
   }
   if (e.key === 'Enter' && evs[state.sel]){
     const node = evs[state.sel].__node;

@@ -119,6 +119,7 @@ function buildVertical(node){
     row.tabIndex = 0; row.setAttribute('role', 'button');
     row.addEventListener('keydown', e => {
       if (e.target !== row) return;
+      if (e.key === 'Enter' && e.shiftKey && ch.children){ e.preventDefault(); handlers.drill(ch, ti); return; }
       if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); handlers.openReader(ch, ev); }
     });
     ev.appendChild(mk); ev.appendChild(row);
@@ -165,6 +166,7 @@ function buildHorizontal(node){
     card.tabIndex = 0; card.setAttribute('role', 'button');
     card.addEventListener('keydown', e => {
       if (e.target !== card) return;
+      if (e.key === 'Enter' && e.shiftKey && ch.children){ e.preventDefault(); handlers.drill(ch, ti); return; }
       if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); handlers.openReader(ch, ev); }
     });
     ev.appendChild(mk); ev.appendChild(card);
