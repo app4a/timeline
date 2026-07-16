@@ -146,7 +146,7 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
 /* ===== vertical events ===== */
 .events{ position:relative; margin-top:clamp(26px,3.5vh,44px); padding-left:34px; }
 .events::before{ content:''; position:absolute; left:7px; top:12px; bottom:12px; width:2px; background:var(--line); }
-.event{ position:relative; transition:opacity .3s; }
+.event{ position:relative; transition:opacity .3s; scroll-margin:72px 24px; }
 .events.reading .event:not(.open){ opacity:.55; }
 /* dot language — one meaning only: read state. hollow = unread · tint = read · solid+halo = reading now.
    importance is carried by title weight, not the dot. */

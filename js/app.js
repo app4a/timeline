@@ -55,7 +55,8 @@ window.addEventListener('keydown', e => {
     e.preventDefault();
     state.sel = e.key === fwd ? Math.min(evs.length - 1, state.sel + 1) : Math.max(0, state.sel - 1);
     evs.forEach((x, i) => x.classList.toggle('focused', i === state.sel));
-    evs[state.sel]?.scrollIntoView({ behavior:'smooth', block:'center', inline:'center' });
+    // 'nearest': scroll only when the row is actually out of view — selecting a visible row must not move the timeline
+    evs[state.sel]?.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'nearest' });
   }
   if (e.key === drillKey){
     e.preventDefault();
