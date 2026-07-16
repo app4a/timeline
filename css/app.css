@@ -11,6 +11,28 @@
   --ease:cubic-bezier(.5,.05,.1,1); --soft-ease:cubic-bezier(.2,.7,.2,1);
   color-scheme:light;
 }
+/* ===== dark theme — auto via OS preference; [data-theme] overrides for testing/future toggle.
+   (Token values duplicated across the two selectors on purpose: pure CSS, works without JS.) ===== */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141417; --ink:#ececf1; --soft:#b9b9c4; --muted:#8f8f9b;
+    --faint:#3f3f4a; --line:#2b2b33;
+    --surface:#1d1d22; --hover:#26262d; --inset:#26262d; --tint-bg:#202027;
+    --glass:rgba(29,29,34,.85); --md-ink:#d6d6de; --md-soft:#a9a9b4;
+    --accent:#7585ff; --accent-soft:rgba(117,133,255,.12); --accent-tint:rgba(117,133,255,.3);
+    --halo:rgba(117,133,255,.22);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141417; --ink:#ececf1; --soft:#b9b9c4; --muted:#8f8f9b;
+  --faint:#3f3f4a; --line:#2b2b33;
+  --surface:#1d1d22; --hover:#26262d; --inset:#26262d; --tint-bg:#202027;
+  --glass:rgba(29,29,34,.85); --md-ink:#d6d6de; --md-soft:#a9a9b4;
+  --accent:#7585ff; --accent-soft:rgba(117,133,255,.12); --accent-tint:rgba(117,133,255,.3);
+  --halo:rgba(117,133,255,.22);
+  color-scheme:dark;
+}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
