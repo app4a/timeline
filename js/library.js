@@ -51,7 +51,7 @@ export async function renderLibrary(){
     card.querySelector('p').textContent = t.tagline;
     loadTimeline(t.id).then(tl => {
       const sp = miniSpine(t, tl);
-      if (sp && card.isConnected) card.insertBefore(sp, card.querySelector('.meta'));
+      if (sp && card.isConnected) card.insertBefore(sp, card.querySelector('.prog') || card.querySelector('.meta'));
     }).catch(() => {});
     const prog = getProgress(t.id, t.eventCount);
     if (prog.read > 0){
@@ -68,7 +68,7 @@ export async function renderLibrary(){
         e.preventDefault(); e.stopPropagation();
         navigate(contUrl);
       };
-      card.appendChild(bar);
+      card.insertBefore(bar, card.querySelector('.meta'));
     }
     card.onclick = () => navigate(buildTimelinePath(t.id, [], BASE));
     card.tabIndex = 0; card.setAttribute('role', 'link');
