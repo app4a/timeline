@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { indexTimeline, resolvePath, displayDate, getRead, markRead } from '../js/data.js';
+import { indexTimeline, resolvePath, displayDate, getRead, markRead, getLast, getProgress } from '../js/data.js';
 
 const tl = { id:'t', title:'T', tagline:'x', updated:'2026-06-12', events:[
   { id:'a', date:'1990', title:'Alpha' },
@@ -38,4 +38,25 @@ test('read state round-trips through injected storage', () => {
   assert.equal(getRead('t', store).size, 0);
   markRead('t', 'b/c', store);
   assert.ok(getRead('t', store).has('b/c'));
+});
+
+test('markRead remembers the last-read moment', () => {
+  const store = (() => { const m = new Map(); return {
+    getItem: k => m.get(k) ?? null, setItem: (k,v) => m.set(k,v) }; })();
+  assert.equal(getLast('t', store), null);
+  markRead('t', 'b/c', store);
+  assert.equal(getLast('t', store), 'b/c');
+  markRead('t', 'a', store);
+  assert.equal(getLast('t', store), 'a');
+});
+
+test('getProgress computes clamped read counts', () => {
+  const store = (() => { const m = new Map(); return {
+    getItem: k => m.get(k) ?? null, setItem: (k,v) => m.set(k,v) }; })();
+  assert.deepEqual(getProgress('t', 3, store), { read: 0, total: 3, pct: 0 });
+  markRead('t', 'a', store); markRead('t', 'b/c', store);
+  assert.deepEqual(getProgress('t', 3, store), { read: 2, total: 3, pct: 67 });
+  markRead('t', 'stale-1', store); markRead('t', 'stale-2', store);
+  assert.deepEqual(getProgress('t', 3, store), { read: 3, total: 3, pct: 100 });  // clamped
+  assert.deepEqual(getProgress('t', 0, store), { read: 0, total: 0, pct: 0 });    // no div-by-zero
 });

@@ -1,5 +1,5 @@
 import { els, state, handlers, navigate, BASE } from './state.js';
-import { loadIndex } from './data.js';
+import { loadIndex, getProgress, getLast } from './data.js';
 import { buildTimelinePath } from './router.js';
 
 export async function renderLibrary(){
@@ -24,6 +24,19 @@ export async function renderLibrary(){
     card.innerHTML = `<h2></h2><p></p><div class="meta"><span><b>${t.eventCount}</b> moments</span><span>updated ${t.updated}</span></div>`;
     card.querySelector('h2').textContent = t.title;
     card.querySelector('p').textContent = t.tagline;
+    const prog = getProgress(t.id, t.eventCount);
+    if (prog.read > 0){
+      const bar = document.createElement('div'); bar.className = 'prog';
+      bar.innerHTML = '<div class="bar"><i></i></div><span></span><a class="cont">Continue →</a>';
+      bar.querySelector('i').style.width = prog.pct + '%';
+      bar.querySelector('span').textContent = prog.pct + '% read';
+      bar.querySelector('.cont').onclick = e => {
+        e.stopPropagation();
+        const last = getLast(t.id);
+        navigate(buildTimelinePath(t.id, last ? last.split('/') : [], BASE));
+      };
+      card.appendChild(bar);
+    }
     card.onclick = () => navigate(buildTimelinePath(t.id, [], BASE));
     grid.appendChild(card);
   }

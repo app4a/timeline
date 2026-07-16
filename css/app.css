@@ -271,6 +271,16 @@ kbd{ font-family:var(--sans); font-size:10px; font-weight:700; border:1px solid 
 .jumpchip i:hover{ color:var(--ink); }
 .jumpchip:hover{ border-color:var(--accent); }
 
+/* ===== reading progress ===== */
+.railprog{ display:flex; align-items:center; gap:9px; padding:0 10px 14px; }
+.railprog .bar, .prog .bar{ flex:1; height:4px; border-radius:99px; background:var(--inset); overflow:hidden; }
+.railprog .bar i, .prog .bar i{ display:block; height:100%; border-radius:99px; background:var(--accent-tint); }
+.railprog span{ font-size:10.5px; font-weight:600; color:var(--muted); white-space:nowrap; }
+.prog{ display:flex; align-items:center; gap:10px; margin-top:12px; }
+.prog span{ font-size:11px; font-weight:600; color:var(--muted); white-space:nowrap; }
+.prog .cont{ font-size:11.5px; font-weight:700; color:var(--accent); white-space:nowrap; }
+.prog .cont:hover{ text-decoration:underline; }
+
 /* ===== decade markers (density-gated in JS) ===== */
 .era{ margin:22px 0 10px; position:relative; }
 .era span, .hera span{ display:inline-block; font:700 10px/1 var(--sans); letter-spacing:.12em;

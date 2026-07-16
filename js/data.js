@@ -58,6 +58,7 @@ export function displayDate(ev){
 }
 
 const readKey = id => 'timeline:read:' + id;
+const lastKey = id => 'timeline:last:' + id;
 export function getRead(timelineId, storage = localStorage){
   try { return new Set(JSON.parse(storage.getItem(readKey(timelineId)) || '[]')); }
   catch { return new Set(); }
@@ -66,5 +67,13 @@ export function markRead(timelineId, pathKey, storage = localStorage){
   const set = getRead(timelineId, storage);
   set.add(pathKey);
   storage.setItem(readKey(timelineId), JSON.stringify([...set]));
+  storage.setItem(lastKey(timelineId), pathKey);
   return set;
+}
+export function getLast(timelineId, storage = localStorage){
+  return storage.getItem(lastKey(timelineId));
+}
+export function getProgress(timelineId, total, storage = localStorage){
+  const read = Math.min(getRead(timelineId, storage).size, total);  // stale keys never overflow the bar
+  return { read, total, pct: total ? Math.round(read / total * 100) : 0 };
 }

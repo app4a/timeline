@@ -14,6 +14,15 @@ export function renderRail(){
   lg.innerHTML = '<span><i class="du"></i>unread</span><span><i class="ds"></i>read</span><span><i class="do"></i>reading now</span>';
   els.rail.appendChild(lg);
 
+  // reading progress across the whole timeline (only moments that still exist count)
+  const total = state.idx.byPath.size;
+  const readCount = [...read].filter(k => state.idx.byPath.has(k)).length;
+  const prog = document.createElement('div'); prog.className = 'railprog';
+  prog.innerHTML = '<div class="bar"><i></i></div><span></span>';
+  prog.querySelector('i').style.width = (total ? Math.round(readCount / total * 100) : 0) + '%';
+  prog.querySelector('span').textContent = readCount + ' of ' + total + ' read';
+  els.rail.appendChild(prog);
+
   let host = els.rail;
   state.path.forEach((n, i) => {
     const r = document.createElement('div');
