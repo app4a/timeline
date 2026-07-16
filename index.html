@@ -17,16 +17,16 @@
 <body>
   <header class="topbar">
     <a class="brand" href="."><img src="assets/logo.svg" alt="" width="64" height="24">Timeline</a>
-    <div class="seg" id="seg" hidden>
+    <div class="seg" id="seg" hidden role="group" aria-label="Timeline layout">
       <button class="on" data-l="v">Vertical</button>
       <button data-l="h">Horizontal</button>
     </div>
   </header>
   <div class="app">
-    <aside class="rail" id="rail" hidden></aside>
+    <aside class="rail" id="rail" hidden aria-label="Timeline map"></aside>
     <main class="stage" id="stage">
-      <div class="panel" id="panel">
-        <button class="pclose" id="pclose">×</button>
+      <div class="panel" id="panel" role="complementary" aria-label="Moment reader">
+        <button class="pclose" id="pclose" aria-label="Close reader">×</button>
         <div class="ph"><div class="yr" id="pyr"></div><div class="pt" id="pti"></div>
           <div class="pnav" id="pnav" hidden>
             <button id="pprev" aria-label="Previous moment">‹</button>
@@ -42,10 +42,11 @@
   </div>
   <div class="sk" id="search">
     <div class="sk-box">
-      <input type="text" placeholder="Jump to any moment…  (Esc to close)">
+      <input type="text" placeholder="Jump to any moment…  (Esc to close)" aria-label="Search moments">
       <div class="sk-list"></div>
     </div>
   </div>
+  <div id="live" class="vh" aria-live="polite"></div>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

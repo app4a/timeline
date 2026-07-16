@@ -9,10 +9,10 @@ function resolveWiki(target){
 }
 
 function setReadingTarget(evEl){
-  state.cur.querySelectorAll('.open').forEach(x => x.classList.remove('open'));
+  state.cur.querySelectorAll('.open').forEach(x => { x.classList.remove('open'); x.removeAttribute('aria-current'); });
   const cont = state.cur.querySelector('.events,.htrack');
   if (cont) cont.classList.add('reading');
-  if (evEl) evEl.classList.add('open');
+  if (evEl){ evEl.classList.add('open'); evEl.setAttribute('aria-current', 'true'); }
 }
 
 handlers.openReader = (node, evEl, opts = {}) => {

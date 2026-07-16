@@ -11,6 +11,7 @@ els.panel = document.getElementById('panel');
 els.search = document.getElementById('search');
 els.hint = document.getElementById('hint');
 els.jumpchip = document.getElementById('jumpchip');
+els.live = document.getElementById('live');
 
 export function renderJumpChip(){
   const top = state.jumpStack[state.jumpStack.length - 1];
@@ -71,8 +72,9 @@ document.querySelectorAll('#seg button').forEach(b => {
     els.panel.classList.remove('vp','hp');
     renderCurrent();
     renderHint();
+    const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
     state.cur.animate([{opacity:0, transform:'scale(.985)'},{opacity:1, transform:'none'}],
-                      {duration:380, easing:'cubic-bezier(.2,.7,.2,1)', fill:'both'});
+                      {duration: rm ? 1 : 380, easing:'cubic-bezier(.2,.7,.2,1)', fill:'both'});
   };
 });
 
@@ -100,6 +102,9 @@ async function route(){
     else await renderTimelineRoute(parsed);
   } catch (err) { errorCard(err); }
   renderHint();
+  els.live.textContent = state.idx
+    ? state.path[state.path.length - 1].title + ' — ' + (state.path[state.path.length - 1].children?.length || 0) + ' moments, level ' + state.path.length
+    : 'Library';
   if (state.clearJumpOnRoute) { state.jumpStack = []; }
   state.clearJumpOnRoute = true;          // default; jump initiators set it false just before navigate
   renderJumpChip();
