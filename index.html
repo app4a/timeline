@@ -27,7 +27,13 @@
     <main class="stage" id="stage">
       <div class="panel" id="panel">
         <button class="pclose" id="pclose">×</button>
-        <div class="ph"><div class="yr" id="pyr"></div><div class="pt" id="pti"></div><div id="pmeta"></div></div>
+        <div class="ph"><div class="yr" id="pyr"></div><div class="pt" id="pti"></div>
+          <div class="pnav" id="pnav" hidden>
+            <button id="pprev" aria-label="Previous moment">‹</button>
+            <span id="pcount"></span>
+            <button id="pnext" aria-label="Next moment">›</button>
+          </div>
+          <div id="pmeta"></div></div>
         <div class="pb" id="pbody"></div>
       </div>
       <div class="hintbar" id="hint"></div>

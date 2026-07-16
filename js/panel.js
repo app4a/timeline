@@ -15,11 +15,17 @@ function setReadingTarget(evEl){
   if (evEl) evEl.classList.add('open');
 }
 
-handlers.openReader = (node, evEl) => {
+handlers.openReader = (node, evEl, opts = {}) => {
   if (state.busy) return;
   if (!node.children && node.pathIds){
     const url = buildTimelinePath(state.timelineId, node.pathIds, BASE);
-    if (location.pathname !== url){ history.pushState(null, '', url); state.readerPushed = true; }
+    if (location.pathname !== url){
+      if (opts.replace) history.replaceState(null, '', url);       // sibling nav: one reading entry in history
+      else { history.pushState(null, '', url); state.readerPushed = true; }
+    }
+  } else if (node.children && opts.replace && state.path.length){  // branch sibling: URL falls back to the level
+    const url = buildTimelinePath(state.timelineId, state.path[state.path.length - 1].pathIds, BASE);
+    if (location.pathname !== url) history.replaceState(null, '', url);
   }
   const panel = els.panel;
   const want = state.layout === 'v' ? 'vp' : 'hp';
@@ -48,9 +54,33 @@ handlers.openReader = (node, evEl) => {
      horizontal mode glides along the axis only, the one motion that aids orientation. */
   if (evEl && state.layout === 'h') evEl.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
   handlers.markSeen(node, evEl);
+  renderPanelNav(node);
   const pd = document.getElementById('panelDrill');
   if (pd) pd.onclick = () => handlers.drill(node, document.getElementById('pti'));
 };
+
+/* chronological prev/next among the current level's moments — reading becomes a flow */
+function renderPanelNav(node){
+  const nav = document.getElementById('pnav');
+  const sibs = node.parent ? node.parent.children : null;
+  if (!nav) return;
+  if (!sibs || sibs.length < 2){ nav.hidden = true; return; }
+  const i = sibs.indexOf(node);
+  nav.hidden = false;
+  document.getElementById('pcount').textContent = (i + 1) + ' of ' + sibs.length;
+  const goTo = j => {
+    const target = sibs[j];
+    if (!target) return;
+    let evEl = null;
+    state.cur?.querySelectorAll('.event').forEach(e => { if (e.__node === target) evEl = e; });
+    handlers.openReader(target, evEl, { replace: true });
+    if (evEl && state.layout === 'v') evEl.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  };
+  const prev = document.getElementById('pprev'), next = document.getElementById('pnext');
+  prev.disabled = i <= 0; next.disabled = i >= sibs.length - 1;
+  prev.onclick = () => goTo(i - 1);
+  next.onclick = () => goTo(i + 1);
+}
 
 handlers.closeReader = () => {
   els.panel.classList.remove('openp');

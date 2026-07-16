@@ -179,6 +179,14 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
 .pclose{ all:unset; cursor:pointer; position:absolute; top:14px; right:18px; font-size:20px;
          color:var(--muted); line-height:1; z-index:1; }
 .pclose:hover{ color:var(--ink); }
+.pnav{ display:flex; align-items:center; gap:10px; margin-top:12px; }
+.pnav[hidden]{ display:none; }
+.pnav button{ all:unset; cursor:pointer; width:28px; height:28px; border-radius:50%; text-align:center;
+              line-height:26px; font-size:16px; color:var(--soft); border:1px solid var(--line);
+              background:var(--surface); transition:color .15s, border-color .15s; }
+.pnav button:hover:not(:disabled){ color:var(--accent); border-color:var(--accent); }
+.pnav button:disabled{ opacity:.35; cursor:default; }
+.pnav span{ font-size:11px; font-weight:600; color:var(--muted); white-space:nowrap; }
 
 /* ===== markdown reading ===== */
 .md{ font-family:var(--serif); font-size:clamp(15px,.4vw + 12.5px,17.5px); line-height:1.72;
