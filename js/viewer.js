@@ -270,14 +270,18 @@ function morphUp(inc, out, leavingNode){
 function transitionTo(newChain){
   const oldChain = state.path;
   state.path = newChain;
-  const inc = buildLevel(newChain[newChain.length - 1]);
-  els.stage.appendChild(inc);
-  const out = state.cur;
-  state.cur = inc; state.sel = -1;
   const extendsOld = newChain.length > oldChain.length &&
     oldChain.every((n, i) => newChain[i] === n);
   const shrinksOld = newChain.length < oldChain.length &&
     newChain.every((n, i) => oldChain[i] === n);
+  // going up: the child we emerge from stays selected (and visible, even if it
+  // would normally sit inside a collapsed quieter-run)
+  const cameFrom = shrinksOld ? oldChain[newChain.length] : null;
+  if (cameFrom) expandedSet().add(cameFrom.id);
+  const inc = buildLevel(newChain[newChain.length - 1]);
+  els.stage.appendChild(inc);
+  const out = state.cur;
+  state.cur = inc; state.sel = -1;
   state.busy = true;
   if (out){
     // line handoff: fade the outgoing axis/spine out and delay the incoming one in,
@@ -286,10 +290,19 @@ function transitionTo(newChain){
     inc.classList.add('entering');
   }
   if (out && extendsOld)      morphDown(inc, out, state.pendingFrom);
-  else if (out && shrinksOld) morphUp(inc, out, oldChain[oldChain.length - 1]);
+  else if (out && shrinksOld) morphUp(inc, out, cameFrom);
   else if (out)               { inc.animate([{opacity:0, transform:'scale(.985)'},{opacity:1, transform:'none'}],
                                             {duration:dur(380), easing:SOFT, fill:'both'});
                                 out.animate([{opacity:1},{opacity:0}], {duration:dur(240), fill:'both'}); }
+  if (cameFrom){
+    const evs = [...inc.querySelectorAll('.event')];
+    const idx = evs.findIndex(el => el.__node === cameFrom);
+    if (idx >= 0){
+      state.sel = idx;
+      evs[idx].classList.add('focused');
+      evs[idx].scrollIntoView({ behavior:'smooth', block:'nearest', inline:'nearest' });
+    }
+  }
   state.pendingFrom = null;
   setTimeout(() => { if (out) out.remove(); inc.classList.remove('entering'); state.busy = false; renderRail(); }, out ? dur(860) : 0);
   if (!out) renderRail();
