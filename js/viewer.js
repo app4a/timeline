@@ -40,10 +40,28 @@ function buildLevel(node){
   return lvl;
 }
 
+/* decade markers — only when the level is dense enough that grouping helps
+   (≥2 distinct decades AND on average ≥2 events per decade); sparse levels stay clean */
+const decadeOf = ev => { const y = parseInt((ev.date || '').slice(0, 4), 10); return Number.isFinite(y) ? Math.floor(y / 10) * 10 : null; };
+const showEras = children => {
+  const ds = new Set((children || []).map(decadeOf).filter(d => d !== null));
+  return ds.size >= 2 && (children || []).length >= ds.size * 2;
+};
+function eraPill(cls, d){
+  const div = document.createElement('div'); div.className = cls;
+  const s = document.createElement('span'); s.textContent = d + 's';
+  div.appendChild(s);
+  return div;
+}
+
 function buildVertical(node){
   const read = getRead(state.timelineId);
   const evs = document.createElement('div'); evs.className = 'events';
+  const eras = showEras(node.children); let prevD = null;
   for (const ch of node.children || []){
+    if (eras){ const d = decadeOf(ch);
+      if (d !== null && d !== prevD) evs.appendChild(eraPill('era', d));
+      prevD = d; }
     const ev = document.createElement('div');
     ev.className = 'event' + (ch.major ? ' major' : '') + (read.has(pathKey(ch)) ? ' seen' : '');
     ev.__node = ch;
@@ -71,7 +89,11 @@ function buildHorizontal(node){
   const wrap = document.createElement('div'); wrap.className = 'hwrap';
   const track = document.createElement('div'); track.className = 'htrack';
   const axis = document.createElement('div'); axis.className = 'haxis'; track.appendChild(axis);
+  const eras = showEras(node.children); let prevD = null;
   (node.children || []).forEach((ch, i) => {
+    if (eras){ const d = decadeOf(ch);
+      if (d !== null && d !== prevD) track.appendChild(eraPill('hera', d));
+      prevD = d; }
     const ev = document.createElement('div');
     ev.className = 'hev event ' + (i % 2 ? 'dn' : 'up') + (ch.major ? ' major' : '') +
                    (read.has(pathKey(ch)) ? ' seen' : '');
@@ -125,7 +147,7 @@ export function renderCurrent(){
 }
 
 const EASE = 'cubic-bezier(.5,.05,.1,1)', SOFT = 'cubic-bezier(.2,.7,.2,1)';
-const rowsOf = lvl => lvl.querySelectorAll('.event');
+const rowsOf = lvl => lvl.querySelectorAll('.event,.era,.hera');   // era pills join the morph staggers
 
 function morphDown(inc, out, fromRect){
   const title = inc.querySelector('.lvtitle'), sub = inc.querySelector('.lvsub'),

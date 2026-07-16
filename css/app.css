@@ -263,6 +263,14 @@ kbd{ font-family:var(--sans); font-size:10px; font-weight:700; border:1px solid 
 .jumpchip i:hover{ color:var(--ink); }
 .jumpchip:hover{ border-color:var(--accent); }
 
+/* ===== decade markers (density-gated in JS) ===== */
+.era{ margin:22px 0 10px; position:relative; }
+.era span, .hera span{ display:inline-block; font:700 10px/1 var(--sans); letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted); background:var(--paper);
+  border:1px solid var(--line); border-radius:99px; padding:5px 11px; position:relative; z-index:2; }
+.era span{ margin-left:-34px; }
+.hera{ flex:0 0 auto; align-self:center; position:relative; z-index:2; }
+
 /* ===== SSG static content (visible pre-hydration / to crawlers) ===== */
 .level.ssg h1{ font-size:clamp(30px,2.4vw + 14px,48px); letter-spacing:-.028em; margin:0 0 10px; }
 .ssg-events{ list-style:none; padding:0; margin:18px 0; }
