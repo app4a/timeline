@@ -48,6 +48,13 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
 .brand{ display:flex; align-items:center; gap:10px; font-size:15px; font-weight:700;
         letter-spacing:-.01em; color:var(--ink); text-decoration:none; }
 .brand img{ display:block; height:20px; }
+.tools{ display:flex; align-items:center; gap:10px; }
+.skbtn{ all:unset; cursor:pointer; font:700 11.5px var(--sans); color:var(--muted);
+        border:1px solid var(--line); border-radius:99px; padding:7px 13px; background:var(--surface);
+        transition:color .15s, border-color .15s; }
+.skbtn:hover{ color:var(--accent); border-color:var(--accent); }
+.skbtn[hidden]{ display:none; }
+@media (max-width:700px){ .skbtn span{ display:none; } }
 .seg{ display:flex; gap:4px; background:var(--inset); padding:4px; border-radius:99px; }
 .seg button{ all:unset; cursor:pointer; font-size:11.5px; font-weight:700; padding:6px 14px;
              border-radius:99px; color:var(--muted); font-family:var(--sans); }

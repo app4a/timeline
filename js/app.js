@@ -12,6 +12,8 @@ els.search = document.getElementById('search');
 els.hint = document.getElementById('hint');
 els.jumpchip = document.getElementById('jumpchip');
 els.live = document.getElementById('live');
+els.skbtn = document.getElementById('skbtn');
+els.skbtn.addEventListener('click', () => handlers.openSearch?.());
 
 export function renderJumpChip(){
   const top = state.jumpStack[state.jumpStack.length - 1];
@@ -102,6 +104,7 @@ async function route(){
     else await renderTimelineRoute(parsed);
   } catch (err) { errorCard(err); }
   renderHint();
+  els.skbtn.hidden = !state.idx;
   els.live.textContent = state.idx
     ? state.path[state.path.length - 1].title + ' — ' + (state.path[state.path.length - 1].children?.length || 0) + ' moments, level ' + state.path.length
     : 'Library';

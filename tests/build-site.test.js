@@ -21,6 +21,8 @@ test('branch page lists children as crawlable links', () => {
   assert.match(html, /href="\/timeline\/t\/t\/a\/"/);
   assert.match(html, /Alpha/);
   assert.match(html, /application\/ld\+json/);
+  assert.match(html, /og:image" content="https:\/\/app4a\.github\.io\/timeline\/assets\/og-card\.png"/);
+  assert.match(html, /twitter:card" content="summary_large_image"/);
   assert.match(html, /og:type" content="website"/);
 });
 

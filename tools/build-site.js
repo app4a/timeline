@@ -24,7 +24,7 @@ function displayDate(ev){
   return y || '';
 }
 
-function head(shell, { title, desc, canonical, base, jsonld, ogType = 'article' }){
+function head(shell, { title, desc, canonical, base, site = '', jsonld, ogType = 'article' }){
   return shell
     .replace(/<base href="[^"]*">/, `<base href="${base}">`)
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
@@ -34,6 +34,8 @@ function head(shell, { title, desc, canonical, base, jsonld, ogType = 'article' 
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="${ogType}">
 <meta property="og:url" content="${canonical}">
+<meta property="og:image" content="${site}${base}assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
 </head>`);
 }
@@ -72,7 +74,7 @@ ${node.sources?.length ? '<h2>Sources</h2><ul>' + node.sources.map(s => `<li><a 
         `<li><a href="${base}${urlPath}${ch.id}/"><b>${esc(displayDate(ch))}</b> — ${esc(ch.title)}</a>${ch.tagline ? ` <span>${esc(ch.tagline)}</span>` : ''}</li>`).join('') +
       `</ol>`;
   }
-  return inject(head(shell, { title, desc, canonical, base, jsonld: ld, ogType: isLeaf ? 'article' : 'website' }), body);
+  return inject(head(shell, { title, desc, canonical, base, site, jsonld: ld, ogType: isLeaf ? 'article' : 'website' }), body);
 }
 
 export function libraryPage(shell, index, { site, base }){
@@ -81,7 +83,7 @@ export function libraryPage(shell, index, { site, base }){
   const ld = { '@context':'https://schema.org', '@type':'WebSite', name:'Timeline', url: site + base };
   return inject(head(shell, { title:'Timeline — learn anything, layer by layer',
     desc:'Beautiful, drillable timelines. Understand any topic by seeing where it came from.',
-    canonical: site + base, base, jsonld: ld, ogType:'website' }), body);
+    canonical: site + base, base, site, jsonld: ld, ogType:'website' }), body);
 }
 
 export function sitemap(timelines, { site, base }){

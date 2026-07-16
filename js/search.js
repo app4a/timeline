@@ -25,6 +25,7 @@ export function initSearch(){
   const sd = els.search, input = sd.querySelector('input'), list = sd.querySelector('.sk-list');
   let results = [], cursor = 0;
 
+  handlers.openSearch = () => open();
   function open(){ if (!state.idx) return; sd.classList.add('on'); input.value = ''; render(); input.focus(); }
   function close(){ sd.classList.remove('on'); }
   function render(){
