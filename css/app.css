@@ -89,6 +89,14 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
 .libcard p{ font-size:13.5px; color:var(--soft); line-height:1.55; margin:8px 0 14px; }
 .libcard .meta{ font-size:11.5px; font-weight:600; color:var(--muted); display:flex; gap:14px; }
 .libcard .meta b{ color:var(--accent); font-weight:700; }
+/* mini-spine preview: the timeline's era at a glance */
+.spine{ position:relative; height:26px; margin:2px 0 12px; }
+.spine i{ position:absolute; left:2%; right:2%; top:12px; height:2px; background:var(--line); border-radius:99px; }
+.spine b{ position:absolute; top:9px; width:8px; height:8px; border-radius:50%;
+          background:var(--paper); border:1.5px solid var(--accent); transform:translateX(-50%); }
+.spine b.seen{ background:var(--accent-tint); }
+.spine span{ position:absolute; top:0; font-size:9.5px; font-weight:700; color:var(--faint); letter-spacing:.04em; }
+.spine .y0{ left:2%; } .spine .y1{ right:2%; }
 
 /* ===== level header ===== */
 .crumb{ font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);

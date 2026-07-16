@@ -1,6 +1,31 @@
 import { els, state, handlers, navigate, BASE } from './state.js';
-import { loadIndex, getProgress, getLast } from './data.js';
+import { loadIndex, loadTimeline, getProgress, getLast, getRead } from './data.js';
 import { buildTimelinePath } from './router.js';
+
+/* mini-spine: era span + top-level major dots, positioned proportionally by year */
+function miniSpine(t, tl){
+  const read = getRead(t.id);
+  const years = tl.events.map(e => parseInt((e.date || '').slice(0, 4), 10)).filter(Number.isFinite);
+  if (!years.length) return null;
+  const min = Math.min(...years), max = Math.max(...years), span = Math.max(1, max - min);
+  const el = document.createElement('div'); el.className = 'spine';
+  const line = document.createElement('i'); el.appendChild(line);
+  for (const e of tl.events){
+    if (!e.major) continue;
+    const y = parseInt((e.date || '').slice(0, 4), 10);
+    if (!Number.isFinite(y)) continue;
+    const dot = document.createElement('b');
+    dot.style.left = (4 + ((y - min) / span) * 92) + '%';
+    if (read.has(e.id)) dot.classList.add('seen');
+    dot.title = displayYear(y) + ' — ' + e.title;
+    el.appendChild(dot);
+  }
+  const a = document.createElement('span'); a.className = 'y0'; a.textContent = displayYear(min);
+  const b = document.createElement('span'); b.className = 'y1'; b.textContent = displayYear(max);
+  el.appendChild(a); el.appendChild(b);
+  return el;
+}
+const displayYear = y => String(y);
 
 export async function renderLibrary(){
   state.readerPushed = false;
@@ -24,6 +49,10 @@ export async function renderLibrary(){
     card.innerHTML = `<h2></h2><p></p><div class="meta"><span><b>${t.eventCount}</b> moments</span><span>updated ${t.updated}</span></div>`;
     card.querySelector('h2').textContent = t.title;
     card.querySelector('p').textContent = t.tagline;
+    loadTimeline(t.id).then(tl => {
+      const sp = miniSpine(t, tl);
+      if (sp && card.isConnected) card.insertBefore(sp, card.querySelector('.meta'));
+    }).catch(() => {});
     const prog = getProgress(t.id, t.eventCount);
     if (prog.read > 0){
       const bar = document.createElement('div'); bar.className = 'prog';
