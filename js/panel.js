@@ -147,3 +147,28 @@ document.addEventListener('click', e => {
   if (w) followWiki(w.dataset.wiki, w);
 });
 document.getElementById('pclose')?.addEventListener('click', () => handlers.closeReader());
+
+/* mobile sheet: swipe down on the header to dismiss */
+(() => {
+  const panel = document.getElementById('panel');
+  const ph = panel?.querySelector('.ph');
+  if (!ph) return;
+  let startY = null, dy = 0;
+  ph.addEventListener('touchstart', e => {
+    if (!matchMedia('(max-width:700px)').matches) return;
+    startY = e.touches[0].clientY; dy = 0;
+    panel.style.transition = 'none';
+  }, { passive: true });
+  ph.addEventListener('touchmove', e => {
+    if (startY === null) return;
+    dy = Math.max(0, e.touches[0].clientY - startY);
+    panel.style.transform = `translateY(${dy}px)`;
+  }, { passive: true });
+  ph.addEventListener('touchend', () => {
+    if (startY === null) return;
+    panel.style.transition = '';
+    panel.style.transform = '';
+    if (dy > 90) handlers.closeReader();
+    startY = null;
+  });
+})();

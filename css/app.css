@@ -180,6 +180,19 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
            border-radius:18px 18px 0 0; box-shadow:0 -28px 60px -42px rgba(21,21,26,.4); transform:translateY(112%); }
 .panel.hp .ph{ width:clamp(240px,24vw,340px); flex:0 0 auto; padding:24px 30px; border-right:1px solid var(--line); }
 .panel.openp{ transform:none; }
+/* mobile: the reader becomes a full-screen sheet with a drag handle (swipe down to dismiss) */
+.grip{ display:none; }
+@media (max-width:700px){
+  .panel.vp, .panel.hp{ top:0; left:0; right:0; bottom:0; width:auto; height:auto;
+    border:none; border-radius:18px 18px 0 0; flex-direction:column;
+    transform:translateY(103%); box-shadow:0 -28px 60px -42px rgba(21,21,26,.5); }
+  .panel.vp .ph, .panel.hp .ph{ width:auto; border-right:none; border-bottom:1px solid var(--line);
+    padding:10px 22px 14px; touch-action:none; }
+  .panel.openp{ transform:none; }
+  .grip{ display:block; width:44px; height:5px; border-radius:99px; background:var(--faint);
+         margin:6px auto 10px; }
+  .hintbar{ display:none; }
+}
 .pclose{ all:unset; cursor:pointer; position:absolute; top:14px; right:18px; font-size:20px;
          color:var(--muted); line-height:1; z-index:1; }
 .pclose:hover{ color:var(--ink); }
