@@ -59,20 +59,30 @@ export async function renderLibrary(){
       bar.innerHTML = '<div class="bar"><i></i></div><span></span><a class="cont">Continue →</a>';
       bar.querySelector('i').style.width = prog.pct + '%';
       bar.querySelector('span').textContent = prog.pct + '% read';
-      bar.querySelector('.cont').onclick = e => {
-        e.stopPropagation();
-        const last = getLast(t.id);
-        navigate(buildTimelinePath(t.id, last ? last.split('/') : [], BASE));
+      const last = getLast(t.id);
+      const contUrl = buildTimelinePath(t.id, last ? last.split('/') : [], BASE);
+      const cont = bar.querySelector('.cont');
+      cont.href = contUrl;                       // real link: focusable, cmd-clickable
+      cont.onclick = e => {
+        if (e.metaKey || e.ctrlKey || e.altKey || e.button !== 0){ e.stopPropagation(); return; }
+        e.preventDefault(); e.stopPropagation();
+        navigate(contUrl);
       };
       card.appendChild(bar);
     }
     card.onclick = () => navigate(buildTimelinePath(t.id, [], BASE));
+    card.tabIndex = 0; card.setAttribute('role', 'link');
+    card.addEventListener('keydown', e => {
+      if (e.target !== card) return;
+      if (e.key === 'Enter'){ e.preventDefault(); navigate(buildTimelinePath(t.id, [], BASE)); }
+    });
     grid.appendChild(card);
   }
   inner.appendChild(grid);
   lvl.appendChild(inner);
   els.stage.querySelectorAll('.level').forEach(l => l.remove());
   els.stage.appendChild(lvl);
+  const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   lvl.animate([{opacity:0, transform:'translateY(8px)'},{opacity:1, transform:'none'}],
-              {duration:380, easing:'cubic-bezier(.2,.7,.2,1)'});
+              {duration: rm ? 1 : 380, easing:'cubic-bezier(.2,.7,.2,1)'});
 }

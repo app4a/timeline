@@ -30,7 +30,11 @@ export function renderRail(){
     r.innerHTML = '<span class="tick"></span><span class="nm"></span>' +
       (n.children ? '<span class="more">' + n.children.length + '</span>' : '');
     r.querySelector('.nm').textContent = n.title;
-    if (i < state.path.length - 1) r.onclick = () => handlers.goUpTo(i);
+    if (i < state.path.length - 1){
+      r.onclick = () => handlers.goUpTo(i);
+      r.tabIndex = 0; r.setAttribute('role', 'button');
+      r.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); r.click(); } });
+    }
     host.appendChild(r);
     const kid = document.createElement('div'); kid.className = 'rkids';
     host.appendChild(kid); host = kid;
@@ -48,6 +52,8 @@ export function renderRail(){
             handlers.drill(ch, tEl);
           } else handlers.focusChild(ch);
         };
+        c.tabIndex = 0; c.setAttribute('role', 'button');
+        c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); c.click(); } });
         host.appendChild(c);
       }
     }

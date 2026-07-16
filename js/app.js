@@ -67,8 +67,8 @@ window.addEventListener('keydown', e => {
 document.querySelectorAll('#seg button').forEach(b => {
   b.onclick = () => {
     if (state.busy || b.dataset.l === state.layout) return;
-    document.querySelectorAll('#seg button').forEach(x => x.classList.remove('on'));
-    b.classList.add('on');
+    document.querySelectorAll('#seg button').forEach(x => { x.classList.remove('on'); x.setAttribute('aria-pressed', 'false'); });
+    b.classList.add('on'); b.setAttribute('aria-pressed', 'true');
     state.layout = b.dataset.l;
     handlers.closeReader?.();
     els.panel.classList.remove('vp','hp');

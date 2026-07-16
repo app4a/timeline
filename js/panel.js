@@ -20,7 +20,9 @@ handlers.openReader = (node, evEl, opts = {}) => {
   if (!node.children && node.pathIds){
     const url = buildTimelinePath(state.timelineId, node.pathIds, BASE);
     if (location.pathname !== url){
-      if (opts.replace) history.replaceState(null, '', url);       // sibling nav: one reading entry in history
+      // sibling nav only replaces once a reading entry actually exists — a branch-first
+      // session must still push its first leaf, or Back would skip the level entirely
+      if (opts.replace && state.readerPushed) history.replaceState(null, '', url);
       else { history.pushState(null, '', url); state.readerPushed = true; }
     }
   } else if (node.children && opts.replace && state.path.length){  // branch sibling: URL falls back to the level
@@ -49,6 +51,10 @@ handlers.openReader = (node, evEl, opts = {}) => {
   if (node.sources) pb.querySelectorAll('.srcs a').forEach((a, i) => a.textContent = node.sources[i].title);
   pb.scrollTop = 0;
   panel.classList.add('openp');
+  const mobile = matchMedia('(max-width:700px)').matches;   // full-screen sheet behaves like a dialog
+  panel.setAttribute('role', mobile ? 'dialog' : 'complementary');
+  if (mobile) panel.setAttribute('aria-modal', 'true'); else panel.removeAttribute('aria-modal');
+  state.readingNode = node;
   setReadingTarget(evEl);
   /* never move the timeline on a direct click — the item is already under the cursor.
      horizontal mode glides along the axis only, the one motion that aids orientation. */
@@ -57,6 +63,14 @@ handlers.openReader = (node, evEl, opts = {}) => {
   renderPanelNav(node);
   const pd = document.getElementById('panelDrill');
   if (pd) pd.onclick = () => handlers.drill(node, document.getElementById('pti'));
+};
+
+/* re-apply the reading highlight after a level rebuild (e.g. quieter-run expansion) */
+handlers.remarkReading = () => {
+  if (!state.readingNode || !els.panel.classList.contains('openp')) return;
+  let evEl = null;
+  state.cur.querySelectorAll('.event').forEach(e => { if (e.__node === state.readingNode) evEl = e; });
+  setReadingTarget(evEl);
 };
 
 /* chronological prev/next among the current level's moments — reading becomes a flow */
@@ -71,19 +85,27 @@ function renderPanelNav(node){
   const goTo = j => {
     const target = sibs[j];
     if (!target) return;
-    let evEl = null;
-    state.cur?.querySelectorAll('.event').forEach(e => { if (e.__node === target) evEl = e; });
+    const find = () => {
+      let el = null;
+      state.cur?.querySelectorAll('.event').forEach(e => { if (e.__node === target) el = e; });
+      return el;
+    };
+    let evEl = find();
+    if (!evEl){ handlers.revealChild?.(target); evEl = find(); }   // target inside a collapsed run
     handlers.openReader(target, evEl, { replace: true });
     if (evEl && state.layout === 'v') evEl.scrollIntoView({ behavior:'smooth', block:'nearest' });
   };
   const prev = document.getElementById('pprev'), next = document.getElementById('pnext');
   prev.disabled = i <= 0; next.disabled = i >= sibs.length - 1;
+  if (prev.disabled && document.activeElement === prev) next.focus();   // don't strand keyboard focus
+  if (next.disabled && document.activeElement === next) prev.focus();
   prev.onclick = () => goTo(i - 1);
   next.onclick = () => goTo(i + 1);
 }
 
 handlers.closeReader = () => {
   els.panel.classList.remove('openp');
+  state.readingNode = null;
   if (state.cur){
     state.cur.querySelectorAll('.open').forEach(x => x.classList.remove('open'));
     const cont = state.cur.querySelector('.events,.htrack');

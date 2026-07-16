@@ -48,4 +48,4 @@ authors, validates, and publishes; you get the live URL back.
 
 - ⌘K searches the open timeline (library-wide search later).
 - Even event spacing (a time-proportional toggle is a future idea).
-- Quiz mode, compare lanes, dark mode, in-app editing: deferred by design.
+- Quiz mode, compare lanes, in-app editing: deferred by design. (Dark mode ships — it follows your OS preference.)

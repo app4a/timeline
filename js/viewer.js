@@ -24,11 +24,15 @@ function qrunEl(cls, items){
   const q = document.createElement('div'); q.className = cls;
   const btn = document.createElement('button'); btn.className = 'qbtn';
   btn.textContent = '+ ' + items.length + ' quieter moments · ' + runYears(items);
-  btn.setAttribute('aria-expanded', 'false');
   btn.onclick = () => {
+    if (state.busy) return;                      // outgoing-level expanders are inert during morphs
     const set = expandedSet();
     items.forEach(it => set.add(it.id));
     renderCurrent();
+    handlers.remarkReading?.();                  // keep .open/dim/aria-current if the reader is open
+    let first = null;
+    state.cur.querySelectorAll('.event').forEach(e => { if (!first && e.__node === items[0]) first = e; });
+    first?.querySelector('.row,.hcard')?.focus();
   };
   q.appendChild(btn);
   return q;
@@ -106,12 +110,17 @@ function buildVertical(node){
     row.appendChild(yr); row.appendChild(ti);
     if (ch.tagline){ const tg = document.createElement('div'); tg.className = 'tag'; tg.textContent = ch.tagline; row.appendChild(tg); }
     if (ch.children){
-      const pill = document.createElement('span'); pill.className = 'kids';
+      const pill = document.createElement('button'); pill.type = 'button'; pill.className = 'kids';
       pill.textContent = '▸ ' + ch.children.length + ' moments inside';
       pill.onclick = e => { e.stopPropagation(); handlers.drill(ch, ti); };
       row.appendChild(document.createElement('br')); row.appendChild(pill);
     }
     row.onclick = () => handlers.openReader(ch, ev);
+    row.tabIndex = 0; row.setAttribute('role', 'button');
+    row.addEventListener('keydown', e => {
+      if (e.target !== row) return;
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); handlers.openReader(ch, ev); }
+    });
     ev.appendChild(mk); ev.appendChild(row);
     evs.appendChild(ev);
   }
@@ -147,12 +156,17 @@ function buildHorizontal(node){
     const ti = document.createElement('div'); ti.className = 'ti'; ti.textContent = ch.title;
     card.appendChild(yr); card.appendChild(ti);
     if (ch.children){
-      const pill = document.createElement('span'); pill.className = 'kids';
+      const pill = document.createElement('button'); pill.type = 'button'; pill.className = 'kids';
       pill.textContent = '▸ ' + ch.children.length + ' inside';
       pill.onclick = e => { e.stopPropagation(); handlers.drill(ch, ti); };
       card.appendChild(document.createElement('br')); card.appendChild(pill);
     }
     card.onclick = () => handlers.openReader(ch, ev);
+    card.tabIndex = 0; card.setAttribute('role', 'button');
+    card.addEventListener('keydown', e => {
+      if (e.target !== card) return;
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); handlers.openReader(ch, ev); }
+    });
     ev.appendChild(mk); ev.appendChild(card);
     track.appendChild(ev);
   }
@@ -337,6 +351,12 @@ handlers.focusChild = (node) => {
     inline: state.layout === 'h' ? 'center' : 'nearest' });
   evEl.classList.add('pulse'); setTimeout(() => evEl.classList.remove('pulse'), 1500);
   handlers.openReader(node, evEl);
+};
+handlers.revealChild = (node) => {             // auto-expand a collapsed run containing node
+  if (node.parent !== here()) return;
+  expandedSet().add(node.id);
+  renderCurrent();
+  handlers.remarkReading?.();
 };
 handlers.markSeen = (node, evEl) => {
   markRead(state.timelineId, pathKey(node));
