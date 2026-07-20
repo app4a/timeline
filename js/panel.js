@@ -193,4 +193,10 @@ document.getElementById('pclose')?.addEventListener('click', () => handlers.clos
     if (dy > 90) handlers.closeReader();
     startY = null;
   });
+  ph.addEventListener('touchcancel', () => {   // system stole the gesture — snap back, never dismiss
+    if (startY === null) return;
+    panel.style.transition = '';
+    panel.style.transform = '';
+    startY = null;
+  });
 })();

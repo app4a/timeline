@@ -174,10 +174,15 @@ function buildHorizontal(node){
   }
   }
   wrap.appendChild(track);
-  /* drag + wheel — with click/drag discrimination so card clicks always land */
+  /* drag + wheel — with click/drag discrimination so card clicks always land.
+     Mouse only: touch already pans via native overflow scrolling, and a scripted
+     scrollLeft on pointermove fights it (jitter, then no pointerup after pointercancel). */
   const ac = new AbortController();
   let down = false, moved = false, sx = 0, sl = 0;
-  wrap.addEventListener('pointerdown', e => { down = true; moved = false; sx = e.clientX; sl = wrap.scrollLeft; });
+  wrap.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse') return;
+    down = true; moved = false; sx = e.clientX; sl = wrap.scrollLeft;
+  });
   window.addEventListener('pointermove', e => {
     if (!wrap.isConnected){ ac.abort(); return; }
     if (!down) return;
@@ -185,10 +190,12 @@ function buildHorizontal(node){
     if (!moved && Math.abs(dx) < 6) return;
     moved = true; wrap.classList.add('drag'); wrap.scrollLeft = sl - dx;
   }, { signal: ac.signal });
-  window.addEventListener('pointerup', () => {
+  const endDrag = () => {
     if (!wrap.isConnected){ ac.abort(); return; }
     down = false; wrap.classList.remove('drag'); setTimeout(() => { moved = false; }, 0);
-  }, { signal: ac.signal });
+  };
+  window.addEventListener('pointerup', endDrag, { signal: ac.signal });
+  window.addEventListener('pointercancel', endDrag, { signal: ac.signal });
   wrap.addEventListener('click', e => { if (moved){ e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
   wrap.addEventListener('wheel', e => {
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX)){ wrap.scrollLeft += e.deltaY; e.preventDefault(); }

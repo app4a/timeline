@@ -24,6 +24,9 @@ export function searchNodes(idx, query){
 export function initSearch(){
   const sd = els.search, input = sd.querySelector('input'), list = sd.querySelector('.sk-list');
   let results = [], cursor = 0;
+  if (!matchMedia('(max-width:700px)').matches)   // phones get the ✕ button; Esc is a keyboard affordance
+    input.placeholder += '  (Esc to close)';
+  sd.querySelector('.sk-x')?.addEventListener('click', () => close());
 
   handlers.openSearch = () => open();
   function open(){ if (!state.idx) return; sd.classList.add('on'); input.value = ''; render(); input.focus(); }

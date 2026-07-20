@@ -50,10 +50,12 @@
 .skbtn:focus-visible, .seg button:focus-visible, .upcirc:focus-visible, .pclose:focus-visible,
 .pnav button:focus-visible, .jumpchip:focus-visible, .qbtn:focus-visible, .kids:focus-visible,
 .row:focus-visible, .hcard:focus-visible, .rnode:focus-visible, .libcard:focus-visible,
-.prog .cont:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+.prog .cont:focus-visible, .sk-x:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
 html,body{height:100%;margin:0}
 body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
-      display:flex; flex-direction:column; -webkit-font-smoothing:antialiased; overflow:hidden; }
+      height:100dvh; /* track iOS Safari's collapsing toolbar; falls back to 100% above */
+      display:flex; flex-direction:column; -webkit-font-smoothing:antialiased; overflow:hidden;
+      -webkit-tap-highlight-color:transparent; }
 
 /* ===== top bar ===== */
 .topbar{ flex:0 0 auto; display:flex; align-items:center; justify-content:space-between;
@@ -67,7 +69,7 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
         transition:color .15s, border-color .15s; }
 .skbtn:hover{ color:var(--accent); border-color:var(--accent); }
 .skbtn[hidden]{ display:none; }
-@media (max-width:700px){ .skbtn span{ display:none; } }
+.skbtn .ski{ display:none; } /* magnifier icon: phones only — ⌘K means nothing without a keyboard */
 .seg{ display:flex; gap:4px; background:var(--inset); padding:4px; border-radius:99px; }
 .seg button{ all:unset; cursor:pointer; font-size:11.5px; font-weight:700; padding:6px 14px;
              border-radius:99px; color:var(--muted); font-family:var(--sans); }
@@ -84,6 +86,7 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
 .stage{ position:relative; overflow:hidden; min-height:0; }
 
 /* ===== quiet, thin scrollbars (global) ===== */
+.level,.rail,.pb,.hwrap,.sk-list{ overscroll-behavior:contain; } /* no scroll chaining / pull-to-refresh from inner scrollers */
 .level,.rail,.pb,.hwrap{ scrollbar-width:thin; scrollbar-color:var(--faint) transparent; }
 .level::-webkit-scrollbar,.rail::-webkit-scrollbar,.pb::-webkit-scrollbar,.hwrap::-webkit-scrollbar{ width:7px; height:7px; }
 .level::-webkit-scrollbar-thumb,.rail::-webkit-scrollbar-thumb,.pb::-webkit-scrollbar-thumb,.hwrap::-webkit-scrollbar-thumb{ background:var(--faint); border-radius:99px; }
@@ -98,7 +101,7 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
 .libhead{ margin:6px 0 26px; }
 .libhead h1{ font-size:clamp(30px,2.4vw + 14px,48px); font-weight:700; letter-spacing:-.028em; margin:0; }
 .libhead p{ font-size:clamp(14px,.4vw + 11px,17px); color:var(--muted); margin:10px 0 0; max-width:62ch; line-height:1.6; }
-.libgrid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; }
+.libgrid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr)); gap:18px; }
 .libcard{ background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:22px 24px;
           cursor:pointer; transition:transform .18s, box-shadow .18s, border-color .18s;
           display:flex; flex-direction:column; }
@@ -123,7 +126,7 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
 /* ===== level header ===== */
 .crumb{ font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
         font-weight:700; display:flex; align-items:center; gap:8px; flex-wrap:wrap; min-height:14px; }
-.crumb span.c{ cursor:pointer; transition:color .15s; }
+.crumb span.c{ cursor:pointer; transition:color .15s; padding:8px 4px; margin:-8px -4px; } /* hit-slop: visual size unchanged */
 .crumb span.c:hover{ color:var(--accent); }
 .crumb .sep{ color:var(--faint); }
 .titlerow{ display:flex; align-items:center; gap:18px; margin-top:16px; }
@@ -212,19 +215,7 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
            border-radius:18px 18px 0 0; box-shadow:0 -28px 60px -42px rgba(21,21,26,.4); transform:translateY(112%); }
 .panel.hp .ph{ width:clamp(240px,24vw,340px); flex:0 0 auto; padding:24px 30px; border-right:1px solid var(--line); }
 .panel.openp{ transform:none; }
-/* mobile: the reader becomes a full-screen sheet with a drag handle (swipe down to dismiss) */
-.grip{ display:none; }
-@media (max-width:700px){
-  .panel.vp, .panel.hp{ top:0; left:0; right:0; bottom:0; width:auto; height:auto;
-    border:none; border-radius:18px 18px 0 0; flex-direction:column;
-    transform:translateY(103%); box-shadow:0 -28px 60px -42px rgba(21,21,26,.5); }
-  .panel.vp .ph, .panel.hp .ph{ width:auto; border-right:none; border-bottom:1px solid var(--line);
-    padding:10px 22px 14px; touch-action:none; }
-  .panel.openp{ transform:none; }
-  .grip{ display:block; width:44px; height:5px; border-radius:99px; background:var(--faint);
-         margin:6px auto 10px; }
-  .hintbar{ display:none; }
-}
+.grip{ display:none; }   /* drag handle: shown only on the mobile sheet (media block at end of file) */
 .pclose{ all:unset; cursor:pointer; position:absolute; top:8px; right:12px; font-size:20px;
          color:var(--muted); line-height:1; z-index:1; width:32px; height:32px;
          display:grid; place-items:center; border-radius:50%; }
@@ -265,8 +256,8 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
 .srcs a:hover{ color:var(--accent); border-bottom-color:var(--accent); }
 
 /* ===== horizontal mode — track is full-bleed; events spread to fill, scroll only on true overflow ===== */
-.hwrap{ position:relative; margin-top:clamp(20px,3vh,38px); height:clamp(380px,52vh,560px);
-        overflow-x:auto; overflow-y:hidden; cursor:grab; }
+.hwrap{ position:relative; margin-top:clamp(20px,3vh,38px); height:clamp(260px,52vh,560px);
+        overflow-x:auto; overflow-y:hidden; cursor:grab; } /* 260px floor keeps the axis on-screen in phone landscape */
 .hwrap.drag{ cursor:grabbing; }
 .htrack{ position:relative; display:flex; align-items:center; justify-content:space-evenly;
          gap:clamp(40px,4.5vw,86px); height:100%; padding:0 60px; width:max-content; min-width:100%; }
@@ -291,9 +282,11 @@ body{ font-family:var(--sans); color:var(--ink); background:var(--paper);
      z-index:60; display:none; }
 .sk.on{ display:block; }
 .sk-box{ width:min(620px,92vw); margin:12vh auto 0; background:var(--surface); border-radius:16px;
-         box-shadow:0 40px 90px -30px rgba(21,21,26,.55); overflow:hidden; }
+         box-shadow:0 40px 90px -30px rgba(21,21,26,.55); overflow:hidden; position:relative; }
 .sk-box input{ width:100%; border:none; outline:none; background:var(--surface); font:600 16px var(--sans);
                padding:18px 22px; border-bottom:1px solid var(--line); color:var(--ink); }
+.sk-x{ all:unset; display:none; position:absolute; top:0; right:0; width:54px; height:57px;
+       text-align:center; line-height:57px; font-size:22px; color:var(--muted); cursor:pointer; }
 .sk-list{ max-height:46vh; overflow:auto; padding:8px; }
 .sk-row{ display:flex; justify-content:space-between; align-items:center; gap:14px;
          padding:10px 14px; border-radius:10px; cursor:pointer; }
@@ -317,7 +310,8 @@ kbd{ font-family:var(--sans); font-size:10px; font-weight:700; border:1px solid 
            padding:8px 14px; box-shadow:0 10px 26px -14px rgba(21,21,26,.4); }
 .jumpchip[hidden]{ display:none; }
 .jumpchip b{ color:var(--accent); font-weight:700; }
-.jumpchip i{ font-style:normal; color:var(--muted); margin-left:4px; padding:0 2px; }
+/* the dismiss × must be missable-proof: a miss runs the chip's navigation instead, so give it real hit-slop */
+.jumpchip i{ font-style:normal; color:var(--muted); margin:-12px -10px -12px 2px; padding:12px 10px; }
 .jumpchip i:hover{ color:var(--ink); }
 .jumpchip:hover{ border-color:var(--accent); }
 
@@ -329,7 +323,8 @@ kbd{ font-family:var(--sans); font-size:10px; font-weight:700; border:1px solid 
 .prog{ display:flex; align-items:center; gap:10px; margin-top:auto; margin-bottom:12px; }
 .libcard .spine ~ .prog{ margin-top:0; }
 .prog span{ font-size:11px; font-weight:600; color:var(--muted); white-space:nowrap; }
-.prog .cont{ font-size:11.5px; font-weight:700; color:var(--accent); white-space:nowrap; }
+.prog .cont{ font-size:11.5px; font-weight:700; color:var(--accent); white-space:nowrap;
+             padding:12px 10px; margin:-12px -10px; } /* hit-slop inside the card, which competes for the tap */
 .prog .cont:hover{ text-decoration:underline; }
 
 /* ===== density collapse — quieter-moments expanders ===== */
@@ -358,3 +353,66 @@ kbd{ font-family:var(--sans); font-size:10px; font-weight:700; border:1px solid 
 .ssg-events span{ color:var(--muted); display:block; font-size:13px; }
 .ssg-lib{ list-style:none; padding:0; } .ssg-lib li{ margin:10px 0; }
 .ssg-lib a{ color:var(--accent); font-weight:700; text-decoration:none; }
+
+/* ===== mobile override layer — LAST on purpose: it must win every equal-specificity base rule =====
+   phones get the full-screen reading sheet, and every control grows to a finger-sized target
+   (44px-ish; hit-slop where the visual must stay small) */
+@media (max-width:700px){
+  .panel.vp, .panel.hp{ top:0; left:0; right:0; bottom:0; width:auto; height:auto;
+    border:none; border-radius:18px 18px 0 0; flex-direction:column;
+    transform:translateY(103%); box-shadow:0 -28px 60px -42px rgba(21,21,26,.5); }
+  .panel.vp .ph, .panel.hp .ph{ width:auto; border-right:none; border-bottom:1px solid var(--line);
+    padding:10px 22px 14px; touch-action:none; }
+  .panel.openp{ transform:none; }
+  .grip{ display:block; width:44px; height:5px; border-radius:99px; background:var(--faint);
+         margin:6px auto 10px; }
+  .hintbar{ display:none; }
+  /* topbar: fits 320px — icon search button, taller segmented toggle */
+  .topbar{ padding:8px 14px; }
+  .skbtn{ width:38px; height:38px; padding:0; display:grid; place-items:center; border-radius:50%; }
+  .skbtn[hidden]{ display:none; }
+  .skbtn .kk, .skbtn .kl{ display:none; }
+  .skbtn .ski{ display:block; }
+  .seg button{ padding:10px 13px; font-size:12px; }
+  /* reader sheet: the exit + reading-flow controls are the most-tapped things in the app */
+  .pclose{ top:0; right:0; width:52px; height:52px; }
+  .pnav{ gap:12px; }
+  .pnav button{ width:40px; height:40px; line-height:38px; }
+  .panel .pb{ padding-bottom:36px; }
+  .srcs li{ margin:0; font-size:14px; }
+  .srcs a{ display:inline-block; padding:9px 0; }
+  /* timeline controls */
+  .kids{ padding:9px 15px; font-size:12px; margin-top:12px; position:relative; }
+  .kids::before{ content:''; position:absolute; inset:-8px; border-radius:99px; } /* hit-slop; safe: pill clicks stopPropagation */
+  .qbtn{ padding:11px 16px; font-size:12.5px; }
+  .qrun{ margin:10px 0; }
+  .upcirc{ width:46px; height:46px; }
+  .titlerow{ gap:14px; }
+  .lvtitle, .libhead h1, .level.ssg h1{ font-size:clamp(26px,8vw,34px); }
+  .jumpchip{ padding:11px 16px; }
+  /* search palette: pin near the top so results clear the on-screen keyboard; visible close button */
+  .sk-box{ margin:10px auto 0; width:calc(100vw - 16px); }
+  .sk-box input{ padding-right:56px; }
+  .sk-x{ display:block; }
+  .sk-row{ padding:12px 14px; }
+  /* legibility: nudge the smallest phone-visible labels up */
+  .spine span{ font-size:11px; }
+  .sk-c{ font-size:12px; }
+  .libcard .meta{ font-size:12px; }
+  .tag{ font-size:13px; }
+}
+/* very narrow phones: logo-only brand, tighter gutters */
+@media (max-width:420px){
+  .brand .bt{ display:none; }
+  .level{ padding-left:18px; padding-right:18px; }
+  .errcard{ padding:24px 22px; }
+}
+/* touch devices (any width): keyboard hints are noise, and lift/scale hovers stick after taps */
+@media (hover:none){
+  .hintbar{ display:none; }
+  .libcard:hover{ transform:none; box-shadow:none; border-color:var(--line); }
+  .upcirc:hover{ transform:none; color:var(--soft); border-color:var(--line);
+                 box-shadow:0 2px 8px -4px rgba(21,21,26,.18); }
+  .event:hover:not(.open) .marker{ border-color:var(--faint); transform:none; box-shadow:none; }
+  .hev:hover:not(.open) .marker{ transform:translate(-50%,-50%); }
+}

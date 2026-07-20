@@ -16,9 +16,9 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="."><img src="assets/logo.svg" alt="" width="64" height="24">Timeline</a>
+    <a class="brand" href="."><img src="assets/logo.svg" alt="" width="64" height="24"><span class="bt">Timeline</span></a>
     <div class="tools">
-    <button class="skbtn" id="skbtn" hidden aria-label="Search moments">⌘K<span> search</span></button>
+    <button class="skbtn" id="skbtn" hidden aria-label="Search moments"><svg class="ski" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="9" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/><line x1="13.4" y1="13.4" x2="17.4" y2="17.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="kk">⌘K</span><span class="kl"> search</span></button>
     <div class="seg" id="seg" hidden role="group" aria-label="Timeline layout">
       <button class="on" data-l="v" aria-pressed="true">Vertical</button>
       <button data-l="h" aria-pressed="false">Horizontal</button>
@@ -45,7 +45,8 @@
   </div>
   <div class="sk" id="search">
     <div class="sk-box">
-      <input type="text" placeholder="Jump to any moment…  (Esc to close)" aria-label="Search moments">
+      <input type="text" placeholder="Jump to any moment…" aria-label="Search moments">
+      <button class="sk-x" type="button" aria-label="Close search">×</button>
       <div class="sk-list"></div>
     </div>
   </div>
